@@ -1,65 +1,193 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
 *{
     padding: 0px;
     margin: 0px;
     text-decoration: 0px;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
-#cabecalho{
+img{
+    width: 20px;
+    height: 20px;
+}
+
+/* Começo dos itens do cabecalho */
+.cabecalho_pesquisa{
+    padding: 30px;
     background-color: #390099;
-    height: 8vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    box-shadow: 0px 0px 15px #390099;
 }
 
-#navegacao{
+.cabecalho_menu{
     background-color: #FF5A5F;
-}
-
-nav{
     display: flex;
-    justify-content: space-between;
-    width: 70vh;
+    justify-content: space-around;
+    padding: 15px;
 }
 
-nav > a{
+.logo{
+   color: #ffff;
+}
+
+.pesquisa{
+    border-radius: 20px;
+    border: 0;
+    width: 700px;
+    height: 30px;
+}
+
+.botao{
+    border: 0;
+    border-radius: 20px;
+    width: 140px;
+    height: 30px;
+    background-color: #FF5A5F;
+    color: #ffff;
+    font-weight: 600;
+    font-size: 10px;
+}
+
+.carrinho, .entrar{
+    font-size: 10px;
+    color: #ffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+}
+
+a{
+    text-decoration: none;
+    color: #ffff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.cabecalho_menu li{
+    list-style: none;
+    gap: 10px;
+}
+
+.botoes{
+    display: flex;
+    gap: 30px;
+}
+/* Fim dos itens do cabecalho */
+
+/* Começo dos itens do #outlet */
+#outlet{
+    width: 100%;
+    height: 70vh;
+    background-image: url('https://vendamodaonline.com.br/wp-content/uploads/2019/02/clothes-3987460_1920-min-1024x683.jpg');
+    background-size: 100%;
     color: white;
-}
-
-#carousel{
-    width: 100%;
-    background-color: blue;
-}
-
-.slide{
-    background-color: green;
-    width: 100%;
-    height: 100%;
     display: flex;
-}
-
-.slide > img{
-    width: 100%;
-    height: 80vh;
-}
-
-section{
-    display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-p{
-    width: 50vh;
-    font-size: 20px;
+#outlet h1{font-size: 50px;}
+
+#outlet div{
+    width: 50%;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
 }
 
+/* Fim dos itens do #outlet */
 
+/* Começo dos itens do #info */
+#info{
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+}
 
+.divisor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+}
 
+.divisor p{
+    text-align: center;
+}
 
+.icone{
+    width: 80px;
+    height: 80px;
+    background-color: #FF5A5F;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.icone img{
+    height: 45px;
+    width: 45px;
+}
+/* Fim dos itens do #info */
+
+/* Começo dos itens do #produtos */
+#produtos{
+    background-color: #390099;
+    color: #ffff;
+    padding: 40px;
+    text-align: center;
+}
+
+#produtos h2{margin: 25px;}
+
+#produtos > div{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.produtos img{
+    height: 250px;
+    width: 170px;
+}
+/* Fim dos itens do #produtos */
+
+/* Começo dos itens do #favoritos */
+#favoritos h2{
+    color: #FF5A5F;
+    margin: 45px;
+}
+
+#favoritos{text-align: center;}
+
+#favoritos > div{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#empresas{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 50px;
+}
+
+.empresa img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+/* Fim dos itens do #favoritos */
+
+footer{
+    background-color: #390099;
+    height: 50vh;
+    color: #ffff;
+}
 
