@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
 
 *{
     padding: 0px;
     margin: 0px;
     text-decoration: 0px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Kanit', sans-serif;
 }
 
 img{
@@ -90,6 +91,7 @@ a{
 }
 
 #outlet h1{font-size: 50px;}
+#outlet p{font-size: 20px;}
 
 #outlet div{
     width: 50%;
@@ -97,6 +99,9 @@ a{
     display: flex;
     flex-direction: column;
     gap: 50px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 25px;
+    border-radius: 20px;
 }
 
 /* Fim dos itens do #outlet */
@@ -144,7 +149,7 @@ a{
     text-align: center;
 }
 
-#produtos h2{margin: 25px;}
+#produtos h2{margin: 25px; font-size: 35px;}
 
 #produtos > div{
     width: 100%;
@@ -155,6 +160,7 @@ a{
 .produtos img{
     height: 250px;
     width: 170px;
+    border-radius: 10px;
 }
 /* Fim dos itens do #produtos */
 
@@ -162,6 +168,7 @@ a{
 #favoritos h2{
     color: #FF5A5F;
     margin: 45px;
+    font-size: 30px;
 }
 
 #favoritos{text-align: center;}
@@ -182,6 +189,8 @@ a{
     height: 100px;
     width: 100px;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
 }
 /* Fim dos itens do #favoritos */
 
@@ -189,5 +198,13 @@ footer{
     background-color: #390099;
     height: 50vh;
     color: #ffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer img{
+    height: 50px;
+    width: 50px;
 }
 
