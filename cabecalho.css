@@ -9,6 +9,10 @@
     max-width: 100%;
 }
 
+button{
+    cursor: pointer;
+}
+
 /* Começo dos itens do cabecalho */
 .cabecalho_pesquisa{
     padding: 30px;
