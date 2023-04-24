@@ -95,7 +95,7 @@ img {
 .usuario, .cpf_cnpj, .cadeado, .cadeado2, .Email {
     display: block;
    
-}
+} 
 
 input[type="text"], input[type="password"], input[type="email"] {
     position: relative;
