@@ -83,7 +83,7 @@ a{
 }
 form {
     position: absolute;
-    top: 60%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);   
 }
@@ -94,8 +94,21 @@ img {
 
 .usuario, .cpf_cnpj, .cadeado, .cadeado2, .Email {
     display: block;
+    margin: 10px;
    
-} 
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+    border: none;
+    font-size: 16px;
+    margin: 0px;
+    outline: 0px;
+    height: auto;
+    padding-top: 15px ;
+}
 
 input[type="text"], input[type="password"], input[type="email"] {
     position: relative;
