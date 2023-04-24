@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="../css/carrinho.css">
     <link rel="icon" href="icones/icon.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!--Titulo da Pagina-->
     <title>Carrinho</title>
 </head>
 <body>
+    <!--Container Principal-->
     <div class="container">
         <div class="cabecalho_pesquisa">
             <a href="index.html"><h1 class="logo">OutLet</h1></a>
@@ -30,9 +32,11 @@
             </div>
         </div>
         <main>
+            <!--Div do carrinho de compras-->
             <div class="titulo-pag">Carrinho de Compras</div>
             <div class="content">
                 <section>
+                    <!--Tabela que contem informacoes do produto-->
                     <table class="tabela">
                         <thead>
                             <tr>
@@ -44,6 +48,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!--Primeiro produto com sua imagem, valor e quantidade-->
                             <tr class="produto-item">
                                 <td>
                                     <div class="produto">
@@ -56,15 +61,19 @@
                                 </td>
                                 <td class="valor-unitario">R$ 99</td>
                                 <td>
+                                    <!--Botao para aumentar e diminuir a quantidade de produtos-->
                                     <div class="qtd">
                                         <button id="btn-minus"class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
                                         <input id="quantity" type="number" class="input-qtd" value="1" min="1">
                                         <button id="btn-plus"class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
                                     </div>
                                 </td>
+                                <!--Subtotal calculado pelo preco unitario multiplicado pela quantidade-->
                                 <td class="subtotal"></td>
+                                <!--Botao para excluir o produto da tabela de itens-->
                                 <td><button class="delete"><i class='bx bx-x'></i></button></td>
                             </tr>
+                            <!--Segundo Produto-->
                             <tr class="produto-item">
                                 <td>
                                     <div class="produto">
@@ -86,6 +95,7 @@
                                 <td class="subtotal"></td>
                                 <td><button class="delete"><i class='bx bx-x'></i></button></td>
                             </tr>
+                            <!--Terceiro Produto-->
                             <tr class="produto-item">
                                 <td>
                                     <div class="produto">
@@ -111,11 +121,13 @@
                     </table>
                 </section>
                 <aside>
+                    <!--Div com as informacoes da compra-->
                     <div class="inf">
                         <div class="inf-title">Informações da Compra</div>
                         <div ><span>Sub-total</span><span id="subtotal-compra">R$438</span></div>
                         <div><span>Frete</span><span>R$20,00</span></div>
                         <div>
+                            <!--Botao que adiciona o cupom de desconto-->
                             <button>
                                 Adicione um cupom de desconto
                                 <img src="../icones/cupom-de-desconto.png" alt="">
@@ -127,6 +139,7 @@
                         <div class="total-title">Total:</div>
                         <div id="total-value"></div>
                     </div>
+                    <!--Botao para encerrar a compra-->
                     <button class="btn-finalizar">Finalizar Compra</button>
                 </aside>
             </div>
