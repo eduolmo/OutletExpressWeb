@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
 
+/*definindo estilos iniciais para todo o conteudo da página*/
 *{
     margin: 0;
     padding: 0;
@@ -18,6 +19,15 @@ button{
     height: 25px;
 }
 
+/*posicionamento dos da secao*/
+.primeiraSecao{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    gap: 50px;
+}
+
+/*estilo das informacoes do produto*/
 .produto_nome, .produto_descricao, .produto_valor{
     color: black;
 }
@@ -48,13 +58,6 @@ button{
 
 .produto_pagamento{
     padding-bottom: 10px;
-}
-
-.primeiraSecao{
-    display: flex;
-    margin-top: 20px;
-    justify-content: center;
-    gap: 50px;
 }
 
 .produto_informacoes{

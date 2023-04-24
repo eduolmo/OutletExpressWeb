@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
 
+/*definindo estilos iniciais para todo o conteudo da página*/
 *{
     margin: 0;
     padding: 0;

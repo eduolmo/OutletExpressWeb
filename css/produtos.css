@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
 
+/*definindo estilos iniciais para todo o conteudo da página*/
 *{
     margin: 0;
     padding: 0;
@@ -9,24 +10,19 @@
     max-width: 100%;
 }
 
+/*posicionamento da section*/
 .secaoPrincipal{
     display: flex;
     justify-content: center;
 }
 
-.produtos{
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    gap: 30px;
-    margin-right: auto;
+/*definindo tamanho das imagens das estrelas*/
+.estrelas{
+    width: 100px;
+    height: 25px;
 }
 
-.linha1, .linha2, .linha3, .linha4, .linha5{
-    display: flex;
-    gap: 100px;
-}
-
+/*inicio do estilo da div filtro*/
 .filtro{
     margin: 10px auto auto 10px;
     max-width: 200px;
@@ -48,10 +44,20 @@
     font-weight: 600;
     padding-bottom: 5px;
 }
+/*fim do filtro*/
 
-.estrelas{
-    width: 100px;
-    height: 25px;
+/*inicio do estilo da div produtos*/
+.produtos{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 30px;
+    margin-right: auto;
+}
+
+.linha1, .linha2, .linha3, .linha4, .linha5{
+    display: flex;
+    gap: 100px;
 }
 
 .produto_nome, .produto_descricao, .produto_valor{
@@ -76,5 +82,4 @@
     font-size: 20px;
     font-weight: bold;
 }
-
-
+/*fim de produtos*/
