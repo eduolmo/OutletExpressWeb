@@ -1,13 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
 
 
-* {
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+*{
     margin: 0;
     padding: 0;
-    font-family: Poppins;
+    font-family: 'Kanit', sans-serif;
+    max-width: 100%;
 }
 
-.lupa, .carrinho, .entrar{
+button {
+    cursor: pointer;
+}
+
+img{
     width: 20px;
     height: 20px;
 }
@@ -20,91 +29,48 @@
     align-items: center;
 }
 
-.cabecalho_menu{
-    background-color: #FF5A5F;
-    display: flex;
-    justify-content: space-around;
-    padding: 15px;
-}
-
 .logo{
-   color: #ffff;
-}
-
-.pesquisa{
-    border-radius: 20px;
-    border: 0;
-    width: 700px;
-    height: 30px;
-}
-
-.botao{
-    border: 0;
-    border-radius: 20px;
-    width: 140px;
-    height: 30px;
-    background-color: #FF5A5F;
     color: #ffff;
-    font-weight: 600;
-    font-size: 10px;
-}
+ }
+ 
+ .pesquisa{
+     border-radius: 20px;
+     border: 0;
+     width: 700px;
+     height: 30px;
+ }
+ 
+ .botao{
+     border: 0;
+     border-radius: 20px;
+     width: 140px;
+     height: 30px;
+     background-color: #FF5A5F;
+     color: #ffff;
+     font-weight: 600;
+     font-size: 10px;
+ }
+ 
+ .carrinho, .entrar{
+     font-size: 10px;
+     color: #ffff;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     font-weight: 600;
+ }
+ 
+ a{
+     text-decoration: none;
+     color: #ffff;
+     font-size: 12px;
+     font-weight: 600;
+ }
 
-.carrinho, .entrar{
-    font-size: 10px;
-    color: #ffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-weight: 600;
-}
-
-a{
-    text-decoration: none;
-    color: #ffff;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.cabecalho_menu li{
-    list-style: none;
-    gap: 10px;
-}
-
-.botoes{
+ .botoes{
     display: flex;
     gap: 30px;
 }
-
-.filtro{
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 1200px;
-    max-width: 200px;
-    min-width: 200px;
-    padding: 20px;
-    border: 1px solid black;
-}
-
-.categoria, .preco, .marca, .cor, .avaliacao{
-    padding-top: 15px;
-}
-
-.filtro_titulo{
-    font-weight: 800;
-    font-size: 20px;
-}
-
-.categoria_titulo, .preco_titulo, .marca_titulo, .avaliacao_titulo{
-    font-weight: 600;
-    padding-bottom: 5px;
-}
-
-.estrelas{
-    width: 100px;
-    height: 25px;
-}
-
-
 form {
     position: absolute;
     top: 60%;
