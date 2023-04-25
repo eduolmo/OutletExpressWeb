@@ -8,14 +8,22 @@
     <title>Login</title>
 </head>
 <body>
-    <!-- Criando o cabeçalho -->
+    <!-- começo do cabecalho -->
     <header class="cabecalho">
         <div class="cabecalho_pesquisa">
-            <a href="index.html"><h1 class="logo">OutLet</h1></a>
+            <!-- div que contem a logo do site -->
+            <div id="logo">
+                <a href="index.html">
+                    <img src="../imagens/logo1.png" alt="logo do site">
+                    <h1 class="logo">OutLet Express</h1>
+                </a>
+            </div>
+            <!-- div que tem a barra de pesquisa -->
             <div class="busca">
                 <img class="lupa" src="../icones/lupa.png" alt="">
                 <input type="text" class="pesquisa" placeholder="   Buscar">
             </div>
+            <!-- div que tem os botoes para o carrinho e para entrar -->
             <div class="botoes">
                 <button class="botao">DOWNLOAD APP</button>
                 <div class="carrinho">
@@ -27,8 +35,9 @@
                     <a href="cadastro.html"><P>ENTRAR</P></a>
                 </div>
             </div>
-            
         </div>
+        <!-- fim do cabecalho roxo --> 
+        <!-- inicio da cabecalho rosa -->
         <nav class="cabecalho_menu">
             <li><a href="produtos.html">MAIS VENDIDOS</a></li>
             <li><a href="produtos.html">ROUPA</a></li>
@@ -38,30 +47,29 @@
             <li><a href="produtos.html">MÓVEL</a></li>
         </nav>
     </header>
-        </div>
-    </section>
-   <form>
-    <h1>Login</h1>
-    <!-- Email ou nome de usuário -->
-    <div class="usuario">
-    <img id="perfil" src="../icones/perfil.png" for="email_usuario">
-    <input type="text" id="email_usuario" name="email_usuario" placeholder="Email ou Usuário">
-    </div>
-
-    <!-- Senha -->
-    <div class="cadeado">
-    <img id="senha" src="../icones/cadeado.png" for="Senha">
-    <input type="password" id="Senha" name="Senha" placeholder="Senha">
-    </div>
-
-    <!-- Botão de enviar -->
-    <input id="submit" type="submit" value="ENTRAR">
-
-    <!-- Link para caso a pessoa ainda não tenha conta -->
-    <a id="conta" href="cadastro.html">Não tem conta? Cadastre-se</a>
+    <!-- fim do cabecalho rosa --> 
     
+    <section>
+        <form>
+            <h1>Login</h1>
+            <!-- Email ou nome de usuário -->
+            <div class="usuario">
+            <img id="perfil" src="../icones/perfil.png" for="email_usuario">
+            <input type="text" id="email_usuario" name="email_usuario" placeholder="Email ou Usuário">
+            </div>
 
-</form>
-       
+            <!-- Senha -->
+            <div class="cadeado">
+            <img id="senha" src="../icones/cadeado.png" for="Senha">
+            <input type="password" id="Senha" name="Senha" placeholder="Senha">
+            </div>
+
+            <!-- Botão de enviar -->
+            <input id="submit" type="submit" value="ENTRAR">
+
+            <!-- Link para caso a pessoa ainda não tenha conta -->
+            <a id="conta" href="cadastro.html">Não tem conta? Cadastre-se</a>
+        </form>
+    </section> 
 </body>
 </html>

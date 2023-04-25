@@ -18,25 +18,6 @@ img{
     height: 20px;
 }
 
-.cabecalho_pesquisa{
-    padding: 30px;
-    background-color: #390099;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.logo{
-    color: #ffff;
- }
- 
- .pesquisa{
-     border-radius: 20px;
-     border: 0;
-     width: 700px;
-     height: 30px;
- }
- 
  .botao{
      border: 0;
      border-radius: 20px;

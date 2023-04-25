@@ -9,18 +9,22 @@
     <link rel="stylesheet" href="../css/cabecalho.css">
 </head>
 <body>
-    <!--Cabeçalho do site-->
+    <!-- começo do cabecalho -->
     <header class="cabecalho">
-        <!--Primeira parte do cabeçalho(parte roxa)-->
         <div class="cabecalho_pesquisa">
-            <!--Logo com link para a página inicial-->
-            <a href="index.html"><h1 class="logo">OutLet</h1></a>
-            <!--div para o icone lupa e a barra de pesquisa-->
+            <!-- div que contem a logo do site -->
+            <div id="logo">
+                <a href="index.html">
+                    <img src="../imagens/logo1.png" alt="logo do site">
+                    <h1 class="logo">OutLet Express</h1>
+                </a>
+            </div>
+            <!-- div que tem a barra de pesquisa -->
             <div class="busca">
                 <img class="lupa" src="../icones/lupa.png" alt="">
                 <input type="text" class="pesquisa" placeholder="   Buscar">
             </div>
-            <!--div para o botão download, link carrinho e link entrar-->
+            <!-- div que tem os botoes para o carrinho e para entrar -->
             <div class="botoes">
                 <button class="botao">DOWNLOAD APP</button>
                 <div class="carrinho">
@@ -28,13 +32,13 @@
                     <a href="carrinho.html"><p>CARRINHO</p></a>
                 </div>
                 <div class="entrar">
-                    <a href=""><img class="entrar_img" src="../icones/pessoas.png" alt=""></a>
-                    <a href=""><P>ENTRAR</P></a>
+                    <a href="cadastro.html"><img class="entrar_img" src="../icones/pessoas.png" alt=""></a>
+                    <a href="cadastro.html"><P>ENTRAR</P></a>
                 </div>
             </div>
-            
         </div>
-        <!--Segunda parte do cabeçalho(parte rosa) com os links para a pagina dos produtos-->
+        <!-- fim do cabecalho roxo --> 
+        <!-- inicio da cabecalho rosa -->
         <nav class="cabecalho_menu">
             <li><a href="produtos.html">MAIS VENDIDOS</a></li>
             <li><a href="produtos.html">ROUPA</a></li>
@@ -44,6 +48,7 @@
             <li><a href="produtos.html">MÓVEL</a></li>
         </nav>
     </header>
+    <!-- fim do cabecalho rosa --> 
 
     <!--section que possui o filtro e os produtos-->
     <section class="secaoPrincipal">
