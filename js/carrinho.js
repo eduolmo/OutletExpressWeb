@@ -9,7 +9,7 @@ const totalCompra = document.getElementById('total-value');
 
 
 for (let i = 0; i < inputQtds.length; i++) {
-    /*Recebendo a variavel correta a partir do indice correto da lista*/
+    /*Recebendo a variavel correta a partir do indice da lista*/
     const inputQtd = inputQtds[i];
     const decrementButton = decrementButtons[i];
     const incrementButton = incrementButtons[i];
