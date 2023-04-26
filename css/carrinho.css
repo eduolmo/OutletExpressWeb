@@ -1,7 +1,9 @@
+/* Fontes do site*/
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
 
+/* Estilo que e aplicado a todo o codigo*/
 *{
     margin: 0;
     padding: 0;
@@ -9,16 +11,19 @@
     max-width: 100%;
 }
 
+/*Estilo aplicado aos botoes*/
 button {
     cursor: pointer;
 }
 
+/*Redimensionamento das imagens*/
 img{
     width: 20px;
     height: 20px;
 }
 
- .botao{
+/*CSS da classe botao*/
+.botao{
      border: 0;
      border-radius: 20px;
      width: 140px;
@@ -27,8 +32,9 @@ img{
      color: #ffff;
      font-weight: 600;
      font-size: 10px;
- }
+}
  
+/*CSS das classes carrinho e entrar*/
  .carrinho, .entrar{
      font-size: 10px;
      color: #ffff;
@@ -38,21 +44,25 @@ img{
      font-weight: 600;
  }
  
- a{
+/*Estilo aplicado aos links*/
+a{
      text-decoration: none;
      color: #ffff;
      font-size: 12px;
      font-weight: 600;
  }
 
- .botoes{
+/*CSS da classe botoes*/
+.botoes{
     display: flex;
     gap: 30px;
 }
 
+/*Estilo aplicado no main*/
 main {
     padding: 0 30px 30px;
 }
+
 
 main .titulo-pag {
     font-size: 40px;
@@ -62,9 +72,11 @@ main .titulo-pag {
     font-weight: bold;
 }
 
+
 main .content{
     display: flex;
 }
+
 
 main section{
     flex: 1;
@@ -72,6 +84,8 @@ main section{
 main aside{
     min-width: 250px;
 }
+
+/*CSS da tabela*/
 
 .tabela {
     width: 100%;
@@ -95,6 +109,7 @@ main aside{
     padding: 30px 0;
 }
 
+/*Estilo das informacoes do produto*/
 .produto-img {
     width: 100px;
     height: 120px;
@@ -117,6 +132,7 @@ main aside{
     color: #616161;
 }
 
+/*Estilo do botao que aumenta ou diminui a quantidade e estilo do seu respectivo input*/
 .qtd {
     background-color: #eee;
     display: inline-flex;
@@ -136,7 +152,6 @@ main aside{
     border: 0;
     background-color: #eee;
 }
-
 
 
 .input-qtd::-webkit-inner-spin-button {
@@ -159,6 +174,8 @@ main aside{
     background: #ddd;
 }
 
+/*CSS do botao de remover*/
+
 .delete {
     background-color: #eee;
     border: 0;
@@ -175,6 +192,7 @@ main aside{
     background: #ddd;
 }
 
+/*CSS das informacoes da compra*/
 aside {
     margin-bottom: 15px;
     margin-left: 20px;
