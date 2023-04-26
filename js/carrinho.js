@@ -1,3 +1,4 @@
+/*Variaveis para os inputs necessarios*/
 const inputQtds = document.querySelectorAll('.input-qtd');
 const decrementButtons = document.querySelectorAll('.btn-qtd.btn-minus');
 const incrementButtons = document.querySelectorAll('.btn-qtd.btn-plus');
@@ -6,27 +7,31 @@ const subtotais = document.querySelectorAll('.subtotal');
 const subtotalCompra = document.getElementById('subtotal-compra');
 const totalCompra = document.getElementById('total-value');
 
+
 for (let i = 0; i < inputQtds.length; i++) {
+    /*Recebendo a variavel correta a partir do indice correto da lista*/
     const inputQtd = inputQtds[i];
     const decrementButton = decrementButtons[i];
     const incrementButton = incrementButtons[i];
     const valorUnitario = valorUnitarios[i];
     const subtotal = subtotais[i];
-  
+
+    /*Adicionando a funcionalidade de aumentar o valor ao clicar no botao de soma*/
     decrementButton.addEventListener('click', () => {
       if (inputQtd.value > 1) {
         inputQtd.value = parseInt(inputQtd.value) - 1;
         calcularSubtotal();
       }
     });
-  
+    
+    /*Adicionana funcionalidade de diminuir o valor ao clicar no botao de subtracao*/
     incrementButton.addEventListener('click', () => {
       inputQtd.value = parseInt(inputQtd.value) + 1;
       calcularSubtotal();
     });
 }
 
-
+/*Funcao de calculo do subtotal*/
 function calcularSubtotal() {
   let subtotais = document.querySelectorAll(".subtotal");
   let somaSubtotais = 0;
@@ -42,6 +47,8 @@ function calcularSubtotal() {
   subtotalCompra.textContent = "R$ " + somaSubtotais.toFixed(2);
   totalCompra.textContent = "R$ " + (somaSubtotais + 20).toFixed(2);
 }
+
+/*Ao abrir o site, os calculos de subtotais serao realizados automaticamente*/
 window.addEventListener('load', () => {
     calcularSubtotal();
 });
