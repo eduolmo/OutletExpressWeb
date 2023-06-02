@@ -14,7 +14,6 @@ class BuscaCest
     // tests
     public function buscarResultadosNaPaginaTest(AcceptanceTester $I)
     {
-		$I = new AcceptanceTester($scenario);
 		$I->amOnPage('/outlet-web/html/index.html');
 		$I->click('MAIS VENDIDOS');
 		$I->seeCurrentURLEquals('/outlet-web/html/produtos.html');
