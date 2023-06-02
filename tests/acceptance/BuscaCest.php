@@ -19,6 +19,6 @@ class BuscaCest
 		$I->seeCurrentURLEquals('/outlet-web/html/produtos.html');
 		$I->click('Carrinho de Bebê Premium Preto Importado');
 		$I->seeCurrentURLEquals('/outlet-web/html/carrinhoBebe.html');
-		$I->see('Carrinho de Bebê Premium Preto Importado');
+		$I->see('Carrinho de Bebê Premium Importado');
     }
 }
