@@ -15,31 +15,22 @@ img{
 }
 
 /* Começo dos itens do #outlet */
-#outlet{
-    width: 100%;
-    height: 70vh;
-    background-image: url('https://vendamodaonline.com.br/wp-content/uploads/2019/02/clothes-3987460_1920-min-1024x683.jpg');
-    background-size: 100%;
-    color: white;
-    display: flex;
-    align-items: center;
+#meuCarousel img{
+    height: 40vw;
 }
 
-#outlet h1{font-size: 50px;}
-#outlet p{font-size: 20px;}
-
-#outlet div{
-    width: 50%;
-    max-height: 60vh;
-    margin-left: 10%;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 25px;
-    border-radius: 20px;
+.carousel-caption{
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
 }
 
+.carousel-caption p{
+    font-size: 20px;
+}
+.carousel-caption h3{
+    font-size: 35px;
+    font-weight: bold;
+}
 /* Fim dos itens do #outlet */
 
 /* Começo dos itens do #info */
@@ -81,22 +72,12 @@ img{
 #produtos{
     background-color: #390099;
     color: #ffff;
-    padding: 40px;
-    text-align: center;
-}
-
-#produtos h2{margin: 25px; font-size: 35px;}
-
-#produtos > div{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+    
 }
 
 .produtos img{
-    height: 250px;
-    width: 170px;
-    border-radius: 10px;
+    height: 270px;
+    width: 200px;
 }
 /* Fim dos itens do #produtos */
 
@@ -107,46 +88,24 @@ img{
     font-size: 30px;
 }
 
-#favoritos{text-align: center;}
-
-#favoritos > div{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
-#empresas{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 50px;
-}
-
 .empresa img{
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-}
-/* Fim dos itens do #favoritos */
-
-footer{
-    background-color: #390099;
-    height: 50vh;
-    color: #ffff;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
 
-footer img{
-    height: 50px;
-    width: 50px;
-}
-
-footer div{
+.empresa{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+/* Fim dos itens do #favoritos */
 
+/* Começo do rodape */
+footer{
+    background-color: #390099;
+    height: 20vh;
+    color: #ffff;
+    
+}
+/* Fim do rodape */
