@@ -37,7 +37,7 @@ img{
 #info{
     display: flex;
     justify-content: space-around;
-    padding: 30px;
+    padding: 40px;
 }
 
 .divisor{
@@ -72,7 +72,7 @@ img{
 #produtos{
     background-color: #390099;
     color: #ffff;
-    
+    padding: 25px;
 }
 
 .produtos img{
