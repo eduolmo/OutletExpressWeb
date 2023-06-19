@@ -20,16 +20,14 @@ img{
 }
 
 .carousel-caption{
-    background-color: rgba(0, 0, 0, 0.3);
+    /*background-color: rgba(56, 0, 153, 0.5);*/
+    background-color: rgba(0, 0, 0, 0.4);
     border-radius: 15px;
-}
-
-.carousel-caption p{
-    font-size: 20px;
-}
-.carousel-caption h3{
-    font-size: 35px;
-    font-weight: bold;
+    position: absolute;
+    bottom: 25%;
+    text-align: start;
+    padding-left: 25px;
+    padding-right: 10px;
 }
 /* Fim dos itens do #outlet */
 
@@ -44,7 +42,7 @@ img{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 20%;
+    width: 33%;
 }
 
 .divisor p{
@@ -109,3 +107,93 @@ footer{
     
 }
 /* Fim do rodape */
+
+@media (max-width: 650px) {
+    .paragrafo {
+        font-size: 10px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 15px;
+    }
+    .carousel-caption{
+        bottom: 5%;
+    }
+}
+
+/* Estilos para telas pequenas */
+@media (min-width: 350px) and (max-width: 650px) {
+    .paragrafo {
+        font-size: 15px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 25px;
+    }
+    #info img{
+        height: 35px;
+        width: 35px;
+    }
+  }
+  
+/* Estilos para telas médias */
+@media (min-width: 650px) and (max-width: 800px) {
+    .paragrafo {
+        font-size: 20px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 30px;
+    }
+}
+  
+/* Estilos para telas grandes */
+@media (min-width: 800px) and (max-width: 1000px) {
+    .paragrafo {
+        font-size: 25px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 35px;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1500px) {
+    .paragrafo {
+        font-size: 35px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 45px;
+    }
+}
+
+@media (min-width: 1500px) and (max-width: 2000px) {
+    .paragrafo {
+        font-size: 45px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 55px;
+    }
+}
+
+@media (min-width: 2000px) and (max-width: 3000px) {
+    .paragrafo {
+        font-size: 55px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 65px;
+    }
+}
+
+@media (min-width: 3000px) {
+    .paragrafo {
+        font-size: 65px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 75px;
+    }
+}
