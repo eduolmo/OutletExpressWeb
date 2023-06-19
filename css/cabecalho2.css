@@ -31,6 +31,12 @@ button{
     margin-left: 10px;
 }
 
+.itens_menu{
+    padding-right: 350px;
+    gap: 20px;
+}
+
+
 header a{
     text-decoration: none;
     color: #ffff;
@@ -100,12 +106,6 @@ header .logo_titulo{
 .carrinho_img, .entrar_img, .lupa{
     width: 20px;
     height: 20px;
-}
-
-
-.cabecalho_menu li{
-    list-style: none;
-    gap: 10px;
 }
 
 .botoes{
