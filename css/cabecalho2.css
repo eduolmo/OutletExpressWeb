@@ -44,6 +44,11 @@ header a{
     font-weight: 600;
 }
 
+header a:hover,.cabecalho_rosa a:hover{
+    color: white;
+    text-shadow: 0px 0px 10px white;
+}
+
 header .logo_titulo{
     font-size: 20px;
 }
