@@ -5,169 +5,201 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/carrinho.css">
-    <link rel="stylesheet" href="../css/cabecalho.css">
+    <link rel="stylesheet" href="../css/cabecalho2.css">
     <link rel="icon" href="icones/icon.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <!--Titulo da Pagina-->
     <title>Carrinho</title>
 </head>
 <body>
     <!-- começo do cabecalho -->
     <header class="cabecalho">
-        <div class="cabecalho_pesquisa">
-            <!-- div que contem a logo do site -->
-            <div id="logo">
-                <a href="index.html">
-                    <img src="../imagens/logo1.png" alt="logo do site">
-                    <h1 class="logo">OutLet Express</h1>
-                </a>
-            </div>
-            <!-- div que tem a barra de pesquisa -->
-            <div class="busca">
-                <img class="lupa" src="../icones/lupa.png" alt="">
-                <input type="text" class="pesquisa" placeholder="   Buscar">
-            </div>
-            <!-- div que tem os botoes para o carrinho e para entrar -->
-            <div class="botoes">
-                <button class="botao">DOWNLOAD APP</button>
-                <div class="carrinho">
-                    <a href="carrinho.html"><img class="carrinho_img" src="../icones/bolsa-de-compras.png" alt=""></a>
-                    <a href="carrinho.html"><p>CARRINHO</p></a>
-                </div>
-                <div class="entrar">
-                    <a href="cadastro.html"><img class="entrar_img" src="../icones/pessoas.png" alt=""></a>
-                    <a href="cadastro.html"><P>ENTRAR</P></a>
-                </div>
-            </div>
-        </div>
-        <!-- fim do cabecalho roxo --> 
-        <!-- inicio da cabecalho rosa -->
-        <nav class="cabecalho_menu">
-            <li><a href="produtos.html">MAIS VENDIDOS</a></li>
-            <li><a href="produtos.html">ROUPA</a></li>
-            <li><a href="produtos.html">CALÇADO</a></li>
-            <li><a href="produtos.html">ELETRODOMÉSTICO</a></li>
-            <li><a href="produtos.html">ELETRÔNICO</a></li>
-            <li><a href="produtos.html">MÓVEL</a></li>
-        </nav>
-    </header>
-    <!-- fim do cabecalho rosa --> 
+      <div class="cabecalho_pesquisa">
+          <div class="row">
+              <!-- div que contem a logo do site -->
+              <div class="col-5 col-md-2 col-xxl-3 me-xxl-2 logo">
+                  <a href="index.html">
+                      <img src="../imagens/logo1.png" alt="logo do site">
+                      <h1 class="logo_titulo">OutLet Express</h1>
+                  </a>
+              </div>
+              <!-- div que tem a barra de pesquisa -->
+              <div class="col-7 col-md-8 ms-md-5 col-lg-5 pt-lg-3 col-xxl-5 ms-xxl-0  busca">
+                  <!--<img class="lupa" src="../icones/lupa.png" alt="">-->
+                  <input type="text" class="pesquisa" placeholder="   Buscar">
+              </div>
+              <!-- div que tem os botoes para o carrinho e para entrar -->
+              <div class="col-12 col-md-4 pt-md-5 pt-lg-3 col-xxl-3 botoes">
+                  <button class="botao">DOWNLOAD APP</button>
+                  <div class="carrinho">
+                      <a href="carrinho.html"><img class="carrinho_img" src="../icones/bolsa-de-compras.png" alt=""></a>
+                      <a href="carrinho.html"><p class="botoes_nome">CARRINHO</p></a>
+                  </div>
+                  <div class="entrar">
+                      <a href="cadastro2.html"><img class="entrar_img" src="../icones/pessoas.png" alt=""></a>
+                      <a href="cadastro2.html"><P class="botoes_nome">ENTRAR</P></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <!-- fim do cabecalho roxo --> 
 
-    <!--Container Principal-->      
-    <main>
-        <!--Div do titulo carrinho de compras-->
-        <div class="titulo-pag">Carrinho de Compras</div>
-        <!--Div com o conteudo-->
-        <div class="content">
-            <section>
-                <!--Tabela que contem informacoes do produto-->
-                <table class="tabela">
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Preço</th>
-                            <th>Quantidade</th>
-                            <th>Total</th>
-                            <th>-</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!--Primeiro produto com sua imagem, valor unitario e quantidade-->
-                        <tr class="produto-item">
-                            <td>
-                                <div class="produto">
-                                    <img class="produto-img" src="../imagens/patins.png" alt="">
-                                    <div class="inf">
-                                        <div class="nome">Nome do Produto</div>
-                                        <div class="categoria">Categoria</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="valor-unitario">R$ 99</td>
-                            <td>
-                                <!--Botao para aumentar e diminuir a quantidade de produtos-->
-                                <div class="qtd">
-                                    <button id="btn-minus"class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                    <input id="quantity" type="number" class="input-qtd" value="1" min="1">
-                                    <button id="btn-plus"class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
-                                </div>
-                            </td>
-                            <!--Subtotal calculado pelo preco unitario multiplicado pela quantidade-->
-                            <td class="subtotal"></td>
-                            <!--Botao para excluir o produto da tabela de itens-->
-                            <td><button class="delete"><i class='bx bx-x'></i></button></td>
-                        </tr>
-                        <!--Segundo Produto-->
-                        <tr class="produto-item">
-                            <td>
-                                <div class="produto">
-                                    <img class="produto-img" src="../imagens/geladeira.png" alt="">
-                                    <div class="inf">
-                                        <div class="nome">Nome do Produto</div>
-                                        <div class="categoria">Categoria</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="valor-unitario">R$ 109</td>
-                            <td>
-                                <div class="qtd">
-                                    <button id="btn-minus2"class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                    <input id="quantity2" type="number" class="input-qtd" value="1" min="1">
-                                    <button id="btn-plus2"class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
-                                </div>
-                            </td>
-                            <td class="subtotal"></td>
-                            <td><button class="delete"><i class='bx bx-x'></i></button></td>
-                        </tr>
-                        <!--Terceiro Produto-->
-                        <tr class="produto-item">
-                            <td>
-                                <div class="produto">
-                                    <img class="produto-img" src="../imagens/mesa.png" alt="">
-                                    <div class="inf">
-                                        <div class="nome">Nome do Produto</div>
-                                        <div class="categoria">Categoria</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="valor-unitario">R$ 59</td>
-                            <td>
-                                <div class="qtd">
-                                    <button id="btn-minus3"class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                    <input id="quantity3" type="number" class="input-qtd" value="1" min="1">
-                                    <button id="btn-plus3"class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
-                                </div>
-                            </td>
-                            <td class="subtotal"></td>
-                            <td><button class="delete"><i class='bx bx-x'></i></button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-            <aside>
-                <!--Div com as informacoes da compra-->
-                <div class="inf">
-                    <div class="inf-title">Informações da Compra</div>
-                    <div ><span>Sub-total</span><span id="subtotal-compra">R$438</span></div>
-                    <div><span>Frete</span><span>R$20,00</span></div>
-                    <div>
-                        <!--Botao que adiciona o cupom de desconto-->
-                        <button>
-                            Adicione um cupom de desconto
-                            <img src="../icones/cupom-de-desconto.png" alt="">
-                        </button>
-                    </div>
-                </div>
+      <!-- inicio da cabecalho rosa -->
+      <div class="cabecalho_rosa">
+          <nav class="navbar navbar-expand-lg cabecalho_menu pe-xl-5">
+              <div class="container-fluid">
+                  <a class="navbar-brand" href="#"></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+              </div>    
+  
+                  <div class="collapse navbar-collapse pe-xl-5" id="navbarSupportedContent">
+                      <ul class="navbar-nav px-2 pe-xl-5">
+                          <li class="nav-item pe-lg-5 col-lg-2 col-xl-2 pe-xxl-5"><a class="nav-link pe-xl-5" href="produtos.html">RECOMENDADO</a></li>
+                          <li class="nav-item pe-lg-5 col-lg-1 ps-xl-1 pe-xxl-5"><a class="nav-link" href="produtos.html">ROUPA</a></li>
+                          <li class="nav-item pe-lg-5 col-lg-2 ps-xl-5 pe-xxl-5"><a class="nav-link" href="produtos.html">CALÇADO</a></li>
+                          <li class="nav-item pe-lg-5 col-lg-3 ps-xl-5 pe-xxl-5"><a class="nav-link" href="produtos.html">ELETRODOMÉSTICO</a></li>
+                          <li class="nav-item pe-lg-5 col-lg-2 ps-xl-5"><a class="nav-link" href="produtos.html">ELETRÔNICO</a></li>
+                          <li class="nav-item pe-lg-5 col-lg-2 ps-xl-5"><a class="nav-link" href="produtos.html">MÓVEL</a></li>
+                      </ul>
+                  </div>
+          </nav>
+      </div>
+      
+      <!-- fim do cabecalho rosa --> 
+  </header>
+  <!--fim do cabecalho-->
 
-                <div class="total">
-                    <div class="total-title">Total:</div>
-                    <div id="total-value"></div>
-                </div>
-                <!--Botao para encerrar a compra-->
-                <button class="btn-finalizar">Finalizar Compra</button>
-            </aside>
+  <!--Container Principal-->      
+  <main class="px-3 pb-3">
+      <!--Div do titulo carrinho de compras-->
+      <div class="titulo-pag p-5 display-5 text-sm-1 fw-bold d-flex justify-content-around">Carrinho de Compras</div>
+      <!--Div com o conteudo-->
+      <div class="content">
+        <div class="container">
+          <div class="row">
+              <div class="col-12 col-sm-9" >
+                  <section>
+                      <!-- Tabela que contém informações do produto -->
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead>
+                            <tr>
+                              <th class="col-6 col-sm-3">Produto</th>
+                              <th class="col-2 col-sm-2">Preço</th>
+                              <th class="col-2 col-sm-2">Quantidade</th>
+                              <th class="col-2 col-sm-2">Total</th>
+                              <th class="col-2 col-sm-2"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <!-- Primeiro produto com sua imagem, valor unitário e quantidade -->
+                            <tr class="produto-item ">
+                              <td>
+                                <div class="produto patins">
+                                  <img class="produto-img " src="../imagens/patins.png" alt="">
+                                  <div class="inf">
+                                    <div class="nome text-sm">Patins Inline Roller</div>
+                                    <div class="categoria">Calçados</div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="valor-unitario">R$ 99</td>
+                              <td class="qtd-td">
+                                <!-- Botão para aumentar e diminuir a quantidade de produtos -->
+                                <div class="qtd">
+                                  <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
+                                  <input class="input-qtd" type="number" value="1" min="1">
+                                  <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
+                                </div>
+                              </td>
+                              <!-- Subtotal calculado pelo preço unitário multiplicado pela quantidade -->
+                              <td class="subtotal"></td>
+                              <!-- Botão para excluir o produto da tabela de itens -->
+                              <td><button class="delete"><i class='bx bx-x'></i></button></td>
+                            </tr>
+                            <!-- Segundo Produto -->
+                            <tr class="produto-item">
+                              <td>
+                                <div class="produto">
+                                  <img class="produto-img" src="../imagens/geladeira.png" alt="">
+                                  <div class="inf">
+                                    <div class="nome">Geladeira</div>
+                                    <div class="categoria">Eletrodomésticos</div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="valor-unitario">R$ 109</td>
+                              <td class="qtd-td">
+                                <div class="qtd">
+                                  <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
+                                  <input class="input-qtd" type="number" value="1" min="1">
+                                  <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
+                                </div>
+                              </td>
+                              <td class="subtotal"></td>
+                              <td><button class="delete"><i class='bx bx-x'></i></button></td>
+                            </tr>
+                            <!-- Terceiro Produto -->
+                            <tr class="produto-item">
+                              <td>
+                                <div class="produto">
+                                  <img class="produto-img" src="../imagens/mesa.png" alt="">
+                                  <div class="inf">
+                                    <div class="nome">Mesa de Centro</div>
+                                    <div class="categoria">Móveis</div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="valor-unitario">R$ 89</td>
+                              <td class="qtd-td">
+                                <div class="qtd">
+                                  <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
+                                  <input class="input-qtd" type="number" value="1" min="1">
+                                  <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
+                                </div>
+                              </td>
+                              <td class="subtotal"></td>
+                              <td><button class="delete"><i class='bx bx-x'></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+              </div>
+              <div class="col-12 col-sm-3">
+                  <aside>
+                      <!--Div com as informacoes da compra-->
+                      <div class="inf">
+                          <div class="inf-title">Informações da Compra</div>
+                          <div ><span>Sub-total</span><span id="subtotal-compra">R$438</span></div>
+                          <div><span>Frete</span><span>R$20,00</span></div>
+                          <div>
+                              <!--Botao que adiciona o cupom de desconto-->
+                              <button>
+                                  Adicione um cupom de desconto
+                                  <img src="../icones/cupom-de-desconto.png" class="cupom">
+                              </button>
+                          </div>
+                      </div>
+
+                      <div class="total">
+                          <div class="total-title">Total:</div>
+                          <div id="total-value"></div>
+                      </div>
+                      <!--Botao para encerrar a compra-->
+                      <button class="btn-finalizar">Finalizar Compra</button>
+                  </aside>
+            </div>
+          </div>
         </div>
-    </main>
-    <script src="../js/carrinho.js"></script>
+      </div>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="../js/carrinho.js"></script>
 </body>
 </html>
