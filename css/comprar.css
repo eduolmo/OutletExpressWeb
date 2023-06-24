@@ -24,7 +24,6 @@ button{
     display: flex;
     margin-top: 20px;
     justify-content: center;
-    gap: 50px;
 }
 
 /*estilo das informacoes do produto*/
@@ -32,9 +31,10 @@ button{
     color: black;
 }
 
+
 .produto_imagem{
-    height: 500px;
-    min-width: 500px;
+    height: 100%;
+    width: 100%;
 }
 
 .produto_nome{
@@ -92,6 +92,7 @@ button{
 }
 
 .botaoFrete{
+    margin-top: 5px;
     padding: 3px;
     width: 100px;
     background-color: rgb(154, 155, 156);
