@@ -12,6 +12,20 @@
 button{
     cursor: pointer;
 }
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+    max-width: 100%;
+}
+
+button{
+    cursor: pointer;
+}
 
 /* Começo dos itens do cabecalho */
 .cabecalho_pesquisa{
@@ -44,6 +58,11 @@ header a{
     font-weight: 600;
 }
 
+header a:hover,.cabecalho_rosa a:hover{
+    color: white;
+    text-shadow: 0px 0px 10px white;
+}
+
 header .logo_titulo{
     font-size: 20px;
 }
@@ -74,6 +93,16 @@ header .logo_titulo{
 
 .botoes{
     padding-top: 20px;
+}
+
+.botoes img{
+    width: 35px;
+    height: 35px;
+}
+
+.carrinho,.entrar{
+    margin-bottom: 15px
+    
 }
 
 .botao{
