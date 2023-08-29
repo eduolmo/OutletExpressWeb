@@ -79,15 +79,16 @@
                 <path d="M6 11.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
             </svg>
         </button>
-        <nav class="row navbar navbar-expand-lg filtro_lateral mt-5">
-            <div class="offcanvas-lg offcanvas-start mt-5" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">FILTRO</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body row ps-md-3">
+
+        <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">FILTRO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body row m-3">
+                <div class="filtro">
                     <div class="categoria">
-                        <p class="categoria_titulo">Tipo de produto</p>
+                        <p class="filtro_titulo">Tipo de produto</p>
                         <input type="checkbox" name="" id="tipo1">
                         <label for="tipo1">Masculino</label><br>
                         <input type="checkbox" name="" id="tipo2">
@@ -119,12 +120,13 @@
                         <input type="checkbox" name="" id="tipo4">
                         <label for="tipo4">Televisão</label><br>
                     </div>
+    
                     <div class="preco">
-                        <p class="preco_titulo">Preço</p>
+                        <p class="filtro_titulo">Preço</p>
                         <input type="number">
                     </div>
                     <div class="marca">
-                        <p class="marca_titulo">Marca</p>
+                        <p class="filtro_titulo">Marca</p>
                         <input type="checkbox" name="" id="item1">
                         <label for="item1">Nike</label><br>
                         <input type="checkbox" name="" id="item2">
@@ -139,7 +141,7 @@
                         <label for="item5">Mallory</label><br>
                     </div>
                     <div class="cor">
-                        <p class="cor_titulo">Cor</p>
+                        <p class="filtro_titulo">Cor</p>
                         <input type="checkbox" name="" id="cor1">
                         <label for="cor1">Inox</label><br>
                         <input type="checkbox" name="" id="cor2">
@@ -148,7 +150,7 @@
                         <label for="cor3">Branco</label><br>
                     </div>
                     <div class="avaliacao">
-                        <p class="avaliacao_titulo">Avaliação do produto</p>
+                        <p class="filtro_titulo">Avaliação do produto</p>
                         <input type="checkbox" name="" id="">
                         <img class="estrelas" src="../imagens/5estrelas.jpg" alt=""><br>
                         <input type="checkbox" name="" id="">
@@ -162,7 +164,8 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
+                
 
 
         <div class="row produtos px-3">
