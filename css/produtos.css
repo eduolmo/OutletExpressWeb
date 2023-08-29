@@ -24,11 +24,12 @@
 
 /*inicio do estilo da div filtro*/
 
-.offcanvas-body{
-    border: 1px solid black;
+.filtro{
+    box-shadow: 0px 0px 10px gray;
     width: 300px;
     min-width: 200px;
-    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .preco, .marca, .cor, .avaliacao{
@@ -36,18 +37,10 @@
 }
 
 .filtro_titulo{
-    font-weight: 800;
-    font-size: 20px;
-}
-
-.categoria_titulo, .preco_titulo, .marca_titulo, .avaliacao_titulo{
     font-weight: 600;
     padding-bottom: 5px;
 }
 
-.filtro_lateral{
-    height: 100vh;
-}
 /*fim do filtro*/
 
 /*inicio do estilo da div produtos*/
