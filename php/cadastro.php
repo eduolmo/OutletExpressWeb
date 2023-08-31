@@ -8,46 +8,10 @@
     <title>Cadastro</title>
 </head>
 <body>
-    <!-- começo do cabecalho -->
-    <header class="cabecalho">
-        <div class="cabecalho_pesquisa">
-            <!-- div que contem a logo do site -->
-            <div id="logo">
-                <a href="index.php">
-                    <img src="../imagens/logo1.png" alt="logo do site">
-                    <h1 class="logo">OutLet Express</h1>
-                </a>
-            </div>
-            <!-- div que tem a barra de pesquisa -->
-            <div class="busca">
-                <img class="lupa" src="../icones/lupa.png" alt="">
-                <input type="text" class="pesquisa" placeholder="   Buscar">
-            </div>
-            <!-- div que tem os botoes para o carrinho e para entrar -->
-            <div class="botoes">
-                <button class="botao">DOWNLOAD APP</button>
-                <div class="carrinho">
-                    <a href="carrinho.php"><img class="carrinho_img" src="../icones/bolsa-de-compras.png" alt=""></a>
-                    <a href="carrinho.php"><p>CARRINHO</p></a>
-                </div>
-                <div class="entrar">
-                    <a href="cadastro.php"><img class="entrar_img" src="../icones/pessoas.png" alt=""></a>
-                    <a href="cadastro.php"><P>ENTRAR</P></a>
-                </div>
-            </div>
-        </div>
-        <!-- fim do cabecalho roxo --> 
-        <!-- inicio da cabecalho rosa -->
-        <nav class="cabecalho_menu">
-            <li><a href="produtos.php">MAIS VENDIDOS</a></li>
-            <li><a href="produtos.php">ROUPA</a></li>
-            <li><a href="produtos.php">CALÇADO</a></li>
-            <li><a href="produtos.php">ELETRODOMÉSTICO</a></li>
-            <li><a href="produtos.php">ELETRÔNICO</a></li>
-            <li><a href="produtos.php">MÓVEL</a></li>
-        </nav>
-    </header>
-    <!-- fim do cabecalho rosa --> 
+    <!-- cabecalho -->
+    <?php
+        include 'cabecalho2.php';
+    ?>	
     
    <!-- Iniciando o formulário de login -->
    <form>
