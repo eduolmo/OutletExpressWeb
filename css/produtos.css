@@ -13,7 +13,7 @@
 /*posicionamento da section*/
 .secaoPrincipal{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 /*definindo tamanho das imagens das estrelas*/
@@ -26,6 +26,7 @@
 
 .filtro{
     box-shadow: 0px 0px 10px gray;
+    /*border: 1px solid #390099;*/
     width: 300px;
     min-width: 200px;
     padding: 20px;
@@ -44,6 +45,10 @@
 /*fim do filtro*/
 
 /*inicio do estilo da div produtos*/
+.produtos{
+    gap: 20px;
+    justify-content: space-around;
+}
 
 .linha1, .linha2, .linha3, .linha4, .linha5{
     display: flex;
@@ -71,6 +76,17 @@
 .produto_valor{
     font-size: 20px;
     font-weight: bold;
+}
+
+.produto_dados {
+    border: 1px solid #390099;
+    /*box-shadow: 0px 0px 10px gray;*/
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.produto_dados img {
+    border-radius: 10px;
 }
 
 .botao_filtro{
