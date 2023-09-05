@@ -48,14 +48,10 @@
 .produtos{
     gap: 20px;
     justify-content: space-around;
+    margin-left: 20px;
 }
 
-.linha1, .linha2, .linha3, .linha4, .linha5{
-    display: flex;
-    gap: 100px;
-}
-
-.produto_nome, .produto_descricao, .produto_valor{
+.produto_nome {
     color: black;
 }
 
@@ -76,14 +72,17 @@
 .produto_valor{
     font-size: 20px;
     font-weight: bold;
+    color: #FF5A5F;
 }
 
 .produto_dados {
+    background-color: white;
     border: 1px solid #390099;
     /*box-shadow: 0px 0px 10px gray;*/
     border-radius: 10px;
     padding: 10px;
 }
+
 
 .produto_dados img {
     border-radius: 10px;
