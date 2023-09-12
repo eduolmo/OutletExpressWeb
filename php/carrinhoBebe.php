@@ -31,7 +31,8 @@
                         <p class="produto_descricao">R$ 2.199,99</p>
                         <p class="produto_valor">R$ 1.699,99</p>
                         <p class="produto_pagamento">até 10x  sem juros</p>
-                        <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
+                        <p class="produto_avaria"> <strong>Avaria: </strong>Queima de estoque</p>
+                        <p class="produto_cor"> <strong>Descrição: </strong>Descrição do produto com dimensões</p>
                         <!--div com os botoes Comprar Agora e Adicionar ao Carrinho-->
                         <div class="produto_botoes">
                             <button class="comprarAgora">COMPRAR AGORA</button> <br>
@@ -43,6 +44,32 @@
                             <button class="botaoFrete">CALCULAR</button>
                         </div>
                     </div>
+                    
+                    <div class="produto_avaliacao">
+                        <p class="avaliacao">Avaliação</p>
+                        <p class="avaliacao_valor">5.0</p>
+                        <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
+                    </div>
+                    
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Comentários
+                    </button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <div class="comentario">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                </svg>   
+                                <p class="comentario_nome">Paulo</p>
+                                <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
+                                <p class="comentario_texto">Ótimo prduto! Chegou em perfeito estado</p>           
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
                 </div>
             </div>
         </div>
