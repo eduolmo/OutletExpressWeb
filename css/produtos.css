@@ -72,12 +72,12 @@
 .produto_valor{
     font-size: 20px;
     font-weight: bold;
-    color: #FF5A5F;
+    color: #390099;
 }
 
 .produto_dados {
     background-color: white;
-    border: 1px solid #390099;
+    border: 1px solid rgb(170, 170, 170);
     /*box-shadow: 0px 0px 10px gray;*/
     border-radius: 10px;
     padding: 10px;

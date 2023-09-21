@@ -86,9 +86,11 @@ header .logo_titulo{
     height: 35px;
 }
 
+.botoes_nome{
+    text-align: center;
+}
+
 .carrinho,.entrar{
-    margin-bottom: 15px
-    
 }
 
 .botao{
