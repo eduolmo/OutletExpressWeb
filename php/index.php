@@ -23,9 +23,18 @@
 		<!-- cabecalho -->
 		<?php
 			include 'cabecalho2.php';
-		?>	
-				
 
+			if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['email'])){
+				//session_regenerate_id(true);
+				
+				$_SESSION['email'] = $_GET['email'];
+
+				/*quando comecarmos a mexer com banco de dados, 
+				pegaremos o resto das informacoes do usuario 
+				com base no email de login*/
+			}
+			
+		?>	
 		
 		<!-- A classe carousel slide - Container todos os elementos referentes ao carousel-->
 		<!-- adicional a classe carousel-fade - alterar o efeito de transição dos slides-->

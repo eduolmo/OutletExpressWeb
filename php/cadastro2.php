@@ -19,41 +19,41 @@
     ?>	
 
      <!-- Iniciando o formulário de cadastro -->
-     <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
-      <form>
+    <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
+      <form action="index.php" method="get">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
-       </div>
-          <div class="p-2 mb-3">
-              <h2 class="text-md titulo">Bem Vindo ao OutLet Express!</h2>
-          </div>
-          <div class="p-2 mb-3">
-              <input class="form-control mx-auto txtinput" type="email" name="email" id="email" placeholder="Digite seu Email">
-          </div>
+        </div>
+        <div class="p-2 mb-3">
+          <h2 class="text-md titulo">Bem Vindo ao OutLet Express!</h2>
+        </div>
+        <div class="p-2 mb-3">
+          <input class="form-control mx-auto txtinput" type="email" name="email" id="email" placeholder="Digite seu Email">
+        </div>
 
-          <div class="p-2 mb-3">
-            <input class="form-control mx-auto txtinput" type="text" name="nome" id="nome" placeholder="Digite seu Nome">
-          </div>
-          <div class="p-2 mb-3">
-            <input class="form-control mx-auto txtinput" type="password" name="senha" id="senha" placeholder="Senha">
-            <p id="texto" class="text-md"></p>
-            
-          </div>
-          <div class="p-2 mb-3">
-            <input class="form-control mx-auto txtinput" type="password" name="senha2" id="senha2" placeholder="Confirmar Senha">
-          </div>
-
-      </form>
+        <div class="p-2 mb-3">
+          <input class="form-control mx-auto txtinput" type="text" name="nome" id="nome" placeholder="Digite seu Nome">
+        </div>
+        <div class="p-2 mb-3">
+          <input class="form-control mx-auto txtinput" type="password" name="senha" id="senha" placeholder="Senha">
+          <p id="texto" class="text-md"></p>
+        </div>
+        <div class="p-2 mb-3">
+          <input class="form-control mx-auto txtinput" type="password" name="senha2" id="senha2" placeholder="Confirmar Senha">
+        </div>
 
         <p id="aviso"><img src="../icones/aviso.png" alt="icone de aviso"> Confira se os campos estão preenchidos corretamente ! <img src="../icones/aviso.png" alt="icone de aviso"></p>
 
-        <button id="entrar" type="" class="btn-lg but">ENTRAR</button>
+        <button id="entrar" type="submit" class="btn-lg but">ENTRAR</button>
 
         <div class="p-2 mb-3">
-            <a href="login2.php" class="d-block link">Já tem conta?</a>
+          <a href="login2.php" class="d-block link">Já tem conta?</a>
         </div>
 
-      </div>
-      <!---Fim do formulário de cadastro-->
+      </form> 
+
+    </div>
+    <!---Fim do formulário de cadastro-->
+
   </body>
 </html>
