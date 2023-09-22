@@ -1,5 +1,5 @@
 <?php
-session_set_cookie_params(['httponly' => true]);
+//session_set_cookie_params(['httponly' => true]);
 
 session_start();
 
@@ -25,24 +25,26 @@ session_start();
             <div class="col-12 col-md-4 pt-md-5 pt-lg-3 col-xxl-3 botoes">
                 <button class="botao">DOWNLOAD APP</button>
                 <div class="carrinho">
-                    <a href="<?php 
-                        if(isset($_SESSION['email'])){
-                            echo 'carrinho.php';
-                        }
-                        else{
-                            echo 'login2.php';
-                        }
-                    ?>">
-                    <img class="carrinho_img" src="../icones/bolsa-de-compras.png" alt="">
-                    <p class="botoes_nome">CARRINHO</p>
+                    <a href="
+                        <?php 
+                            if(isset($_SESSION['email'])){
+                                echo 'carrinho.php';
+                            }
+                            else{
+                                echo 'login2.php';
+                            }
+                        ?>
+                        ">
+                        <img class="carrinho_img" src="../icones/bolsa-de-compras.png" alt="">
+                        <p class="botoes_nome">CARRINHO</p>
                     </a>
                 </div>
                 <div class="entrar">
                     <a href="login2.php">
                     <img class="entrar_img" src="../icones/pessoas.png" alt="">
                     <?php                            
-                        if(isset($_SESSION['nome'])){
-                            echo "<p class='botoes_nome'>".$_SESSION['nome']."</p>";
+                        if(isset($_SESSION['email'])){
+                            echo "<p class='botoes_nome'>".$_SESSION['email']."</p>";
                         }
                         else{
                             echo "<p class='botoes_nome'>ENTRAR</p>";

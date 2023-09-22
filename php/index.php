@@ -17,13 +17,13 @@
 		
 		<link rel="stylesheet" href="../css/index.css">
 		<link rel="stylesheet" href="../css/cabecalho2.css">
-		<link rel="stylesheet" href="../css/rodape.css">
 	</head>
 
 	<body>
 		<!-- cabecalho -->
 		<?php
-			include 'cabecalho2.php';
+			error_reporting(0);
+			session_start();			
 
 			if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['email'])){
 				//session_regenerate_id(true);
@@ -33,8 +33,10 @@
 				/*quando comecarmos a mexer com banco de dados, 
 				pegaremos o resto das informacoes do usuario 
 				com base no email de login*/
-			}
+			}			
 			
+			include 'cabecalho2.php';
+
 		?>	
 		
 		<!-- A classe carousel slide - Container todos os elementos referentes ao carousel-->
@@ -204,9 +206,13 @@
 		</section>
 		<!-- fim da secao dos produtos favoritos e das empresas parceiras -->
 
-		<?php
-			include 'rodape.php';
-		?>
+		<!-- comeco do rodape -->
+		<footer>
+			
+		</footer>
+		<!-- fim do rodape -->
+
+
 
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 			integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">

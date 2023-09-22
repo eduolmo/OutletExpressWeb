@@ -7,7 +7,6 @@
     <title>Produtos</title>
     <link rel="stylesheet" href="../css/produtos.css">
     <link rel="stylesheet" href="../css/cabecalho2.css">
-    <link rel="stylesheet" href="../css/rodape.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
@@ -33,7 +32,7 @@
                 <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">FILTRO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body row m-3">
+            <div class="offcanvas-body row">
                 <div class="filtro">
                     <div class="categoria">
                         <p class="filtro_titulo">Tipo de produto</p>
@@ -73,6 +72,7 @@
                         <p class="filtro_titulo">Preço</p>
                         <input type="number">
                     </div>
+
                     <div class="marca">
                         <p class="filtro_titulo">Marca</p>
                         <input type="checkbox" name="" id="item1">
@@ -88,6 +88,7 @@
                         <input type="checkbox" name="" id="item5">
                         <label for="item5">Mallory</label><br>
                     </div>
+
                     <div class="cor">
                         <p class="filtro_titulo">Cor</p>
                         <input type="checkbox" name="" id="cor1">
@@ -97,6 +98,7 @@
                         <input type="checkbox" name="" id="cor3">
                         <label for="cor3">Branco</label><br>
                     </div>
+
                     <div class="avaliacao">
                         <p class="filtro_titulo">Avaliação do produto</p>
                         <input type="checkbox" name="" id="">
@@ -110,6 +112,7 @@
                         <input type="checkbox" name="" id="">
                         <img class="estrelas" src="../imagens/1estrela.jpg" alt=""><br>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -224,10 +227,6 @@
             </div>
         </div>
     </section>
-
-    <?php
-		include 'rodape.php';
-	?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
