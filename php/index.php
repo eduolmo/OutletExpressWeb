@@ -17,6 +17,7 @@
 		
 		<link rel="stylesheet" href="../css/index.css">
 		<link rel="stylesheet" href="../css/cabecalho2.css">
+		<link rel="stylesheet" href="../css/rodape.css">
 	</head>
 
 	<body>
@@ -203,13 +204,9 @@
 		</section>
 		<!-- fim da secao dos produtos favoritos e das empresas parceiras -->
 
-		<!-- comeco do rodape -->
-		<footer>
-			
-		</footer>
-		<!-- fim do rodape -->
-
-
+		<?php
+			include 'rodape.php';
+		?>
 
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 			integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
