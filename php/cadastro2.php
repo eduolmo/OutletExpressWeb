@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OutLet Express - Cadastro</title>
+    <script src="../js/autenticar.js" defer></script>
     <link rel="stylesheet" href="../css/cabecalho2.css">
     <link rel="stylesheet" href="../css/cadastro2.css">
     <link rel="icon" type="image/png" href="img/logo2.png">
@@ -20,7 +21,7 @@
 
      <!-- Iniciando o formulário de cadastro -->
     <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
-      <form action="index.php" method="get">
+      <form id="formEntrar" action="index.php" method="get">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
         </div>
@@ -28,18 +29,18 @@
           <h2 class="text-md titulo">Bem Vindo ao OutLet Express!</h2>
         </div>
         <div class="p-2 mb-3">
-          <input class="form-control mx-auto txtinput" type="email" name="email" id="email" placeholder="Digite seu Email">
+          <input required class="form-control mx-auto txtinput" type="email" name="email" id="email" placeholder="Digite seu Email">
         </div>
 
         <div class="p-2 mb-3">
-          <input class="form-control mx-auto txtinput" type="text" name="nome" id="nome" placeholder="Digite seu Nome">
+          <input required class="form-control mx-auto txtinput" type="text" name="nome" id="nome" placeholder="Digite seu Nome">
         </div>
         <div class="p-2 mb-3">
-          <input class="form-control mx-auto txtinput" type="password" name="senha" id="senha" placeholder="Senha">
+          <input required class="form-control mx-auto txtinput" type="password" name="senha" id="senha" placeholder="Senha">
           <p id="texto" class="text-md"></p>
         </div>
         <div class="p-2 mb-3">
-          <input class="form-control mx-auto txtinput" type="password" name="senha2" id="senha2" placeholder="Confirmar Senha">
+          <input required class="form-control mx-auto txtinput" type="password" name="senha2" id="senha2" placeholder="Confirmar Senha">
         </div>
 
         <p id="aviso"><img src="../icones/aviso.png" alt="icone de aviso"> Confira se os campos estão preenchidos corretamente ! <img src="../icones/aviso.png" alt="icone de aviso"></p>

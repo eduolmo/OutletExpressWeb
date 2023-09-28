@@ -20,7 +20,7 @@
 
      <!-- Iniciando o formulário de login -->
     <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
-      <form action="index.php" method="get">
+      <form id="formEntrar" action="index.php" method="get">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
         </div>
@@ -28,12 +28,12 @@
           <h2 class="text-md titulo">Bem Vindo de volta ao OutLet Express!</h2>
         </div>
         <div class="p-2 mb-3">
-          <input class="form-control mx-auto txtinput" type="email" name="email" id="email" placeholder="Digite seu Email">
+          <input required class="form-control mx-auto txtinput" type="email" name="email" id="email" placeholder="Digite seu Email">
         </div>
 
   
         <div class="p-2 mb-3">
-          <input class="form-control mx-auto txtinput" type="password" name="senha" id="senha" placeholder="Senha">
+          <input required class="form-control mx-auto txtinput" type="password" name="senha" id="senha" placeholder="Senha">
         </div>
 
         <p id="aviso"><img src="../icones/aviso.png" alt="icone de aviso"> Confira se os campos estão preenchidos corretamente ! <img src="../icones/aviso.png" alt="icone de aviso"></p>
