@@ -55,5 +55,9 @@
     </div>
     <!---Fim do formulário de cadastro-->
 
+    <?php
+		  include 'rodape.php';
+	  ?>
+
   </body>
 </html>
