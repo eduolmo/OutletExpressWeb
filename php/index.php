@@ -23,7 +23,7 @@
 		<!-- cabecalho -->
 		<?php
 			error_reporting(0);
-			session_start();			
+			session_start();
 
 			if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['email'])){
 				//session_regenerate_id(true);
