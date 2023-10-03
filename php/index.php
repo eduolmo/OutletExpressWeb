@@ -206,12 +206,6 @@
 		</section>
 		<!-- fim da secao dos produtos favoritos e das empresas parceiras -->
 
-		<!-- comeco do rodape -->
-		<footer>
-			
-		</footer>
-		<!-- fim do rodape -->
-
 		<?php
 		  include 'rodape.php';
 	  	?>

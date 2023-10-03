@@ -15,7 +15,7 @@
     
     <!-- cabecalho -->
     <?php
-        include 'cabecalho2.php';
+      include 'cabecalho2.php';
     ?>	
 
      <!-- Iniciando o formulário de login -->

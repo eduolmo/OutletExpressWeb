@@ -16,7 +16,8 @@
     <!-- cabecalho -->
       <?php
         error_reporting(0);
-        include 'cabecalho2.php';
+        session_start();
+        
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
           //echo 'entrou';
@@ -31,12 +32,22 @@
             echo '<script>alert("Confira se os campos estão preenchidos corretamente!")</script>';
           }
           else{
-            header("Location: /index.php");
+            echo '<script>alert("entrou aqui!")</script>';
+
+            //header('Location: //index.php');
+            $_SESSION['email'] = $email;
+            //$_SESSION['nome'] = $nome;
+            //$_SESSION['senha'] = $senha;
+            
+            $host  = $_SERVER['HTTP_HOST'];
+            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'index.php';
+            header("Location: http://$host$uri/$extra");
+            
           }
-
-
         }
 
+        include 'cabecalho2.php';
         
     ?>	
 
