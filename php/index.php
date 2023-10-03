@@ -25,10 +25,10 @@
 			error_reporting(0);
 			session_start();
 
-			if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['email'])){
+			if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])){
 				//session_regenerate_id(true);
 				
-				$_SESSION['email'] = $_GET['email'];
+				$_SESSION['email'] = $_POST['email'];
 
 				/*quando comecarmos a mexer com banco de dados, 
 				pegaremos o resto das informacoes do usuario 

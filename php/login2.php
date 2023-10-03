@@ -20,7 +20,7 @@
 
      <!-- Iniciando o formulário de login -->
     <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
-      <form id="formEntrar" action="index.php" method="post">
+      <form id="formEntrar" action="index.php" method="POST">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
         </div>

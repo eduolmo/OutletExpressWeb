@@ -4,11 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OutLet Express - Cadastro</title>
-    <script src="../js/autenticar.js" defer></script>
     <link rel="stylesheet" href="../css/cabecalho2.css">
     <link rel="stylesheet" href="../css/cadastro2.css">
     <link rel="icon" type="image/png" href="img/logo2.png">
-    <script src="../js/autenticar.js" defer></script>
+    <script src="../js/cadastro.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   </head>
   <body>
@@ -16,36 +15,34 @@
 
     <!-- cabecalho -->
       <?php
+        error_reporting(0);
         include 'cabecalho2.php';
 
-        if(isset($_POST['enviar_formulario'])){ //se existir o enviar formulario, ou seja, se alguem clicou no botão
-          $nome = $_POST['nome'];
-          $email = $_POST['email'];
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+          //echo 'entrou';
+
+          //validacao e sanitizacao dos campos do form
+          $email = trim(filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL));
+          $nome = trim(filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS));
+          $senha = trim(filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS));
+          $senha2 = trim(filter_input(INPUT_POST,'senha2',FILTER_SANITIZE_SPECIAL_CHARS));
           
-          $nome_filtrado = $_POST['nome']; // Supondo que o campo de entrada tenha o nome 'inputName'
-
-          $sanitizedName = preg_replace("/[^a-zA-ZÀ-ÿ\s\-]/u", '', $nome);
-
-          if ($sanitizedName !== $nome){
-            // O nome foi alterado após a sanitização. Trate-o aqui.
-            echo "O nome está incorreto! o certo é: " . $sanitizedName."<br>";
+          if(!$email){
+            echo '<script>alert("Confira se os campos estão preenchidos corretamente!")</script>';
+          }
+          else{
+            header("Location: /index.php");
           }
 
-          //FILTRO DE VALIDAÇÃO
-          //$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-          //echo "Email incorreto!<br>"; //colocando a mensagem na interface
 
-          if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "O email é válido.";
-          } else {
-            echo "O email não é válido.";
-          }
         }
+
+        
     ?>	
 
     <!-- Iniciando o formulário de cadastro -->
     <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
-      <form action="index.php" method="POST">
+      <form id="formulario" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
         </div>
@@ -61,15 +58,16 @@
         </div>
         <div class="p-2 mb-3">
           <input required class="form-control m x-auto txtinput" type="password" name="senha" id="senha" placeholder="Senha">
-          <p id="texto" class="text-md"></p>
+          <!--<p id="avisoSenha" class="text-md">a</p>-->
         </div>
         <div class="p-2 mb-3">
           <input required class="form-control mx-auto txtinput" type="password" name="senha2" id="senha2" placeholder="Confirmar Senha">
         </div>
+        <!--
         <p id="aviso"><img src="../icones/aviso.png" alt="icone de aviso"> Confira se os campos estão preenchidos corretamente ! <img src="../icones/aviso.png" alt="icone de aviso"></p>
-        
+        -->
 
-        <button id="entrar" name="enviar_formulario" class="btn-lg but">ENTRAR</button>
+        <input id="entrar" type="submit" onclick="" name="enviar_formulario" class="btn-lg but" value="ENVIAR">
 
         <div class="p-2 mb-3">
           <a href="login2.php" class="d-block link">Já tem conta?</a>
