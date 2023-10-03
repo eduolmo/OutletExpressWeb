@@ -104,12 +104,13 @@ img{
 /* Fim dos itens do #favoritos */
 
 /* Começo do rodape */
+/*
 footer{
     background-color: #390099;
     height: 20vh;
     color: #ffff;
-    
 }
+*/
 /* Fim do rodape */
 
 @media (max-width: 400px) {

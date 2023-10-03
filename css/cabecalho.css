@@ -91,3 +91,9 @@ a{
     gap: 30px;
 }
 /* Fim dos itens do cabecalho */
+
+footer{
+    background-color: #390099;
+    height: 20vh;
+    color: #ffff;
+}
