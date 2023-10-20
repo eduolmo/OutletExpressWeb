@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+*{
+    padding: 0px;
+    margin: 0px;
+    text-decoration: 0px;
+    font-family: 'Kanit', sans-serif;
+}
+
+img{
+    width: 20px;
+    height: 20px;
+}
+
+/* Começo dos itens do #outlet */
+#meuCarousel img{
+    height: 40vw;
+}
+
+.carousel-caption{
+    /*background-color: rgba(56, 0, 153, 0.5);*/
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    position: absolute;
+    bottom: 25%;
+    text-align: start;
+    padding-left: 25px;
+    padding-right: 10px;
+}
+
+.topico{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/* Fim dos itens do #outlet */
+
+/* Começo dos itens do #info */
+#info{
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+}
+
+.divisor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33%;
+}
+
+.divisor p{
+    text-align: center;
+}
+
+.icone{
+    width: 80px;
+    height: 80px;
+    background-color: #FF5A5F;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.icone img{
+    height: 45px;
+    width: 45px;
+}
+/* Fim dos itens do #info */
+
+/* Começo dos itens do #produtos */
+#produtos{
+    background-color: #390099;
+    color: #ffff;
+    padding: 25px;
+}
+
+.produtos img{
+    height: 270px;
+    width: 200px;
+}
+/* Fim dos itens do #produtos */
+
+/* Começo dos itens do #favoritos */
+#favoritos h2{
+    color: #FF5A5F;
+    margin: 45px;
+    font-size: 30px;
+}
+
+.empresa img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.empresa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* Fim dos itens do #favoritos */
+
+/* Começo do rodape */
+footer{
+    background-color: #390099;
+    height: 20vh;
+    color: #ffff;
+    
+}
+/* Fim do rodape */
+
+@media (max-width: 400px) {
+    .paragrafo {
+        font-size: 10px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 15px;
+    }
+    .carousel-caption{
+        bottom: 5%;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 550px) {
+    .paragrafo {
+        font-size: 13px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .carousel-caption{
+        bottom: 5%;
+    }
+}
+
+/* Estilos para telas pequenas */
+@media (min-width: 550px) and (max-width: 650px) {
+    .paragrafo {
+        font-size: 15px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 25px;
+    }
+  }
+  
+/* Estilos para telas médias */
+@media (min-width: 650px) and (max-width: 800px) {
+    .paragrafo {
+        font-size: 20px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 30px;
+    }
+}
+  
+/* Estilos para telas grandes */
+@media (min-width: 800px) and (max-width: 1000px) {
+    .paragrafo {
+        font-size: 25px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 35px;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1500px) {
+    .paragrafo {
+        font-size: 35px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 45px;
+    }
+}
+
+@media (min-width: 1500px) and (max-width: 2000px) {
+    .paragrafo {
+        font-size: 45px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 55px;
+    }
+}
+
+@media (min-width: 2000px) and (max-width: 3000px) {
+    .paragrafo {
+        font-size: 55px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 65px;
+    }
+}
+
+@media (min-width: 3000px) {
+    .paragrafo {
+        font-size: 65px;
+    }
+    .topico{
+        font-weight: bold;
+        font-size: 75px;
+    }
+}
