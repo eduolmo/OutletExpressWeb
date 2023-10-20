@@ -1,0 +1,300 @@
+/* Fontes do site */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+/* Estilo que é aplicado a todo o código */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Kanit', sans-serif;
+  max-width: 100%;
+}
+
+/* Estilo aplicado aos botões */
+button {
+  cursor: pointer;
+}
+
+/* Redimensionamento das imagens */
+img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Estilo da classe botao */
+.botao {
+  border: 0;
+  border-radius: 20px;
+  width: 140px;
+  height: 30px;
+  background-color: #FF5A5F;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 10px;
+}
+
+/* Estilo das classes carrinho e entrar */
+.carrinho, .entrar {
+  font-size: 10px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+}
+
+/* Estilo aplicado aos links */
+a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Estilo da classe botoes */
+.botoes {
+  display: flex;
+  gap: 30px;
+}
+
+/* Estilo aplicado ao main */
+main {
+  padding: 0 30px 30px;
+}
+
+main .titulo-pag {
+  font-size: 40px;
+  padding: 50px 0;
+  text-align: center;
+  color: #FF5A5F;
+  font-weight: bold;
+}
+
+main .content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+main section {
+  flex-basis: calc(70% - 20px);
+  min-width: 300px;
+}
+
+main aside {
+  flex-basis: calc(30% - 20px);
+  min-width: 300px;
+}
+
+/* Estilo da tabela */
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela thead tr {
+  border-bottom: 3px solid #eee;
+}
+
+.tabela thead tr th {
+  text-align: left;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  color: #390099;
+}
+
+.tabela tbody tr {
+  border-bottom: 3px solid #eee;
+}
+
+.tabela tbody tr td {
+  padding: 15px 0;
+  text-align: center;
+}
+
+
+/* Estilo das informações do produto */
+.produto-img {
+  margin-left: 10px;
+  max-width: 120px;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+}
+
+.produto {
+  display: flex;
+  align-items: center;
+}
+
+.produto .inf {
+  margin-left: 20px;
+}
+
+.produto .inf .nome {
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+.cupom {
+  width: 20px;
+  height: 20px;
+}
+
+/* Estilo do botão que aumenta ou diminui a quantidade e estilo do seu respectivo input */
+.qtd {
+  background-color: #eee;
+  display: inline-flex;
+  padding: 0px 0px;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 60px;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 30px;
+}
+
+.qtd .input-qtd {
+  margin: 0 10px;
+  text-align: center;
+  width: 20px;
+  border: 0;
+  background-color: #eee;
+}
+
+.input-qtd::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.qtd button {
+  background: transparent;
+  border: 0;
+  align-items: center;
+  display: flex;
+  padding: 0 10px;
+  font-size: 20px;
+  height: 100%;
+}
+
+.qtd button:hover {
+  background: #ddd;
+}
+
+/* Estilo do botão de remover */
+.delete {
+  background-color: #eee;
+  border: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+
+.delete:hover {
+  background: #ddd;
+}
+
+/* Estilo das informações da compra */
+aside {
+  margin-bottom: 15px;
+  margin-left: 20px;
+  height: 300px;
+}
+
+aside .inf {
+  padding: 20px;
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+
+aside .inf-title {
+  padding: 15px 20px;
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+}
+
+aside .inf > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+aside .inf button {
+  color: #FF5A5F;
+  background: transparent;
+  border: 0;
+  display: flex;
+  align-items: center;
+}
+
+aside .total {
+  padding: 20px;
+  background: #ddd;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+aside > button {
+  border: 0;
+  padding: 15px 0;
+  color: white;
+  background-color: #390099;
+  display: block;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+aside .btn-finalizar:hover {
+  background-color: #4100b3;
+}
+
+/* Responsividade */
+@media only screen and (max-width: 768px) {
+  main .content {
+    flex-direction: column;
+  }
+
+  main section,
+  main aside {
+    min-width: auto;
+    flex-basis: auto;
+  }
+
+  .tabela tbody tr td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+    text-align: center;
+  }
+
+  .tabela tbody tr td .produto-img {
+    margin-bottom: 10px;
+  }
+
+  .tabela tbody tr td .qtd {
+    margin: 0 auto;
+  }
+
+  main .content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  main section,
+  main aside {
+    margin: 10px 0;
+  }
+}

@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+*{
+    font-family: 'Kanit', sans-serif;
+}
+
+.principal {
+    display: flex;
+}
+
+
+#titulo, #titulo2 {
+    color: #390099;
+    white-space: nowrap;
+}
+
+.pessoa {
+    width: 130px ;
+    height: 130px;
+    border-radius: 2%;
+}
+
+#compras {
+    color: #ff5a5f;
+    font-size: 20px;
+}
+
+img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tabela thead tr {
+    border-bottom: 3px solid #eee;
+  }
+  
+  .tabela thead tr th {
+    text-align: left;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    color: #390099;
+  }
+  
+  .tabela tbody tr {
+    border-bottom: 3px solid #eee;
+  }
+  
+  .tabela tbody tr td {
+    padding: 15px 0;
+    text-align: center;
+  }
+  
+  
+  /* Estilo das informações do produto */
+  .produto-img {
+    margin-left: 10px;
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+  }
+  
+  .produto {
+    display: flex;
+    align-items: center;
+  }
+  
+  .produto .inf {
+    margin-left: 20px;
+  }
+  
+  .produto .inf .nome {
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+   
+  }
+
+.borda {
+  padding-bottom: 20px;
+}
+
+#sair {
+  text-decoration: none;
+  color:#ff5a5f;}
+
+  
+#sair:hover {
+  color: #ff7479; /* Cor mais escura quando o mouse passa por cima */
+}
