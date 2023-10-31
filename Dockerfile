@@ -11,8 +11,8 @@ WORKDIR /var/www/html
 RUN apt-get update && apt-get install -y libpq-dev libcurl4-openssl-dev \
     libicu-dev \
     libzip-dev \
-	&& docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql curl \
+	&& docker-php-ext-configure mysqli \
+    && docker-php-ext-install pdo pdo_mysql mysqli curl \
     intl \
     zip \
     && a2enmod rewrite
