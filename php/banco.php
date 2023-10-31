@@ -1,5 +1,4 @@
 <?php
-echo 'oie, entrou no banco.php';
 
 //Conexão com banco de dados
 $servername = "db4free.net"; //endereço do servidor
