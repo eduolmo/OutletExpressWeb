@@ -16,6 +16,7 @@ if (isset($_POST['novo_nome']) && isset($_POST['novo_email']) && isset($_POST['n
     // o método trim elimina caracteres especiais/ocultos da string
 	$novo_email = trim($_POST['novo_email']);
 	$nova_senha = trim($_POST['nova_senha']);
+	$novo_nome = trim($_POST['novo_nome']);
 	
 	// o bd não armazena diretamente a senha do usuário, mas sim 
 	// um código hash que é gerado a partir da senha.
@@ -34,7 +35,7 @@ if (isset($_POST['novo_nome']) && isset($_POST['novo_email']) && isset($_POST['n
 	}
 	else {
 		// se o usuário ainda não existe, inserimos ele no bd.
-		$consulta = $db_con->prepare("INSERT INTO USUARIO(email, senha) VALUES('$novo_login', '$token')");
+		$consulta = $db_con->prepare("INSERT INTO USUARIO(email, senha, nome) VALUES('$novo_email', '$token', '$novo_nome')");
 	 
 		if ($consulta->execute()) {
 			// se a consulta deu certo, indicamos sucesso na operação.
