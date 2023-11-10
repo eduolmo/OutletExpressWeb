@@ -53,6 +53,8 @@ if(autenticar($db_con)) {
 					$produto["nome"] = $linha["nome"];
 					$produto["valor_atual"] = $linha["valor_atual"];
 					$produto["imagem"] = $linha["imagem"];
+					$produto["avaliacao"] = $linha["avaliacao"];
+					$produto["desconto"] = $linha["desconto"];
 			 
 					// Adiciona o produto no array de produtos.
 					array_push($resposta["produtos"], $produto);
