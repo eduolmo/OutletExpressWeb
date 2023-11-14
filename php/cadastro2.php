@@ -27,23 +27,37 @@
           $nome = trim(filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS));
           $senha = trim(filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS));
           $senha2 = trim(filter_input(INPUT_POST,'senha2',FILTER_SANITIZE_SPECIAL_CHARS));
+          //echo '<script>console.log("'.$email.'")</script>';
           
           if(!$email){
             echo '<script>alert("Confira se os campos estão preenchidos corretamente!")</script>';
           }
-          else{
-            echo '<script>alert("entrou aqui!")</script>';
+          elseif($senha === $senha2){
+            //echo '<script>alert("entrou aqui!")</script>';
 
-            //header('Location: //index.php');
             $_SESSION['email'] = $email;
-            //$_SESSION['nome'] = $nome;
-            //$_SESSION['senha'] = $senha;
             
-            $host  = $_SERVER['HTTP_HOST'];
-            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $extra = 'index.php';
-            header("Location: http://$host$uri/$extra");
+            $_POST["novo_email"] = $email;
+            $_POST["novo_nome"] = $nome;
+            $_POST["nova_senha"] = $senha;
+            echo '<script>console.log("antes do require_once")</script>';
+            require_once("movel/registrar.php");
+            echo '<script>console.log("depois do require_once")</script>';
+            echo '<script>console.log('.$resposta.')</script>';
+
+            if($resposta["sucesso"] == 1){
+              $host  = $_SERVER['HTTP_HOST'];
+              $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+              $extra = 'index.php';
+              header("Location: http://$host$uri/$extra");
+            }
+            else{
+              echo '<script>alert("NAO FOI POSSIVEL CADASTRAR O USUARIO - ' . $resposta["erro"] . '")</script>';
+            }            
             
+          }
+          else{
+            echo '<script>alert("Confira sua senha!")</script>';
           }
         }
 
