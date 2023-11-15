@@ -67,7 +67,8 @@
 
     <!-- Iniciando o formulário de cadastro -->
     <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
-      <form id="formulario" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+      <!--<form id="formulario" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"> -->
+      <form id="formulario" action="create_cliente" method="POST">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
         </div>
@@ -92,7 +93,8 @@
         <p id="aviso"><img src="../icones/aviso.png" alt="icone de aviso"> Confira se os campos estão preenchidos corretamente ! <img src="../icones/aviso.png" alt="icone de aviso"></p>
         -->
 
-        <input id="entrar" type="submit" onclick="" name="enviar_formulario" class="btn-lg but" value="ENVIAR">
+        <input id="entrar" type="submit" onclick="" name="
+        " class="btn-lg but" value="ENVIAR">
 
         <div class="p-2 mb-3">
           <a href="login2.php" class="d-block link">Já tem conta?</a>
