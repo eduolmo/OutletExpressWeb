@@ -40,7 +40,7 @@
                         <div class="linhas"></div>
                         <!--div com os botoes Comprar Agora e Adicionar ao Carrinho-->
                         <div class="produto_botoes">
-                            <button class="comprarAgora">COMPRAR AGORA</button> <br>
+                            <button class="comprarAgora" href="pedido.php">COMPRAR AGORA</button> <br>
                             <button class="adicionarCarrinho">ADICIONAR AO CARRINHO</button>
                         </div>
                         <!--div para os itens de calcular frete-->
