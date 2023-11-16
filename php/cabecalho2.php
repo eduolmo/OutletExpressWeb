@@ -2,6 +2,7 @@
 //session_set_cookie_params(['httponly' => true]);
 
 session_start();
+include 'bd_teste.php';
 
 ?>
 
@@ -59,7 +60,8 @@ session_start();
                             echo "<p class='botoes_nome'>ENTRAR</p>";
                         }
                     ?>   
-                    </a>
+                    </a>                 
+                </div>
             </div>
         </div>
     </div>
