@@ -2,7 +2,7 @@
 //session_set_cookie_params(['httponly' => true]);
 
 session_start();
-include 'bd_teste.php';
+include 'banco_conexao.php';
 
 ?>
 
