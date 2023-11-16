@@ -40,18 +40,26 @@ session_start();
                     </a>
                 </div>
                 <div class="entrar">
-                    <a href="login2.php">
+                    <a href="
+                    <?php 
+                        if(isset($_SESSION['email'])){
+                            echo 'perfil_cliente.php';
+                        }
+                        else{
+                            echo 'login2.php';
+                        }
+                    ?>
+                    ">
                     <img class="entrar_img" src="../icones/pessoas.png" alt="">
                     <?php                            
-                        if(isset($_SESSION['email'])){
+                        if(isset($_SESSION['email'])){ 
                             echo "<p class='botoes_nome'>".$_SESSION['email']."</p>";
                         }
                         else{
                             echo "<p class='botoes_nome'>ENTRAR</p>";
                         }
                     ?>   
-                    </a>                 
-                </div>
+                    </a>
             </div>
         </div>
     </div>
