@@ -1,0 +1,185 @@
+/* Importação de fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+/* Definição da fonte padrão para todo o documento */
+* {
+    font-family: 'Kanit', sans-serif;
+}
+
+/* Estilos para a classe 'perfil' */
+.perfil {
+    color: #FF5A5F;
+    font-size: 40px;
+}
+
+/* Estilos para a classe 'subtitulo' */
+.subtitulo {
+    color: black;
+    white-space: nowrap;
+}
+
+/* Estilos para a classe 'nome' */
+.nome {
+    margin-left: 5px;
+}
+
+/* Estilos para a classe 'button' */
+.button {
+    background-color: #390099;
+    font-size: 20px;
+    color: white;
+    border-radius: 200px;
+    border: none;
+    height: 60px;
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-left: 200px;
+}
+
+/* Definição de estilos para as linhas */
+.linhas {
+    border-bottom: 1px solid #aaaaaa;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+/* Estilos para a classe 'compras' */
+#compras {
+    color: #ff5a5f;
+    font-size: 20px;
+}
+
+/* Estilos para tags de imagem */
+img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estilos para a tabela */
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela thead tr {
+    border-bottom: 3px solid #eee;
+}
+
+.tabela thead tr th {
+    text-align: left;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    color: #390099;
+}
+
+.tabela tbody tr {
+    border-bottom: 3px solid #eee;
+}
+
+.tabela tbody tr td {
+    padding: 15px 0;
+    text-align: center;
+}
+
+/* Estilos para as informações do produto */
+.produto-img {
+    margin-left: 10px;
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+}
+
+.produto {
+    display: flex;
+    align-items: center;
+}
+
+.produto .inf {
+    margin-left: 20px;
+}
+
+.produto .inf .nome {
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Estilos para a classe 'borda' */
+.borda {
+    padding-bottom: 20px;
+}
+
+/* Estilos para a classe 'sair' */
+#sair {
+    text-decoration: none;
+    color: #ff5a5f;
+}
+
+#sair:hover {
+    color: #ff7479; /* Cor mais escura quando o mouse passa por cima */
+}
+
+/* Estilos para o modal */
+.modal-titulo {
+    margin-bottom: 1rem;
+}
+
+#fechar_modal {
+    padding: 0.6rem 1.2rem;
+    color: white;
+    background-color: #390099;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    opacity: 0.9;
+    font-size: 1rem;
+    transition: 0.4s;
+}
+
+#fechar_modal:hover {
+    background-color: #4100b3;
+}
+
+#fade, #modal {
+    transition: 0.5s;
+    opacity: 1;
+    pointer-events: all;
+}
+
+#fade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 5;
+}
+
+#modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 500px;
+    max-width: 90%;
+    padding: 1.2rem;
+    border-radius: 0.5rem;
+}
+
+#modal.hide, #fade.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.fechar {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    cursor:
