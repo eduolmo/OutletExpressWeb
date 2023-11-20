@@ -3,7 +3,25 @@
 
 session_start();
 include 'banco_conexao.php';
+/*
+echo 'antes de conectar com BD';
+include 'banco_conexao.php';
 
+echo 'antes de criar database';
+//$db = new Database();
+$sql = "SELECT * FROM pessoa";
+
+echo 'antes do sql';
+$stmt = Database::prepare($sql);
+//$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+echo 'antes de executar sql';
+$stmt->execute();
+$resultado = $stmt->fetch(PDO::FETCH_BOTH);
+echo sizeof($resultado);
+var_dump($resultado);
+$array = array('feijao','arroz','batata');
+var_dump($array);
+*/
 ?>
 
 <!-- começo do cabecalho -->

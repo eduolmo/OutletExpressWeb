@@ -1,7 +1,7 @@
 <?php
 	//Configurações do banco de dados.
-	define('DB_HOST','isabelle.db.elephantsql.com;');
-	define('DB_NAME','aarpgxeh;');
-	define('DB_USER','aarpgxeh;');
-	define('DB_PASS','J6JetsRuN1TROLwMprZK7t7Vq_yQxJzL');
+	define('DB_HOST','berry.db.elephantsql.com');
+	define('DB_NAME','hkrcjfkn');
+	define('DB_USER','hkrcjfkn');
+	define('DB_PASS','NEi4W6BNvckEcn7i56IEbPPJKFuUqGud');
 ?>
