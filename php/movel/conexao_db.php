@@ -2,11 +2,11 @@
 
 // Abre uma conexao com o BD.
 
-$host        = "host = isabelle.db.elephantsql.com;";
+$host        = "host = berry.db.elephantsql.com;";
 $port        = "port = 5432;";
-$dbname      = "dbname = aarpgxeh;";
-$dbuser 	 = "aarpgxeh";
-$dbpassword	 = "J6JetsRuN1TROLwMprZK7t7Vq_yQxJzL";
+$dbname      = "dbname = hkrcjfkn;";
+$dbuser 	 = "hkrcjfkn";
+$dbpassword	 = "NEi4W6BNvckEcn7i56IEbPPJKFuUqGud";
 
 // para conectar ao mysql, substitua pgsql por mysql
 $db_con= new PDO('pgsql:' . $host . $port . $dbname, $dbuser, $dbpassword);
