@@ -29,14 +29,14 @@ getIdade - Retorn a idade do cliente
 *************************************************************/
 
 class Usuario extends CRUD{
-	use Cliente; 
-	/*use Empresa;*/
+	use Cliente, Empresa;
 	
 	protected $table ='USUARIO';
-	
+	protected $table ='EMPRESA';
 	
 	private $nome;
 	private $email; 
+	
 	
 	/********Início dos métodos sets e gets*********/
 	public function setNome($nome){

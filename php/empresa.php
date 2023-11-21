@@ -1,14 +1,13 @@
 <?php
 require_once 'crud.php'
 
-trait Cliente{
+class Empresa extends CRUD{
 
-	private $cpf;
-
+	private $cnpj;
 		
 	/********Início dos métodos sets e gets*********/
-	public function setCpf($cpf){
-		$this->cpf = $cpf;
+	public function setCnpj($cnpj){
+		$this->cnpj = $cpf;
 	}
 	public function getCpf(){
 		return $this->cpf;
