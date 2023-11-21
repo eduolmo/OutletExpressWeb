@@ -30,29 +30,47 @@
           if(!$email){
             echo '<script>alert("Confira se os campos estão preenchidos corretamente!")</script>';
           }
-          elseif($senha === $senha2){        
 
-            $consulta_usuario_existe = $db_con->prepare("SELECT email FROM USUARIO WHERE email='$email'");
+          elseif($senha === $senha2){        
+            include 'banco_conexao.php';
+
+            $db = Database::getInstance();
+            //echo 'abrindo instancia com BD';
+
+            $sql = "SELECT email FROM USUARIO WHERE email='$email'";
+            //echo 'comando sql';
+
+            $consulta_usuario_existe = Database::prepare($sql);
+            //echo 'metodo prepare';
+
+            //$consulta_usuario_existe = $instance->prepare("SELECT email FROM USUARIO WHERE email='$email'");
+            
             $consulta_usuario_existe->execute();
+            //echo 'execute';
+
             if ($consulta_usuario_existe->rowCount() > 0) { 
               echo '<script>alert("ERRO: Usuario já cadastrado!")</script>';
             }
             else{
-              $_SESSION['email'] = $email;
-              
-              //CRIPTOGRAFIA DA SENHA
-              $senhaSegura = password_hash($senha, PASSWORD_DEFAULT);
-
               //CRIAR CLIENTE
-              include_once 'usuario.php';
-
               
+
+              //echo 'usuario nao existe';
+              $_SESSION['email'] = $email;
+              echo 'sessao';
+
+
+              //ERRO AQUI e NA CRIACAO DO TOKEN
+              include 'usuario.php';
+              echo 'include';
+
               //instancia o cliente
               $usuario = new Usuario();	
               
               //informa os dados do cliente
               $usuario->setNome($nome);
               $usuario->setEmail($email);
+              $usuario->setSenha($senha);
               
               //insere o cliente
               if($usuario->insert()):
@@ -68,7 +86,15 @@
 
 
 
-              /* CODIGO PARA LOGIN
+              /* CODIGO PARA LOGIN e criptografia
+
+              
+              //CRIPTOGRAFIA DA SENHA
+              //$token = password_hash($senha, PASSWORD_DEFAULT);
+              //$senhaSegura = password_hash($senha, PASSWORD_DEFAULT);
+              //echo "Bcrypt: ". $token;
+
+
               $senha_db = $db_con->prepare("SELECT senha FROM USUARIO WHERE email='$email'");
               if (password_verify($senha,$senha_db)):
                 echo "Senha válida";

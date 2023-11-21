@@ -1,5 +1,5 @@
 <?php
-
+echo 'usuario';
 require_once 'crud.php';
 require_once 'cliente.php';
 /*require_once 'empresa.php';*/
@@ -36,7 +36,7 @@ class Usuario extends CRUD{
 	
 	private $nome;
 	private $email;
-	private $senhaSegura;
+	private $senha;
 	
 	
 	/********Início dos métodos sets e gets*********/
@@ -52,11 +52,11 @@ class Usuario extends CRUD{
 	public function getEmail(){
 		return $this->email;
 	}
-	public function setsenhaSegura($senhaSegura){
-		$this->senhaSegura = $senhaSegura;
+	public function setSenha($senha){
+		$this->senha = $senha;
 	}
-	public function getsenhaSegura(){
-		return $this->senhaSegura;
+	public function getSenha(){
+		return $this->senha;
 	}
 
 	/********Fim dos métodos sets e gets*********/
@@ -67,11 +67,11 @@ class Usuario extends CRUD{
 	Parâmetro de saída: Retorna true em caso de sucesso ou false em caso de falha.
 	***************/
 	public function insert(){
-		$sql="INSERT INTO $this->table (nome,email,senha) VALUES (:nome,:email,:senhaSegura)";
+		$sql="INSERT INTO $this->table (nome,email,senha) VALUES (:nome,:email,:senha)";
 		$stmt = Database::prepare($sql);
 		$stmt->bindParam(':nome', $this->nome);
 		$stmt->bindParam(':email', $this->email);
-		$stmt->bindParam(':senhaSegura', $this->senhaSegura);
+		$stmt->bindParam(':senha', $this->senha);
 		
 		return $stmt->execute();
 		
