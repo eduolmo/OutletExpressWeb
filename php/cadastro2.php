@@ -20,39 +20,68 @@
         
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
-          //echo 'entrou';
 
           //validacao e sanitizacao dos campos do form
           $email = trim(filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL));
           $nome = trim(filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS));
           $senha = trim(filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS));
           $senha2 = trim(filter_input(INPUT_POST,'senha2',FILTER_SANITIZE_SPECIAL_CHARS));
-          //echo '<script>console.log("'.$email.'")</script>';
           
           if(!$email){
             echo '<script>alert("Confira se os campos estão preenchidos corretamente!")</script>';
           }
-          elseif($senha === $senha2){
-            //echo '<script>alert("entrou aqui!")</script>';
+          elseif($senha === $senha2){        
 
-            $_SESSION['email'] = $email;
-            
-            $_POST["novo_email"] = $email;
-            $_POST["novo_nome"] = $nome;
-            $_POST["nova_senha"] = $senha;
-            echo '<script>console.log("antes do require_once")</script>';
-            require_once("movel/registrar.php");
-            echo '<script>console.log("depois do require_once")</script>';
-            echo '<script>console.log('.$resposta.')</script>';
+            $consulta_usuario_existe = $db_con->prepare("SELECT email FROM USUARIO WHERE email='$email'");
+            $consulta_usuario_existe->execute();
+            if ($consulta_usuario_existe->rowCount() > 0) { 
+              echo '<script>alert("ERRO: Usuario já cadastrado!")</script>';
+            }
+            else{
+              $_SESSION['email'] = $email;
+              
+              //CRIPTOGRAFIA DA SENHA
+              $senhaSegura = password_hash($senha, PASSWORD_DEFAULT);
 
-            if($resposta["sucesso"] == 1){
+              //CRIAR CLIENTE
+              include_once 'usuario.php';
+
+              
+              //instancia o cliente
+              $usuario = new Usuario();	
+              
+              //informa os dados do cliente
+              $usuario->setNome($nome);
+              $usuario->setEmail($email);
+              
+              //insere o cliente
+              if($usuario->insert()):
+                $_SESSION['mensagem'] = "Cadastro com sucesso!";
+                echo "Cadastrou!";
+                //header('Location: 30_consultar.php?sucesso');
+              else:
+                $_SESSION['mensagem'] = "Erro ao cadastrar!";	
+                echo "Não cadastrou!";	
+                //header('Location: 30_consultar?erro');
+              endif;
+              
+
+
+
+              /* CODIGO PARA LOGIN
+              $senha_db = $db_con->prepare("SELECT senha FROM USUARIO WHERE email='$email'");
+              if (password_verify($senha,$senha_db)):
+                echo "Senha válida";
+              else:
+                echo "Senha inválida";
+              endif;*/
+
+
+           
               $host  = $_SERVER['HTTP_HOST'];
               $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
               $extra = 'index.php';
               header("Location: http://$host$uri/$extra");
-            }
-            else{
-              echo '<script>alert("NAO FOI POSSIVEL CADASTRAR O USUARIO - ' . $resposta["erro"] . '")</script>';
             }            
             
           }
@@ -67,8 +96,7 @@
 
     <!-- Iniciando o formulário de cadastro -->
     <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
-      <!--<form id="formulario" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"> -->
-      <form id="formulario" action="create_cliente" method="POST">
+      <form id="formulario" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
         </div>

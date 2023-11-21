@@ -35,7 +35,8 @@ class Usuario extends CRUD{
 	protected $table ='EMPRESA';
 	
 	private $nome;
-	private $email; 
+	private $email;
+	private $senhaSegura;
 	
 	
 	/********Início dos métodos sets e gets*********/
@@ -51,6 +52,12 @@ class Usuario extends CRUD{
 	public function getEmail(){
 		return $this->email;
 	}
+	public function setsenhaSegura($senhaSegura){
+		$this->senhaSegura = $senhaSegura;
+	}
+	public function getsenhaSegura(){
+		return $this->senhaSegura;
+	}
 
 	/********Fim dos métodos sets e gets*********/
 	
@@ -60,10 +67,11 @@ class Usuario extends CRUD{
 	Parâmetro de saída: Retorna true em caso de sucesso ou false em caso de falha.
 	***************/
 	public function insert(){
-		$sql="INSERT INTO $this->table (nome,email) VALUES (:nome,:email)";
+		$sql="INSERT INTO $this->table (nome,email,senha) VALUES (:nome,:email,:senhaSegura)";
 		$stmt = Database::prepare($sql);
 		$stmt->bindParam(':nome', $this->nome);
 		$stmt->bindParam(':email', $this->email);
+		$stmt->bindParam(':senhaSegura', $this->senhaSegura);
 		
 		return $stmt->execute();
 		

@@ -1,7 +1,7 @@
 <?php
 require_once 'crud.php'
 
-class Empresa extends CRUD{
+trait Empresa{
 
 	private $cnpj;
 		
