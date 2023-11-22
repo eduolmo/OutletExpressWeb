@@ -1,3 +1,23 @@
+<?php
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['redirecionar'])){
+        //echo 'oie';
+        if(isset($_POST['produtoCategoria'])){
+            
+            //$_SESSION['categoria'] = $_POST['produtoCategoria'];
+            //echo $categoria;
+            $_POST['redirecionar'] = 'redirecionar';
+            //echo '<script>console.log("'.$_POST['produtoCategoria'].'")</script>'
+            echo 'redirecionar';
+            exit();
+        }
+    }
+    else{
+        echo 'existe redirecionar no post';
+        echo $_POST['produtoCategoria'];
+        unset($_POST['redirecionar']);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,12 +27,22 @@
     <title>Produtos</title>
     <link rel="stylesheet" href="../css/produtos.css">
     <link rel="stylesheet" href="../css/cabecalho2.css">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
     <!-- começo do cabecalho -->
     <?php
-        include "cabecalho2.php"
+    echo '123 cheguei';
+    //echo $_SESSION['categoria'];
+        if(isset($_POST['produtoCategoria'])){
+        
+            $categoria = $_POST['produtoCategoria'];
+            echo $categoria;
+            echo 'oie123';
+        }
+        //echo 'antes do include cabecalho.php';
+        include "cabecalho2.php";
     ?>                
     <!--fim do cabecalho-->
 
