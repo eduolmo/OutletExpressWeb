@@ -17,6 +17,8 @@
     <!-- cabecalho -->
     <?php
         include 'cabecalho2.php';
+
+        $codigo_cliente = $_SESSION['codigo_cliente'];
     ?>	
 
   <!--Container Principal-->      
@@ -43,77 +45,31 @@
                           </thead>
                           <tbody>
                             <!-- Primeiro produto com sua imagem, valor unitário e quantidade -->
-                            <tr class="produto-item ">
-                              <td>
-                                <div class="produto patins">
-                                  <img class="produto-img " src="../imagens/patins.png" alt="">
-                                  <div class="inf">
-                                    <div class="nome text-sm">Patins Inline Roller</div>
-                                    <div class="categoria">Calçados</div>
-                                  </div>
-                                </div>
-                              </td>
-                              <td class="valor-unitario">R$ 99</td>
-                              <td class="qtd-td">
-                                <!-- Botão para aumentar e diminuir a quantidade de produtos -->
-                                <div class="qtd">
-                                  <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                  <input class="input-qtd" type="number" value="1" min="1">
-                                  <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
-                                </div>
-                              </td>
-                              <!-- Subtotal calculado pelo preço unitário multiplicado pela quantidade -->
-                              <td class="subtotal"></td>
-                              <!-- Botão para excluir o produto da tabela de itens -->
-                              <td><button class="delete"><i class='bx bx-x'></i></button></td>
-                            </tr>
-                            <!-- Segundo Produto -->
-                            <tr class="produto-item">
-                              <td>
-                                <div class="produto">
-                                  <img class="produto-img" src="../imagens/geladeira.png" alt="">
-                                  <div class="inf">
-                                    <div class="nome">Geladeira</div>
-                                    <div class="categoria">Eletrodomésticos</div>
-                                  </div>
-                                </div>
-                              </td>
-                              <td class="valor-unitario">R$ 109</td>
-                              <td class="qtd-td">
-                                <div class="qtd">
-                                  <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                  <input class="input-qtd" type="number" value="1" min="1">
-                                  <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
-                                </div>
-                              </td>
-                              <td class="subtotal"></td>
-                              <td><button class="delete"><i class='bx bx-x'></i></button></td>
-                            </tr>
-                            <!-- Terceiro Produto -->
-                            <tr class="produto-item">
-                              <td>
-                                <div class="produto">
-                                  <img class="produto-img" src="../imagens/mesa.png" alt="">
-                                  <div class="inf">
-                                    <div class="nome">Mesa de Centro</div>
-                                    <div class="categoria">Móveis</div>
-                                  </div>
-                                </div>
-                              </td>
-                              <td class="valor-unitario">R$ 89</td>
-                              <td class="qtd-td">
-                                <div class="qtd">
-                                  <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                  <input class="input-qtd" type="number" value="1" min="1">
-                                  <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
-                                </div>
-                              </td>
-                              <td class="subtotal"></td>
-                              <td><button class="delete"><i class='bx bx-x'></i></button></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                            <?php
+                              try {
+                                $listagem = $db_con->prepare("
+                                  SELECT ic.*, p.* 
+                                  FROM item_carrinho ic
+                                  JOIN produto p ON ic.fk_PRODUTO_codigo = p.codigo
+                                  JOIN cliente c ON ic.fk_CLIENTE_FK_USUARIO_codigo = c.codigo
+                                  WHERE c.codigo = :codigo_cliente
+                                ");
+                                $listagem->execute();
+                                while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
+                                  <tr class="produto-item">
+                                      <td>
+                                        <!-- Conteúdo da célula -->
+                                      </td>
+                                      <td class="valor-unitario">R$ <?php echo $row['valor_atual']; ?></td>
+                                      <!-- Restante do código para as outras colunas -->
+                                  </tr>
+                            <?php
+                                }
+                              } catch (PDOException $e) {
+                                  echo "Erro na execução da consulta: " . $e->getMessage();
+                              }
+                            ?>
                     </section>
               </div>
               <div class="col-12 col-sm-3">
@@ -147,8 +103,8 @@
   </main>
 
   <?php
-		include 'rodape.php';
-	?>
+    include 'rodape.php';
+  ?>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   <script src="../js/carrinho.js"></script>
