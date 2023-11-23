@@ -1,23 +1,3 @@
-<?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['redirecionar'])){
-        //echo 'oie';
-        if(isset($_POST['produtoCategoria'])){
-            
-            //$_SESSION['categoria'] = $_POST['produtoCategoria'];
-            //echo $categoria;
-            $_POST['redirecionar'] = 'redirecionar';
-            //echo '<script>console.log("'.$_POST['produtoCategoria'].'")</script>'
-            echo 'redirecionar';
-            exit();
-        }
-    }
-    else{
-        echo 'existe redirecionar no post';
-        echo $_POST['produtoCategoria'];
-        unset($_POST['redirecionar']);
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -33,16 +13,21 @@
 <body>
     <!-- começo do cabecalho -->
     <?php
-    echo '123 cheguei';
-    //echo $_SESSION['categoria'];
-        if(isset($_POST['produtoCategoria'])){
-        
-            $categoria = $_POST['produtoCategoria'];
-            echo $categoria;
-            echo 'oie123';
-        }
-        //echo 'antes do include cabecalho.php';
         include "cabecalho2.php";
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria_produto'])){
+            $categoria = $_POST['categoria_produto'];
+            echo $categoria;
+
+            include_once 'produto.php';
+            $produtos_categorizados = new Produto();
+            $bla = $produtos_categorizados->categorizeProducts($categoria);
+            echo $bla;
+            echo 'categorizei hehe!';
+
+        }
+
+
     ?>                
     <!--fim do cabecalho-->
 

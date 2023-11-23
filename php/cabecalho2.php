@@ -1,7 +1,7 @@
 <?php
 //session_set_cookie_params(['httponly' => true]);
 session_start();
-include 'banco_conexao.php';
+include_once 'banco_conexao.php';
 /*
 echo 'antes de conectar com BD';
 include 'banco_conexao.php';
@@ -89,48 +89,65 @@ var_dump($array);
     <!-- inicio da cabecalho rosa -->
     <div class="cabecalho_rosa">
         <nav class="navbar navbar-expand-lg cabecalho_menu pe-xl-5">
-            <div class="container-fluid">
+            <div class="container-fluid col-lg-1">
                 <a class="navbar-brand" href="#"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>    
 
-                <div class="collapse navbar-collapse pe-xl-5" id="navbarSupportedContent">
-                    <ul class="navbar-nav px-2 pe-xl-5">
-                        <li class="nav-item pe-lg-5 col-lg-2 col-xl-2 pe-xxl-5"><a class="nav-link pe-xl-5" href="#">RECOMENDADO</a></li>
-                        <li class="nav-item pe-lg-5 col-lg-1 ps-xl-1 pe-xxl-5"><a class="nav-link" href="produtos.php">ROUPA</a></li>
-                        <li class="nav-item pe-lg-5 col-lg-2 ps-xl-5 pe-xxl-5"><a class="nav-link" href="produtos.php">CALÇADO</a></li>
-                        <li class="nav-item pe-lg-5 col-lg-3 ps-xl-5 pe-xxl-5"><a class="nav-link" href="produtos.php">ELETRODOMÉSTICO</a></li>
-                        <li class="nav-item pe-lg-5 col-lg-2 ps-xl-5"><a class="nav-link" href="produtos.php">ELETRÔNICO</a></li>
-                        <li class="nav-item pe-lg-5 col-lg-2 ps-xl-5"><a class="nav-link" href="produtos.php">MÓVEL</a></li>
-                        
-                        <script>
-                            let categorias = document.getElementsByClassName("nav-link");
-                            for(let i = 0; i < categorias.length; i++){
-                                categorias[i].addEventListener("click",function(){
-                                    let categoria = categorias[i].innerHTML;
-                                    //console.log('categoria: ',categoria);
-                                    $.ajax({
-                                        url: 'produtos.php',
-                                        type: 'POST',
-                                        data: { produtoCategoria: categoria },
-                                        success: function(response) {
-                                            console.log('Resposta do PHP:', response);
+            <div class="collapse navbar-collapse pe-xl-5" id="navbarSupportedContent">
+                <ul class="navbar-nav px-2 pe-xl-5">
+                    <li class="nav-item pe-lg-5 col-xl-2 pe-xxl-5">
+                        <form action="produtos.php" method="POST">
+                            <input type="hidden" name="categoria_produto" value="Recomendado" display="hidden">
+                            <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="RECOMENDADO">
+                        </form>
+                    </li>
+                    <li class="nav-item pe-lg-5 ps-xl-1 pe-xxl-5">
+                        <form action="produtos.php" method="POST">
+                            <input type="hidden" name="categoria_produto" value="Roupa" display="hidden">
+                            <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ROUPA">
+                        </form>
+                    </li>
+                    <li class="nav-item pe-lg-5 ps-xl-5 pe-xxl-5">
+                        <form action="produtos.php" method="POST">
+                            <input type="hidden" name="categoria_produto" value="Calçado" display="hidden">
+                            <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="CALÇADO">
+                        </form>
+                    </li>
+                    <li class="nav-item pe-lg-5 ps-xl-5 pe-xxl-5">
+                        <form action="produtos.php" method="POST">
+                            <input type="hidden" name="categoria_produto" value="Eletrodoméstico" display="hidden">
+                            <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ELETRODOMÉSTICO">
+                        </form>
+                    </li>
+                    <li class="nav-item pe-lg-5  ps-xl-5">
+                        <form action="produtos.php" method="POST">
+                            <input type="hidden" name="categoria_produto" value="Eletrônico" display="hidden">
+                            <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ELETRÔNICO">
+                        </form>
+                    </li>
+                    <li class="nav-item pe-lg-5 ps-xl-5">
+                        <form action="produtos.php" method="POST">
+                            <input type="hidden" name="categoria_produto" value="Móvel" display="hidden">
+                            <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="MÓVEL">
+                        </form>
+                    </li>
+                    
+                    <script>
+                        let categorias = document.getElementsByClassName("nav-link");
+                        for(let i = 0; i < categorias.length; i++){
+                            categorias[i].addEventListener("click",function(){
+                                let categoria = categorias[i].innerHTML;
+                                //console.log('categoria: ',categoria);
+                                
+                            })
+                        }
+                    </script>
 
-                                            // Redirecionar para uma nova página
-                                            if(response === 'redirecionar'){
-                                                window.location.href = 'produtos.php';
-                                            }
-                                            
-                                        }
-                                    });
-                                })
-                            }
-                        </script>
-
-                    </ul>
-                </div>
+                </ul>
+            </div>
         </nav>
     </div>
     
