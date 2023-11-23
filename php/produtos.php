@@ -22,9 +22,15 @@
             include_once 'produto.php';
             $produtos_categorizados = new Produto();
             $bla = $produtos_categorizados->categorizeProducts($categoria);
-            echo $bla;
+            echo var_dump($bla);
             echo 'categorizei hehe!';
-
+            /*
+            $sql = "SELECT * FROM produto";
+            $stmt = Database::prepare($sql);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_BOTH);
+            echo var_dump($resultado);
+            */
         }
 
 

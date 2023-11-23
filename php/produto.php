@@ -92,10 +92,11 @@ class Produto extends CRUD {
 	}
 
 	public function categorizeProducts($categoria){
-		$sql = "SELECT * FROM $this->table INNER JOIN categoria_produto ON(categoria_produto.codigo = fk_categoria_produto_codigo) WHERE categoria_produto.descricao = :categoria";
+		$sql = "SELECT imagem,nome,valor_atual,avaliacao,desconto FROM $this->table INNER JOIN categoria_produto ON(categoria_produto.codigo = fk_categoria_produto_codigo) WHERE categoria_produto.descricao = :categoria";
 		$stmt = Database::prepare($sql);
 		$stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
-		return $stmt->execute();
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_BOTH);
 	}
 	/*
 	public function __toString(){

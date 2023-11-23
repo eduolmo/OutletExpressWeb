@@ -88,7 +88,7 @@ var_dump($array);
 
     <!-- inicio da cabecalho rosa -->
     <div class="cabecalho_rosa">
-        <nav class="navbar navbar-expand-lg cabecalho_menu pe-xl-5">
+        <nav class="navbar navbar-expand-lg cabecalho_menu">
             <div class="container-fluid col-lg-1">
                 <a class="navbar-brand" href="#"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,8 +96,8 @@ var_dump($array);
                 </button>
             </div>    
 
-            <div class="collapse navbar-collapse pe-xl-5" id="navbarSupportedContent">
-                <ul class="navbar-nav px-2 pe-xl-5">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
                     <li class="nav-item pe-lg-5 col-xl-2 pe-xxl-5">
                         <form action="produtos.php" method="POST">
                             <input type="hidden" name="categoria_produto" value="Recomendado" display="hidden">
