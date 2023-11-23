@@ -15,6 +15,35 @@
     
     <!-- cabecalho -->
     <?php
+    /*
+      include 'banco_conexao.php';
+      include 'cadastro2.php';
+
+      $db = Database::getInstance();
+      $sql = "SELECT email FROM USUARIO WHERE email='$email'";
+      $consulta_usuario_existe = Database::prepare($sql);
+      $consulta_usuario_existe->execute();
+
+      if ($consulta_usuario_existe->rowCount() > 0) { 
+        $senha_db = $db->prepare("SELECT senha FROM USUARIO WHERE email='$email'");
+        $senha_decode = base64_decode($senha_db);
+
+        if ($senha_decode === $senha):
+          echo "Senha válida";
+          
+          $_SESSION['email'] = $email;
+          echo 'session ';
+        else:
+          echo "Senha inválida";
+        endif;
+
+        
+      }
+      else{
+        echo '<script>alert("ERRO: Usuario não existe!")</script>';
+      }
+
+      */
       include 'cabecalho2.php';
     ?>	
 

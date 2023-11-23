@@ -1,45 +1,19 @@
 <?php
-echo 'usuario';
+//echo 'entrou_usuario ';
 require_once 'crud.php';
-require_once 'cliente.php';
-/*require_once 'empresa.php';*/
-
-/*************************************************************
-Objetivo: Classe responsável por representar todas as operações com o cliente do negócio.
-
-
-Atributos:
-$nome- nome do cliente
-$sobrenome - sobrenome do cliente
-$email - email do cliente
-$idade - idade do cliente
-
-Métodos:
-insert - insere um cliente na tabela cliente
-update - atualiza um cliente na tabela cliente
-
-setNome - Atribui um nome ao cliente
-getNome - Retorna o nome do cliente
-setSobrenome - Atribui um sobrenome ao cliente
-getSobrenome - Retorna o sobrenome ao cliente
-setEmail - Atribui um email ao cliente
-getEmail - Retorna o email do cliente
-setIdade - Atribui uma idade ao cliente
-getIdade - Retorn a idade do cliente
-*************************************************************/
+//echo 'cruds ';
+//require_once 'cliente.php';
+//echo 'clientes';
+//require_once 'empresa.php';
+//echo 'empresa';
 
 class Usuario extends CRUD{
-	use Cliente, Empresa;
-	
 	protected $table ='USUARIO';
-	protected $table ='EMPRESA';
-	
+    
 	private $nome;
 	private $email;
 	private $senha;
 	
-	
-	/********Início dos métodos sets e gets*********/
 	public function setNome($nome){
 		$this->nome = $nome;
 	}
@@ -59,9 +33,6 @@ class Usuario extends CRUD{
 		return $this->senha;
 	}
 
-	/********Fim dos métodos sets e gets*********/
-	
-	
 	/***************
 	Objetivo: Método que insere um cliente
 	Parâmetro de saída: Retorna true em caso de sucesso ou false em caso de falha.
@@ -92,12 +63,6 @@ class Usuario extends CRUD{
 		// $stmt->bindParam(':tipocliente', 1, PDO::PARAM_INT);
 		return $stmt->execute();
 	}
-	
-	
-	
-	
-		
-	
 }
 
 ?>

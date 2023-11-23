@@ -21,8 +21,8 @@ delete - exclui um registro pelo id
 		
 		protected $table;
 
-		abstract public function insert();
-		abstract public function update($codigo);
+		//abstract public function insert();
+		//abstract public function update($codigo);
 		
 		
 		

@@ -31,83 +31,80 @@
             echo '<script>alert("Confira se os campos estão preenchidos corretamente!")</script>';
           }
 
-          elseif($senha === $senha2){        
+          elseif($senha === $senha2){   
+            
             include 'banco_conexao.php';
 
             $db = Database::getInstance();
-            //echo 'abrindo instancia com BD';
-
             $sql = "SELECT email FROM USUARIO WHERE email='$email'";
-            //echo 'comando sql';
-
             $consulta_usuario_existe = Database::prepare($sql);
-            //echo 'metodo prepare';
-
-            //$consulta_usuario_existe = $instance->prepare("SELECT email FROM USUARIO WHERE email='$email'");
-            
             $consulta_usuario_existe->execute();
-            //echo 'execute';
 
             if ($consulta_usuario_existe->rowCount() > 0) { 
               echo '<script>alert("ERRO: Usuario já cadastrado!")</script>';
             }
             else{
-              //CRIAR CLIENTE
+              //CRIAR CLIENTE      
+
+              //$_SESSION['email'] = $email;
+              //echo 'session ';
               
-
-              //echo 'usuario nao existe';
-              $_SESSION['email'] = $email;
-              echo 'sessao';
-
-
-              //ERRO AQUI e NA CRIACAO DO TOKEN
-              include 'usuario.php';
-              echo 'include';
+              //CRIPTOGRAFIA              
+              $novasenha = base64_encode($senha);
+              //echo "Base64: ". $novasenha . "<br>";
+              //echo "Senha Senha é:". base64_decode($novasenha);
+            
+              include 'cliente.php';
+              //echo 'incluiu ';
 
               //instancia o cliente
-              $usuario = new Usuario();	
+              $cliente = new Cliente();	
+              echo 'criou_cliente ';
               
               //informa os dados do cliente
-              $usuario->setNome($nome);
-              $usuario->setEmail($email);
-              $usuario->setSenha($senha);
+              $cliente->setNome($nome);
+              $cliente->setEmail($email);
+              $cliente->setSenha($novasenha);
+
+              echo 'incluiu_dados ';
               
               //insere o cliente
-              if($usuario->insert()):
+              if($cliente->insert()){
                 $_SESSION['mensagem'] = "Cadastro com sucesso!";
                 echo "Cadastrou!";
-                //header('Location: 30_consultar.php?sucesso');
-              else:
+                /*
+                //pegando o usuario de acordo com o email
+                $sql = "SELECT * FROM usuario WHERE email = :email";
+                $stmt = Database::prepare($sql);
+                $stmt->bindParam(':email', $email);
+                $stmt->execute();
+                $resultado = $stmt->fetch(PDO::FETCH_BOTH);
+
+                echo 'USUARIO DO BD: ';
+                echo var_dump($resultado);
+                //guardando o cliente na sessao
+                //$cliente = new Cliente();
+                //$cliente->setNome()
+                $_SESSION['cliente'] = ;
+                
+
+                echo 'CODIGO CLIENTE: '.$_SESSION['cliente']['codigo'];
+                //inserindo na tabela cliente o codigo do usuario
+                $sql2 = "INSERT INTO cliente (fk_usuario_codigo) VALUES(:codigo)";
+                $stmt2 = Database::prepare($sql2);
+                $stmt2->bindParam(':codigo', $_SESSION['cliente']['codigo'], PDO::PARAM_INT);
+                $stmt2->execute();
+                */
+              }
+              else{
                 $_SESSION['mensagem'] = "Erro ao cadastrar!";	
                 echo "Não cadastrou!";	
-                //header('Location: 30_consultar?erro');
-              endif;
-              
-
-
-
-              /* CODIGO PARA LOGIN e criptografia
-
-              
-              //CRIPTOGRAFIA DA SENHA
-              //$token = password_hash($senha, PASSWORD_DEFAULT);
-              //$senhaSegura = password_hash($senha, PASSWORD_DEFAULT);
-              //echo "Bcrypt: ". $token;
-
-
-              $senha_db = $db_con->prepare("SELECT senha FROM USUARIO WHERE email='$email'");
-              if (password_verify($senha,$senha_db)):
-                echo "Senha válida";
-              else:
-                echo "Senha inválida";
-              endif;*/
-
-
-           
+              }
+              /*        
               $host  = $_SERVER['HTTP_HOST'];
               $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
               $extra = 'index.php';
-              header("Location: http://$host$uri/$extra");
+              header("Location: http://$host$uri/$extra");*/
             }            
             
           }
