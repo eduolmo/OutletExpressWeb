@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/cabecalho2.css">
     <link rel="stylesheet" href="../css/rodape.css">
     <link rel="icon" href="icones/icon.png">
+    <script src="../js/adicionaritem.js" defer></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <!--Titulo da Pagina-->
@@ -47,23 +48,41 @@
                             <!-- Primeiro produto com sua imagem, valor unitário e quantidade -->
                             <?php
                               try {
-                                $listagem = $db_con->prepare("
+                                $listagem = Database::prepare("
                                   SELECT ic.*, p.* 
                                   FROM item_carrinho ic
                                   JOIN produto p ON ic.fk_PRODUTO_codigo = p.codigo
-                                  JOIN cliente c ON ic.fk_CLIENTE_FK_USUARIO_codigo = c.codigo
-                                  WHERE c.codigo = :codigo_cliente
+                                  JOIN cliente c ON ic.fk_CLIENTE_FK_USUARIO_codigo = c.fk_USUARIO_codigo
+                                  WHERE c.fk_USUARIO_codigo = :codigo_cliente
                                 ");
                                 $listagem->execute();
                                 while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
                             ?>
-                                  <tr class="produto-item">
-                                      <td>
-                                        <!-- Conteúdo da célula -->
-                                      </td>
-                                      <td class="valor-unitario">R$ <?php echo $row['valor_atual']; ?></td>
-                                      <!-- Restante do código para as outras colunas -->
-                                  </tr>
+                              <tr class="produto-item">
+                                <td>
+                                  <div class="produto patins">
+                                    <img class="produto-img " src="<?php echo $row['imagem'];?>" alt="">
+                                    <div class="inf">
+                                      <div class="nome text-sm"><?php echo $row['nome'];?></div>
+                                      <div class="categoria"><?php echo $row['avaliacao'];?></div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td class="valor-unitario">R$ <?php echo $row['valor_atual']; ?></td>
+                                <!-- Restante do código para as outras colunas -->
+                                <td class="qtd-td">
+                                <!-- Botão para aumentar e diminuir a quantidade de produtos -->
+                                <div class="qtd">
+                                  <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
+                                  <input class="input-qtd" type="number" value="<?php echo $row['quantidade'];?>" min="1">
+                                  <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
+                                </div>
+                                </td>
+                                <!-- Subtotal calculado pelo preço unitário multiplicado pela quantidade -->
+                                <td class="subtotal"></td>
+                                <!-- Botão para excluir o produto da tabela de itens -->
+                                <td><button class="delete"><i class='bx bx-x'></i></button></td>
+                                </tr>
                             <?php
                                 }
                               } catch (PDOException $e) {
