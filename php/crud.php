@@ -38,6 +38,17 @@ delete - exclui um registro pelo id
 			return $stmt->fetch(PDO::FETCH_BOTH);
 			
 		}
+
+		//consulta usuario pelo email
+		public function consulta_usuario($email){
+			//consuta um usuario no bd pelo email
+			$sql = "SELECT * FROM usuario WHERE email = :email";
+			$stmt = Database::prepare($sql);
+			$stmt->bindParam(':email', $email);
+			$stmt->execute();
+			$resultado = $stmt->fetch(PDO::FETCH_BOTH);
+			return $resultado;
+		}
 		
 		/***************
 		Objetivo: Método que consulta todos clientes

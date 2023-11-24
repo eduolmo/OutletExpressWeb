@@ -19,8 +19,7 @@
         session_start();
         
 
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
-
+        if($_SERVER["REQUEST_METHOD"] == "POST"){          
           //validacao e sanitizacao dos campos do form
           $email = trim(filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL));
           $nome = trim(filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS));
@@ -44,65 +43,47 @@
               echo '<script>alert("ERRO: Usuario já cadastrado!")</script>';
             }
             else{
-              //CRIAR CLIENTE      
-
-              //$_SESSION['email'] = $email;
-              //echo 'session ';
-              
               //CRIPTOGRAFIA              
               $novasenha = base64_encode($senha);
-              //echo "Base64: ". $novasenha . "<br>";
-              //echo "Senha Senha é:". base64_decode($novasenha);
-            
+
               include 'cliente.php';
-              //echo 'incluiu ';
 
               //instancia o cliente
               $cliente = new Cliente();	
-              //echo 'criou_cliente ';
               
               //informa os dados do cliente
               $cliente->setNome($nome);
               $cliente->setEmail($email);
               $cliente->setSenha($novasenha);
 
-              //echo 'incluiu_dados ';
-              
               //se inseriu o cliente corretamente
               if($cliente->insert()){
                 $_SESSION['mensagem'] = "Cadastro com sucesso!";
-                //echo "Cadastrou!";
-
-                //consuta um usuario no bd pelo email
-                $sql = "SELECT * FROM usuario WHERE email = :email";
-                $stmt = Database::prepare($sql);
-                $stmt->bindParam(':email', $email);
-                $stmt->execute();
-                $resultado = $stmt->fetch(PDO::FETCH_BOTH);
-                //print_r($resultado);
-
+                
+                $resultado_usuario = $cliente->consulta_usuario($email);
+                
                 //obtendo codigo do usuario
-                $codigo_usuario = $resultado['codigo'];
+                $codigo_usuario = $resultado_usuario['codigo'];
                 //echo $codigo_usuario;
                 $sql="INSERT INTO cliente (fk_usuario_codigo) VALUES (:fk_usuario_codigo)";
                 $stmt2 = Database::prepare($sql);
                 $stmt2->bindParam(':fk_usuario_codigo', $codigo_usuario);
                 $stmt2->execute();
-                //echo 'executa';  
+                 
                 //guarda dados do cliente na sessao
-                $_SESSION['resultado'] = $resultado;
-                //echo'sessao';
-                
+                $_SESSION['resultado'] = $resultado_usuario;
+
+                                             
               }
               else{
                 $_SESSION['mensagem'] = "Erro ao cadastrar!";	
                 echo "Não cadastrou!";	
               }
-              /*        
+                   
               $host  = $_SERVER['HTTP_HOST'];
               $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
               $extra = 'index.php';
-              header("Location: http://$host$uri/$extra");*/
+              header("Location: http://$host$uri/$extra");
             }            
             
           }
