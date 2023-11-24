@@ -21,7 +21,8 @@ class item_carrinho extends CRUD {
 	protected $table ='item_carrinho';
 	
 	private $quantidade;
-	 
+	private $fk_CLIENTE_FK_USUARIO_codigo;
+	private $fk_PRODUTO_codigo;
 	
 	/********Início dos métodos sets e gets*********/
 	public function setid($quantidade){
@@ -29,6 +30,18 @@ class item_carrinho extends CRUD {
 	}
 	public function getid(){
 		return $this->quantidade;
+	}
+	public function setid($fk_CLIENTE_FK_USUARIO_codigo){
+		$this->fk_CLIENTE_FK_USUARIO_codigo = $fk_CLIENTE_FK_USUARIO_codigo;
+	}
+	public function getid(){
+		return $this->fk_CLIENTE_FK_USUARIO_codigo;
+	}
+	public function setid($fk_PRODUTO_codigo){
+		$this->fk_PRODUTO_codigo = $fk_PRODUTO_codigo;
+	}
+	public function getid(){
+		return $this->fk_PRODUTO_codigo;
 	}
 	/********Fim dos métodos sets e gets*********/
 	
@@ -38,9 +51,11 @@ class item_carrinho extends CRUD {
 	Parâmetro de saída: Retorna true em caso de sucesso ou false em caso de falha.
 	***************/
 	public function insert(){
-		$sql="INSERT INTO $this->table (quantidade) VALUES (:quantidade)";
+		$sql="INSERT INTO $this->table (quantidade,fk_CLIENTE_FK_USUARIO_codigo,fk_PRODUTO_codigo) VALUES (:quantidade,:fk_CLIENTE_FK_USUARIO_codigo,:fk_PRODUTO_codigo)";
 		$stmt = Database::prepare($sql);
-		$stmt->bindParam(':quantidade', $this->quantidade);		
+		$stmt->bindParam(':quantidade', $this->quantidade, PDO::PARAM_INT);	
+		$stmt->bindParam(':fk_CLIENTE_FK_USUARIO_codigo', $this->fk_CLIENTE_FK_USUARIO_codigo, PDO::PARAM_INT);	
+		$stmt->bindParam(':fk_PRODUTO_codigo', $this->fk_PRODUTO_codigo, PDO::PARAM_INT);		
 		return $stmt->execute();
 		
 	}

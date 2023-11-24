@@ -18,7 +18,10 @@
     <!-- cabecalho -->
     <?php
         include 'cabecalho2.php';
-        //$codigo_cliente = $_SESSION['codigo_cliente'];
+        error_reporting(0);
+
+        $_SESSION['resultado'] = $resultado;
+        $codigo_cliente = $resultado['codigo'];
     ?>	
 
     <!-- Container Principal -->      
@@ -53,36 +56,37 @@
                                                 JOIN produto p ON ic.fk_PRODUTO_codigo = p.codigo
                                                 JOIN cliente c ON ic.fk_CLIENTE_FK_USUARIO_codigo = c.fk_USUARIO_codigo
                                                 JOIN categoria_produto cp ON p.FK_CATEGORIA_PRODUTO_codigo = cp.codigo
-                                                WHERE c.fk_USUARIO_codigo = 22
+                                                WHERE c.fk_USUARIO_codigo = :codigo_cliente
                                                 ");
-                                                $listagem->execute();
-                                                while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
+                                            $listagem->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
+                                            $listagem->execute();
+                                            while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
-                                                    <tr class="produto-item">
-                                                        <td>
-                                                            <div class="produto patins">
-                                                                <img class="produto-img" src="<?php echo $row['imagem']; ?>">
-                                                                <div class="inf">
-                                                                    <div class="nome text-sm"><?php echo $row['nome'];?></div>
-                                                                    <div class="categoria"><?php echo $row['descricao'];?></div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="valor-unitario">R$ <?php echo $row['valor_atual']; ?></td>
-                                                        <!-- Restante do código para as outras colunas -->
-                                                        <td class="qtd-td">
-                                                            <!-- Botão para aumentar e diminuir a quantidade de produtos -->
-                                                            <div class="qtd">
-                                                                <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                                                <input class="input-qtd" type="number" value="<?php echo $row['quantidade'];?>" min="1">
-                                                                <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
-                                                            </div>
-                                                        </td>
-                                                        <!-- Subtotal calculado pelo preço unitário multiplicado pela quantidade -->
-                                                        <td class="subtotal"></td>
-                                                        <!-- Botão para excluir o produto da tabela de itens -->
-                                                        <td><button class="delete"><i class='bx bx-x'></i></button></td>
-                                                    </tr>
+                                            <tr class="produto-item">
+                                                <td>
+                                                    <div class="produto patins">
+                                                        <img class="produto-img" src="<?php echo $row['imagem']; ?>">
+                                                        <div class="inf">
+                                                            <div class="nome text-sm"><?php echo $row['nome'];?></div>
+                                                            <div class="categoria"><?php echo $row['descricao'];?></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="valor-unitario">R$ <?php echo $row['valor_atual']; ?></td>
+                                                <!-- Restante do código para as outras colunas -->
+                                                <td class="qtd-td">
+                                                    <!-- Botão para aumentar e diminuir a quantidade de produtos -->
+                                                    <div class="qtd">
+                                                        <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
+                                                        <input class="input-qtd" type="number" value="<?php echo $row['quantidade'];?>" min="1">
+                                                        <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
+                                                    </div>
+                                                </td>
+                                                <!-- Subtotal calculado pelo preço unitário multiplicado pela quantidade -->
+                                                <td class="subtotal"></td>
+                                                <!-- Botão para excluir o produto da tabela de itens -->
+                                                <td><button class="delete"><i class='bx bx-x'></i></button></td>
+                                            </tr>
                                         <?php
                                                 }
                                             } catch (PDOException $e) {
