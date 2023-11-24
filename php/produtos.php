@@ -14,26 +14,6 @@
     <!-- começo do cabecalho -->
     <?php
         include "cabecalho2.php";
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria_produto'])){
-            $categoria = $_POST['categoria_produto'];
-            echo $categoria;
-
-            include_once 'produto.php';
-            $produtos_categorizados = new Produto();
-            $bla = $produtos_categorizados->categorizeProducts($categoria);
-            echo var_dump($bla);
-            echo 'categorizei hehe!';
-            /*
-            $sql = "SELECT * FROM produto";
-            $stmt = Database::prepare($sql);
-            $stmt->execute();
-            $resultado = $stmt->fetch(PDO::FETCH_BOTH);
-            echo var_dump($resultado);
-            */
-        }
-
-
     ?>                
     <!--fim do cabecalho-->
 
@@ -141,6 +121,31 @@
 
 
         <div class="row produtos col-10">
+            <?php
+                if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria_produto'])){
+                    $categoria = $_POST['categoria_produto'];
+        
+                    include_once 'produto.php';
+
+                    $produtos_categorizados = new Produto();
+                    $resultado = $produtos_categorizados->categorizeProducts($categoria);
+                    
+                    for(int i = 0; i < sizeof($resultado); i++){
+                        echo '
+                        <a href="detalhe_produto.php">
+                            <div class="produto_dados col-5 col-md-3 col-xl-2 ps-md-3 mt-3">
+                                <img class="img-fluid" src="<?php $resultado[i]['imagem'] ?>" alt="">
+                                <p class="produto_nome"><?php $resultado[i]['nome'] ?></p>
+                                <p class="produto_valor">R$ <?php $resultado[i]['valor_atual'] ?></p>
+                                <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
+                            </div>
+                        </a>
+                        ';
+                    }
+                    
+                }
+            ?>
+
             <div class="produto_dados col-5 col-md-3 col-xl-2 ps-md-3 mt-3">
                 <a href="carrinhoBebe.php"><img class="img-fluid" src="../imagens/carrinho.jpg" alt=""></a>
                 <a href="carrinhoBebe.php"><p class="produto_nome">Carrinho de Bebê Premium Preto Importado</p></a>
