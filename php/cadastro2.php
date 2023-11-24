@@ -59,42 +59,40 @@
 
               //instancia o cliente
               $cliente = new Cliente();	
-              echo 'criou_cliente ';
+              //echo 'criou_cliente ';
               
               //informa os dados do cliente
               $cliente->setNome($nome);
               $cliente->setEmail($email);
               $cliente->setSenha($novasenha);
 
-              echo 'incluiu_dados ';
+              //echo 'incluiu_dados ';
               
-              //insere o cliente
+              //se inseriu o cliente corretamente
               if($cliente->insert()){
                 $_SESSION['mensagem'] = "Cadastro com sucesso!";
-                echo "Cadastrou!";
-                /*
-                //pegando o usuario de acordo com o email
+                //echo "Cadastrou!";
+
+                //consuta um usuario no bd pelo email
                 $sql = "SELECT * FROM usuario WHERE email = :email";
                 $stmt = Database::prepare($sql);
                 $stmt->bindParam(':email', $email);
                 $stmt->execute();
                 $resultado = $stmt->fetch(PDO::FETCH_BOTH);
+                //print_r($resultado);
 
-                echo 'USUARIO DO BD: ';
-                echo var_dump($resultado);
-                //guardando o cliente na sessao
-                //$cliente = new Cliente();
-                //$cliente->setNome()
-                $_SESSION['cliente'] = ;
-                
-
-                echo 'CODIGO CLIENTE: '.$_SESSION['cliente']['codigo'];
-                //inserindo na tabela cliente o codigo do usuario
-                $sql2 = "INSERT INTO cliente (fk_usuario_codigo) VALUES(:codigo)";
-                $stmt2 = Database::prepare($sql2);
-                $stmt2->bindParam(':codigo', $_SESSION['cliente']['codigo'], PDO::PARAM_INT);
+                //obtendo codigo do usuario
+                $codigo_usuario = $resultado['codigo'];
+                //echo $codigo_usuario;
+                $sql="INSERT INTO cliente (fk_usuario_codigo) VALUES (:fk_usuario_codigo)";
+                $stmt2 = Database::prepare($sql);
+                $stmt2->bindParam(':fk_usuario_codigo', $codigo_usuario);
                 $stmt2->execute();
-                */
+                //echo 'executa';  
+                //guarda dados do cliente na sessao
+                $_SESSION['resultado'] = $resultado;
+                //echo'sessao';
+                
               }
               else{
                 $_SESSION['mensagem'] = "Erro ao cadastrar!";	

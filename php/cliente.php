@@ -17,8 +17,14 @@ class Cliente extends Usuario{
 		return $this->cpf;
 	}
 
+	/***************
+	Objetivo: Método que insere um cliente
+	Parâmetro de saída: Retorna true em caso de sucesso ou false em caso de falha.
+	***************/
 	
 }
+
+
 
 //echo'class_cliente ';
 
