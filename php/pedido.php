@@ -55,27 +55,48 @@
                     </div>
                     <!--Revisão dos produtos-->
                     <div class="d-flex flex-md-row flex-column">
-                        
+                    
+                    <div>
+                        <p class="titulo m-3">Produtos</p>
+                        <?php
+                            try {
+                                $listagem = Database::prepare(" 
+                                    SELECT ic.*, p.*, cp.*
+                                    FROM item_carrinho ic
+                                    JOIN produto p ON ic.fk_PRODUTO_codigo = p.codigo
+                                    JOIN cliente c ON ic.fk_CLIENTE_FK_USUARIO_codigo = c.fk_USUARIO_codigo
+                                    JOIN categoria_produto cp ON p.FK_CATEGORIA_PRODUTO_codigo = cp.codigo
+                                    WHERE c.fk_USUARIO_codigo = 22
+                                    ");
+                                $listagem->execute();
+                                while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
 
-                        <div class="produtos col-md-6">
-                            <p class="titulo m-3">Produtos</p>
-                            <div class="revisao d-flex">
-                                <img class="img-fluid" src="../imagens/patins.png" alt="">
-                                <div class="informacoes">
-                                    <h5 class="p-3">Patins Inline Roller - Calçados</h5>
-                                    <p class="p-3">R$ 99,00</p>
-                                </div>
+                        <tr class=" col-md-6">
+                            <div class= "produtos">
+                                <td>
+                                    <div class="revisao d-flex">
+                                        <img class="imagem img-fluid" src="<?php echo $row['imagem']; ?>" alt="">
+                                        <div class="informacoes">
+                                            <div class="p-3"><?php echo $row['nome']; ?></div>
+                                            <div class="p-3"><?php echo $row['descricao']; ?></div>
+                                            <div class="p-3">Quantidade: <?php echo $row['quantidade']; ?></div>
+                                        </div>
+                                    </div>
+                                </td>
                             </div>
-                            <div class="revisao d-flex">
-                                <img class="img-fluid" src="../imagens/patins.png" alt="">
-                                <div class="informacoes">
-                                    <h5 class="p-3">Patins Inline Roller - Calçados</h5>
-                                    <p class="p-3">R$ 99,00</p>
-                                </div>
-                            </div>
-                        </div> 
+                        </tr>
 
-                        <aside class="col-md-6 col-sm-12 m-3">
+                        <?php
+                                }
+                            } catch (PDOException $e) {
+                                echo "Erro na execução da consulta: " . $e->getMessage();
+                            }
+                        ?>
+                    </div>
+
+                    <div class="col-md-6 col-sm-3 mt-5">
+                        <aside>
                             <!--Div com as informacoes da compra-->
                             <div class="inf">
                             <div class="inf-title justify-content-around">Informações da Compra</div>
@@ -97,7 +118,7 @@
                                 <button id="fechar_modal" onclick="window.location.href='index.php'">Voltar a página inicial</button>
                             </div>
                         </div>
-
+                    </div>
                             
         </div>
    
