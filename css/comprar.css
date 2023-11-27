@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+/*definindo estilos iniciais para todo o conteudo da página*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+    max-width: 100%;
+    
+}
+
+/*posicionamento dos da secao*/
+.primeiraSecao{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.produto_informacoes {
+    padding: 10px;
+}
+
+/*estilo das informacoes do produto*/
+.produto_nome, .produto_descricao, .produto_valor{
+    color: black;
+}
+
+/*estilo das informacoes da imagem*/
+.produto_imagem{
+    height: 100%;
+    width: 100%;
+}
+
+.produto_nome{
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+.produto_cor{
+    padding-bottom: 20px;
+    font-size: 20px;
+}
+
+.produto_descricao{
+    color: rgb(154, 155, 156);
+    text-decoration: line-through;
+}
+
+.produto_valor{
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+.linhas {
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.produto_botoes{
+    padding-top: 30px;
+}
+
+.comprarAgora, .adicionarCarrinho{
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 300px;
+    border: 0;
+    background-color: #390099;
+    color: #ffff;
+}
+
+/*estilo das informacoes do frete*/
+.calcularFrete{
+    padding-top: 50px;
+}
+
+.frete{
+    padding: 5px;
+    border: solid 1px;
+    border-radius: 20px;
+    border-color: rgb(154, 155, 156);
+}
+
+.botaoFrete{
+    margin-top: 5px;
+    padding: 3px;
+    width: 100px;
+    background-color: rgb(154, 155, 156);
+    color: #ffff;
+    border: 0;
+    border-radius: 20px;
+}
+
+/*estilo das informacoes da linha*/
+.linha_central {
+    border-bottom: 1px solid #aaaaaa;
+
+}
+
+/*estilo das informacoes do comentario*/
+.comentar {
+    border: solid 1px;
+    border-radius: 10px;
+    border-color: rgb(154, 155, 156);
+    width: 400px;
+}
+
+
+.titulo {
+    color: #390099;
+}
+
+.nome {
+    color: #696969;
+}
+
+.perfil {
+    width: 80px;
+    height: 20px;
+}
+
+.botao {
+
+    margin-top: 5px;
+    padding: 3px;
+    width: 100px;
+    background-color: #FF5A5F;;
+    color: #ffff;
+    border: 0;
+    border-radius: 10px;
+}
+
+/* Estilo das informações da avaliação */
+.star-icon {
+    list-style-type: none;
+    border: 1px solid #fff;
+    cursor: pointer;
+    color: #FFE500;
+    font-size: 30px;
+}
+
+.star-icon::before {
+    content: "\2605";
+}
+
+.star-icon.ativo ~ .star-icon::before {
+    content: "\2606";
+}
+
+.avaliacao2:hover .star-icon::before {
+    content: "\2605";
+}
+
+.star-icon:hover ~ .star-icon::before {
+    content: "\2606";
+}
+
+
+/* estrelas paradas */
+.rating {
+    display: flex;
+    list-style-type: none;
+    padding: 0px;
+}
+
+.valor_comentario {
+    border: 1px solid #fff;
+    color: #FFE500;
+    font-size: px;
+    list-style-type: none;
+}
+
+.valor_comentario::before {
+    content: "\2605";
+}
+
+.valor {
+    border: 1px solid #fff;
+    color: #FFE500;
+    font-size: 30px;
+    list-style-type: none;
+}
+
+.valor::before {
+    content: "\2605";
+}
+
