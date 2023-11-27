@@ -17,6 +17,14 @@
     <!-- cabecalho -->
     <?php
         include 'cabecalho2.php';
+        error_reporting(0);
+
+        
+        $cliente = $_SESSION['cliente'];
+        $name = $cliente->nome;
+        
+        $_SESSION['resultado'] = $resultado;
+        $codigo_cliente = $resultado['codigo'];
     ?>	
     <section class="finaliza_compra">
         <div class="container">
@@ -68,6 +76,7 @@
                                     JOIN categoria_produto cp ON p.FK_CATEGORIA_PRODUTO_codigo = cp.codigo
                                     WHERE c.fk_USUARIO_codigo = 22
                                     ");
+                                //$listagem->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
                                 $listagem->execute();
                                 while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
                         ?>
@@ -78,7 +87,7 @@
                                     <div class="revisao d-flex">
                                         <img class="imagem img-fluid" src="<?php echo $row['imagem']; ?>" alt="">
                                         <div class="informacoes">
-                                            <div class="p-3"><?php echo $row['nome']; ?></div>
+                                            <div class="p-3"><?php echo $row['nome'];?></div>
                                             <div class="p-3"><?php echo $row['descricao']; ?></div>
                                             <div class="p-3">Quantidade: <?php echo $row['quantidade']; ?></div>
                                         </div>

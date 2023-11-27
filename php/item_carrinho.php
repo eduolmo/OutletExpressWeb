@@ -25,22 +25,22 @@ class item_carrinho extends CRUD {
 	private $fk_PRODUTO_codigo;
 	
 	/********Início dos métodos sets e gets*********/
-	public function setid($quantidade){
+	public function setQuantidade($quantidade){
 		$this->quantidade = $quantidade;
 	}
-	public function getid(){
+	public function getQuantidade(){
 		return $this->quantidade;
 	}
-	public function setid($fk_CLIENTE_FK_USUARIO_codigo){
+	public function setFk_CLIENTE_FK_USUARIO_codigo($fk_CLIENTE_FK_USUARIO_codigo){
 		$this->fk_CLIENTE_FK_USUARIO_codigo = $fk_CLIENTE_FK_USUARIO_codigo;
 	}
-	public function getid(){
+	public function getFk_CLIENTE_FK_USUARIO_codigo(){
 		return $this->fk_CLIENTE_FK_USUARIO_codigo;
 	}
-	public function setid($fk_PRODUTO_codigo){
+	public function setFk_PRODUTO_codigo($fk_PRODUTO_codigo){
 		$this->fk_PRODUTO_codigo = $fk_PRODUTO_codigo;
 	}
-	public function getid(){
+	public function getFk_PRODUTO_codigo(){
 		return $this->fk_PRODUTO_codigo;
 	}
 	/********Fim dos métodos sets e gets*********/
@@ -59,7 +59,17 @@ class item_carrinho extends CRUD {
 		return $stmt->execute();
 		
 	}
+
+	public function update($codigo){
+		$sql="UPDATE $this->table SET quantidade = :quantidade, WHERE codigo = :codigo ";
+		$stmt = Database::prepare($sql);
+		$stmt->bindParam(':quantidade', $this->quantidade, PDO::PARAM_INT);
+		return $stmt->execute();
+	}
 	
+	public function verificarProdutoNoCarrinho($codigo){
+		
+	}
 }
 
 ?>
