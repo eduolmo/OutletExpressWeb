@@ -129,18 +129,39 @@
 
                     $produtos_categorizados = new Produto();
                     $resultado = $produtos_categorizados->categorizeProducts($categoria);
+
+                    //echo var_dump($resultado);
+                    //echo 'pular linha kkk ';
+                    //echo $resultado[1]['nome'];
                     
-                    for(int i = 0; i < sizeof($resultado); i++){
-                        echo '
-                        <a href="detalhe_produto.php">
+                    
+                    for($i = 0; $i < sizeof($resultado); $i++){
+                        //echo 'i: '.$i;
+                        //echo $resultado[$i]['nome'];
+                        ?> 
+                        
+                        <a href="detalhe_produto.php" class="row">
                             <div class="produto_dados col-5 col-md-3 col-xl-2 ps-md-3 mt-3">
-                                <img class="img-fluid" src="<?php $resultado[i]['imagem'] ?>" alt="">
-                                <p class="produto_nome"><?php $resultado[i]['nome'] ?></p>
-                                <p class="produto_valor">R$ <?php $resultado[i]['valor_atual'] ?></p>
+                                <img class="img-fluid" src="<?php echo $resultado[$i]['imagem'] ?>" alt="">
+                                <p class="produto_nome"><?php echo $resultado[$i]['nome'] ?></p>
+                                <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
                                 <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
                             </div>
                         </a>
-                        ';
+
+                        
+                        
+                        
+                        <?php
+                        /*
+                        <div class="produto_dados col-5 col-md-3 col-xl-2 ps-md-3 mt-3">
+                            <a href="carrinhoBebe.php"><img class="img-fluid" src=<?php echo $resultado[$i]['imagem'] ?> alt=""></a>
+                            <a href="carrinhoBebe.php"><p class="produto_nome"><?php echo $resultado[$i]['nome'] ?></p></a>
+                            <a href="carrinhoBebe.php"><p class="produto_descricao">R$ 2.199,99</p></a>
+                            <a href="carrinhoBebe.php"><p class="produto_valor">R$ 1.699,99</p></a>
+                            <a href="carrinhoBebe.php"><img class="estrelas" src="../imagens/5estrelas.jpg" alt=""></a>
+                        </div>
+                        */
                     }
                     
                 }
