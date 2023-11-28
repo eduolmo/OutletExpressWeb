@@ -13,7 +13,19 @@
 <body>
     <!-- começo do cabecalho -->
     <?php
-        include "cabecalho2.php";        
+        include "cabecalho2.php";  
+        
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['detalhe_produto'])){
+            $_SESSION['id_produto'] = $_POST['id_produto'];
+            
+            echo 'id_produto: ' . $_SESSION['id_produto'];
+            
+            $host  = $_SERVER['HTTP_HOST'];
+            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'detalhe_produto.php';
+            header("Location: http://$host$uri/$extra");
+            
+        }
     ?>                
     <!--fim do cabecalho-->
 
@@ -132,40 +144,42 @@
                     
                     for($i = 0; $i < sizeof($resultado); $i++){
                         ?> 
-                        <div class="produto_dados col-5 col-md-3 col-xl-2 ps-md-3 mt-3">
-                            
-                            <a href="carrinhoBebe.php">
-                                <div display="none"><?php echo $resultado[$i]['codigo'] ?></div>
-                                <!--
-                                <div class="div_imgproduto p-1">
-                                    <img class="img-fluid produto_imagem col-12" src=<?php //echo $resultado[$i]['imagem'] ?> alt="">
-                                </div>
-                                -->
-                                <div class="div_imgproduto" style="background-image: url('<?php echo $resultado[$i]['imagem']; ?>');"></div>
-                                <p class="produto_desconto">
-                                    <?php 
-                                    $porcentagem = $resultado[$i]['desconto'] + $resultado[$i]['valor_atual'];
-                                    $porcentagem = $resultado[$i]['desconto'] / $porcentagem * 100;
-                                    echo round($porcentagem,0) . '%';
-                                    ?>
-                                </p>
-                                <p class="produto_nome">
-                                    <?php  
-                                    //echo strlen($resultado[$i]['nome']);
-                                    if(strlen($resultado[$i]['nome']) > 30){
-                                        $novo_nome = substr($resultado[$i]['nome'],0,27);
-                                        echo $novo_nome.'...';
-                                    }
-                                    else{
-                                        echo $resultado[$i]['nome'];
-                                    }
-                                    
-                                    ?>
-                                </p>
-                                <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
-                                <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
-                            </a>
-                        </div>                        
+
+                        <div class="produto_dados col-5 col-md-3 col-xl-2">
+
+                            <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                <button type="submit" class="btn_produto" name="detalhe_produto">
+
+                                    <input type="hidden" name="id_produto" value="<?php echo $resultado[$i]['codigo']; ?>">
+                                    <div class="div_imgproduto" style="background-image: url('<?php echo $resultado[$i]['imagem']; ?>');"></div>
+                                    <p class="produto_desconto">
+                                        <?php 
+                                        $porcentagem = $resultado[$i]['desconto'] + $resultado[$i]['valor_atual'];
+                                        $porcentagem = $resultado[$i]['desconto'] / $porcentagem * 100;
+                                        echo round($porcentagem,0) . '%';
+                                        ?>
+                                    </p>
+                                    <p class="produto_nome">
+                                        <?php  
+                                        //echo strlen($resultado[$i]['nome']);
+                                        if(strlen($resultado[$i]['nome']) > 30){
+                                            $novo_nome = substr($resultado[$i]['nome'],0,27);
+                                            echo $novo_nome.'...';
+                                        }
+                                        else{
+                                            echo $resultado[$i]['nome'];
+                                        }
+                                        
+                                        ?>
+                                    </p>
+                                    <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
+                                    <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
+
+                                </button>
+                            </form>   
+                                                     
+                        </div>
+                                                
                         <?php                        
                     }                    
                 }
