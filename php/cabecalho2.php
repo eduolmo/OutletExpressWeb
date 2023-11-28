@@ -3,6 +3,11 @@
 session_start();
 include_once 'banco_conexao.php';
 
+/*
+quando uma categoria do cabecalho for selecionada
+ira entrar no IF, e salvar a categoria selecionada na SESSION
+e depois redirecionar o cliente para a tela de produtos
+*/
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
     $_SESSION['categoria_produto'] = $_POST['categoria_produto'];
 
@@ -36,7 +41,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
                 <div class="carrinho">
                     <a href="
                         <?php 
-                            if(isset($_SESSION['email'])){
+                            /*
+                            se o cliente estiver salvo na SESSION, 
+                            o link sera definido para a carrinho,
+                            caso contrario para a tela de login
+                            */
+                            if(isset($_SESSION['cliente'])){
                                 echo 'carrinho.php';
                             }
                             else{
@@ -51,7 +61,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
                 <div class="entrar">
                     <a href="
                     <?php 
-                        if(isset($_SESSION['email'])){
+                        /*
+                        se o cliente estiver salvo na SESSION, 
+                        o link sera definido para a perfil do cliente,
+                        caso contrario para a tela de login
+                        */
+                        if(isset($_SESSION['cliente'])){
                             echo 'perfil_cliente.php';
                         }
                         else{
@@ -61,8 +76,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
                     ">
                     <img class="entrar_img" src="../icones/pessoas.png" alt="">
                     <?php                            
-                        if(isset($_SESSION['email'])){ 
-                            echo "<p class='botoes_nome'>".$_SESSION['email']."</p>";
+                        if(isset($_SESSION['cliente'])){ 
+                            echo "<p class='botoes_nome'>".$_SESSION['cliente']['nome']."</p>";
                         }
                         else{
                             echo "<p class='botoes_nome'>ENTRAR</p>";
@@ -101,14 +116,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
                             <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ROUPA">
                         </form>
                     </li>
-                    <!--
-                    <li class="nav-item pe-lg-5 ps-xl-1 pe-xxl-5">
-                        <form action="<?php // echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                            <input type="hidden" name="categoria_produto" value="Roupa" display="hidden">
-                            <a href="produtos.php"><input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ROUPA"></a>
-                        </form>
-                    </li>
-                    -->
                     <li class="nav-item pe-lg-5 ps-xl-5 pe-xxl-5">
                         <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Calçado" display="hidden">

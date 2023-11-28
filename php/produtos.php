@@ -135,7 +135,7 @@
                         <div class="produto_dados col-5 col-md-3 col-xl-2 ps-md-3 mt-3">
                             
                             <a href="carrinhoBebe.php">
-                                <div display="hidden"><?php echo $resultado[$i]['codigo'] ?></div>
+                                <div display="none"><?php echo $resultado[$i]['codigo'] ?></div>
                                 <!--
                                 <div class="div_imgproduto p-1">
                                     <img class="img-fluid produto_imagem col-12" src=<?php //echo $resultado[$i]['imagem'] ?> alt="">

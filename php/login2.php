@@ -15,7 +15,7 @@
     
     <!-- cabecalho -->
     <?php
-      //session_start();
+      session_start();
 
       if($_SERVER["REQUEST_METHOD"] == "POST"){ 
         
@@ -46,7 +46,9 @@
             //echo "Senha válida";
 
             //guarda dados do cliente na sessao
-            $_SESSION['resultado'] = $lista_cliente;
+            $_SESSION['cliente'] = $lista_cliente;
+
+            //echo var_dump($_SESSION['resultado']);
             
             $host  = $_SERVER['HTTP_HOST'];
             $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');

@@ -25,18 +25,7 @@
 			error_reporting(0);
 			session_start();
 
-			if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])){
-				//session_regenerate_id(true);
-				
-				$_SESSION['email'] = $_POST['email'];
-
-				/*quando comecarmos a mexer com banco de dados, 
-				pegaremos o resto das informacoes do usuario 
-				com base no email de login*/
-			}			
-			
 			include 'cabecalho2.php';
-
 		?>	
 		
 		<!-- A classe carousel slide - Container todos os elementos referentes ao carousel-->
