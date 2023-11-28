@@ -89,10 +89,10 @@
 
 .produto_dados {
     background-color: white;
-    border: 1px solid rgb(170, 170, 170);
+    /*border: 1px solid rgb(170, 170, 170);*/
     /*box-shadow: 0px 0px 10px gray;*/
-    border-radius: 10px;
-    padding: 10px;
+    /*border-radius: 10px;*/
+    /*padding: 10px;*/
     height: fit-content;
 }
 /*
@@ -119,5 +119,12 @@
     text-decoration: none;
 }
 
+.btn_produto{
+    border: 0px;
+    border-radius: 10px;
+    background-color: rgb(240, 240, 240);
+    padding: 15px;
+    width: 100%;
+}
 
 /*fim de produtos*/
