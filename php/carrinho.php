@@ -20,8 +20,7 @@
         include 'cabecalho2.php';
         error_reporting(0);
 
-        $_SESSION['resultado'] = $resultado;
-        $codigo_cliente = $resultado['codigo'];
+        $codigo_cliente = $_SESSION['cliente']['codigo'];
     ?>	
 
     <!-- Container Principal -->      
@@ -43,7 +42,7 @@
                                             <th class="col-2 col-sm-2">Preço</th>
                                             <th class="col-2 col-sm-2">Quantidade</th>
                                             <th class="col-2 col-sm-2">Total</th>
-                                            <th class="col-2 col-sm-2"></th>
+                                            <th class="col-2 col-sm-2"></div></th>
                                         </tr>
                                     </thead>
                                     <tbody>
