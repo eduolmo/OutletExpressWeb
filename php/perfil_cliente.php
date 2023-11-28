@@ -24,18 +24,16 @@
         $confirmar_senha = trim(filter_input(INPUT_POST,'confirmar_senha',FILTER_SANITIZE_SPECIAL_CHARS));
 
         require_once 'cliente.php';
-        $cliente = new Cliente();
+        //$cliente = new Cliente();
 
-        $email = 'br@gmail.com';
-
+        $email = $_SESSION['cliente']['email'];
+        /*
         //consuta um usuario no bd pelo email
         $sql = "SELECT * FROM usuario WHERE email = :email";
         $stmt = Database::prepare($sql);
         $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $lista_cliente = $stmt->fetch(PDO::FETCH_BOTH);
-        //print_r($lista_cliente);
-        $senha_db = $lista_cliente['senha'];
+        $stmt->execute();*/
+        $senha_db = $_SESSION['cliente']['senha'];
         //echo $senha_db;
 
         $senha_decode = base64_decode($senha_db);
@@ -43,14 +41,21 @@
         
         if ($senha_decode === $senha_atual){
           //echo "Senha válida";
-          $codigo_cliente = $lista_cliente['codigo'];
-          $nova_senha_db = base64_encode($nova_senha);
+          $codigo_cliente = $_SESSION['cliente']['codigo'];
 
-          $sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
-          $stmt = Database::prepare($sql);
-          $stmt->bindParam(':nova_senha', $nova_senha_db);
-          $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
-          $stmt->execute();	
+          if($nova_senha === $corfirmar_senha){
+
+            $nova_senha_db = base64_encode($nova_senha);          
+
+            $sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
+            $stmt = Database::prepare($sql);
+            $stmt->bindParam(':nova_senha', $nova_senha_db);
+            $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+            $stmt->execute();	
+          }
+          else{
+            echo '<script>alert("Senha não confirmada")</script>';
+          }
 
           //$nova_senha_decode = base64_decode($nova_senha_db);
           //echo $nova_senha_decode;
@@ -68,6 +73,14 @@
 
       }
 
+      if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['alterar_nome'])){  
+
+        $novo_nome = trim(filter_input(INPUT_POST,'novo_nome',FILTER_SANITIZE_SPECIAL_CHARS));
+        $senha_atual = trim(filter_input(INPUT_POST,'nova_senha',FILTER_SANITIZE_SPECIAL_CHARS));
+
+
+      }
+
       include 'cabecalho2.php';
    ?>	
   <div class="container mt-5">
@@ -82,8 +95,8 @@
             <div class="d-flex">
               <p class="text-md subtitulo"><strong>Nome:</strong></p>
               <?php
-                //require_once 'cliente.php';
-                $nome_cliente = 'Julia';
+                //require_once 'cliente.php';                
+                $nome_cliente = $_SESSION['cliente']['nome'];
 
                 echo "<p class='nome'>".$nome_cliente."</p>";
               ?>
@@ -92,7 +105,7 @@
             <div class="d-flex">
               <p class="text-md subtitulo"><strong>Email:</strong></p>
               <?php
-                $email_cliente = 'julia@gmail.com';
+                $email_cliente = $_SESSION['cliente']['email'];
 
                 echo "<p class='nome'>".$email_cliente."</p>";
               ?>
@@ -102,6 +115,7 @@
 
           <div class="flex-column">
             <button class="button mt-3" id="abrir_modal">Alterar senha</button>
+            <button class="button mt-3" id="abrir_modal_nome">Alterar nome</button>
             <button class="button mt-3">Sair da conta</button>
           </div>          
         </div>
@@ -139,6 +153,7 @@
         </div>
           <!--Botao para encerrar a compra-->
           <div id="fade" class="hide"></div>
+          
 
           <!--formulario de alterar senha-->
           <form id="form_alterar" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
@@ -167,6 +182,32 @@
               </div> 
             </div>            
           </form>
+        
+          
+          <!--formulario de alterar nome-->
+          <form id="form_alterar" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div id="modal2" class="hide2">
+              <div class="modal-cabecalho">
+                <div class="fechar" onclick="window.location.href='perfil_cliente.php'"></div>
+                  <h2 class="modal-titulo">Alterar nome</h2>
+
+                  <div class="p-2 mb-3">
+                    <input required class="form-control mx-auto txtinput" type="text" name="novo_nome" id="nome" placeholder="Nova nome">
+                  </div>
+
+                  <div class="p-2 mb-3">
+                    <input required class="form-control mx-auto txtinput" type="password" name="senha_atual" id="email" placeholder="Senha atual">
+                  </div>
+                  
+                  <div class="botoes">
+                    <input id="entrar" type="submit" onclick="" name="alterar_nome" class="btn-lg but" value="Alterar">
+                    <button id="fechar_modal" class="mt-3" onclick="window.location.href='perfil_cliente.php'">Fechar</button>
+                  </div>
+
+              </div> 
+            </div>            
+          </form>
+
           
 
       </section>

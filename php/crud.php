@@ -35,7 +35,7 @@ delete - exclui um registro pelo id
 			$stmt = Database::prepare($sql);
 			$stmt->bindParam(':codigo', $codigo, PDO::PARAM_INT);
 			$stmt->execute();
-			return $stmt->fetch(PDO::FETCH_BOTH);
+			//$stmt->fetch(PDO::FETCH_BOTH);
 			
 		}
 
