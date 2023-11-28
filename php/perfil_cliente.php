@@ -26,7 +26,7 @@
         require_once 'cliente.php';
         $cliente = new Cliente();
 
-        $email = 'julia@gmail.com';
+        $email = 'br@gmail.com';
 
         //consuta um usuario no bd pelo email
         $sql = "SELECT * FROM usuario WHERE email = :email";
@@ -40,21 +40,24 @@
 
         $senha_decode = base64_decode($senha_db);
         //echo $senha_decode;
-
+        
         if ($senha_decode === $senha_atual){
           //echo "Senha válida";
           $codigo_cliente = $lista_cliente['codigo'];
-          /*
+          $nova_senha_db = base64_encode($nova_senha);
+
           $sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
           $stmt = Database::prepare($sql);
-          $stmt->bindParam(':nova_senha', $nova_senha);
+          $stmt->bindParam(':nova_senha', $nova_senha_db);
           $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
           $stmt->execute();	
-          echo 'update';*/
 
-          
+          //$nova_senha_decode = base64_decode($nova_senha_db);
+          //echo $nova_senha_decode;
+
+          /*
           $cliente->update($codigo_cliente);
-          echo 'update';
+          echo 'update';*/
           
           
 

@@ -79,7 +79,7 @@ delete - exclui um registro pelo id
 		Objetivo: Altera um cliente pelo id
 		Parâmetro de entrada: $id - id do cliente
 		Parâmetro de saída: Retorna true em caso de sucesso ou false em caso de falha.
-		**************/
+		*************
 		public function update($codigo_cliente){
 			$sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
 			$stmt = Database::prepare($sql);
@@ -87,6 +87,6 @@ delete - exclui um registro pelo id
 			$stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
 			$stmt->execute();			
 		}
-		
+		*/
 	}
 ?>
