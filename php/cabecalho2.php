@@ -3,6 +3,15 @@
 session_start();
 include_once 'banco_conexao.php';
 
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
+    $_SESSION['categoria_produto'] = $_POST['categoria_produto'];
+
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $extra = 'produtos.php';
+    header("Location: http://$host$uri/$extra");
+}
+
 ?>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- começo do cabecalho -->
@@ -80,37 +89,46 @@ include_once 'banco_conexao.php';
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item pe-lg-5 col-xl-2 pe-xxl-5">
-                        <form action="produtos.php" method="POST">
+                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Recomendado" display="hidden">
                             <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="RECOMENDADO">
                         </form>
                     </li>
+                    
                     <li class="nav-item pe-lg-5 ps-xl-1 pe-xxl-5">
-                        <form action="produtos.php" method="POST">
+                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Roupa" display="hidden">
                             <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ROUPA">
                         </form>
                     </li>
+                    <!--
+                    <li class="nav-item pe-lg-5 ps-xl-1 pe-xxl-5">
+                        <form action="<?php // echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                            <input type="hidden" name="categoria_produto" value="Roupa" display="hidden">
+                            <a href="produtos.php"><input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ROUPA"></a>
+                        </form>
+                    </li>
+                    -->
                     <li class="nav-item pe-lg-5 ps-xl-5 pe-xxl-5">
-                        <form action="produtos.php" method="POST">
+                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Calçado" display="hidden">
                             <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="CALÇADO">
                         </form>
                     </li>
                     <li class="nav-item pe-lg-5 ps-xl-5 pe-xxl-5">
-                        <form action="produtos.php" method="POST">
+                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Eletrodoméstico" display="hidden">
                             <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ELETRODOMÉSTICO">
                         </form>
                     </li>
                     <li class="nav-item pe-lg-5  ps-xl-5">
-                        <form action="produtos.php" method="POST">
+                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Eletrônico" display="hidden">
                             <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ELETRÔNICO">
                         </form>
                     </li>
                     <li class="nav-item pe-lg-5 ps-xl-5">
-                        <form action="produtos.php" method="POST">
+                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Móvel" display="hidden">
                             <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="MÓVEL">
                         </form>
