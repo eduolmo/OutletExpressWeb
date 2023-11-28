@@ -2,16 +2,11 @@
 //session_set_cookie_params(['httponly' => true]);
 session_start();
 include_once 'banco_conexao.php';
+
 ?>
-
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 <!-- começo do cabecalho -->
 <header class="cabecalho">
-    <?php
-        //$_SESSION['nome_cliente'] = $lista_cliente['nome'];
-        //echo $_SESSION['nome_cliente'];
-    ?>
     <div class="cabecalho_pesquisa">
         <div class="row">
             <!-- div que contem a logo do site -->
@@ -20,7 +15,7 @@ include_once 'banco_conexao.php';
                     <img src="../imagens/logo1.png" alt="logo do site">
                     <h1 class="logo_titulo">OutLet Express</h1>
                 </a>
-            </div>            
+            </div>
             <!-- div que tem a barra de pesquisa -->
             <div class="col-7 col-md-8 ms-md-5 col-lg-5 pt-lg-3 col-xxl-5 ms-xxl-0  busca">
                 <!--<img class="lupa" src="../icones/lupa.png" alt="">-->
@@ -29,9 +24,9 @@ include_once 'banco_conexao.php';
             <!-- div que tem os botoes para o carrinho e para entrar -->
             <div class="col-12 col-md-4 pt-md-5 pt-lg-3 col-xxl-3 botoes">
                 <button class="botao">DOWNLOAD APP</button>
-                <div class="carrinho">                
+                <div class="carrinho">
                     <a href="
-                        <?php                             
+                        <?php 
                             if(isset($_SESSION['email'])){
                                 echo 'carrinho.php';
                             }
@@ -47,14 +42,12 @@ include_once 'banco_conexao.php';
                 <div class="entrar">
                     <a href="
                     <?php 
-                        echo 'perfil_cliente.php';
-                    /*
                         if(isset($_SESSION['email'])){
                             echo 'perfil_cliente.php';
                         }
                         else{
                             echo 'login2.php';
-                        }*/
+                        }
                     ?>
                     ">
                     <img class="entrar_img" src="../icones/pessoas.png" alt="">
