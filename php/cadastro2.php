@@ -123,8 +123,7 @@
         <p id="aviso"><img src="../icones/aviso.png" alt="icone de aviso"> Confira se os campos estão preenchidos corretamente ! <img src="../icones/aviso.png" alt="icone de aviso"></p>
         -->
 
-        <input id="entrar" type="submit" onclick="" name="
-        " class="btn-lg but" value="ENVIAR">
+        <input id="entrar" type="submit" onclick="" name="" class="btn-lg but" value="ENVIAR">
 
         <div class="p-2 mb-3">
           <a href="login2.php" class="d-block link">Já tem conta?</a>

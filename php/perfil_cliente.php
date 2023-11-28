@@ -12,8 +12,60 @@
 </head>
 <body>
 
-  <?php
-  include 'cabecalho2.php';
+  <!-- php de alterar senha -->
+  <?php     
+      error_reporting(0);
+      session_start();      
+
+      if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar_alteracoes'])){  
+
+        $senha_atual = trim(filter_input(INPUT_POST,'senha_atual',FILTER_SANITIZE_SPECIAL_CHARS));
+        $nova_senha = trim(filter_input(INPUT_POST,'nova_senha',FILTER_SANITIZE_SPECIAL_CHARS));
+        $confirmar_senha = trim(filter_input(INPUT_POST,'confirmar_senha',FILTER_SANITIZE_SPECIAL_CHARS));
+
+        require_once 'cliente.php';
+        $cliente = new Cliente();
+
+        $email = 'julia@gmail.com';
+
+        //consuta um usuario no bd pelo email
+        $sql = "SELECT * FROM usuario WHERE email = :email";
+        $stmt = Database::prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $lista_cliente = $stmt->fetch(PDO::FETCH_BOTH);
+        //print_r($lista_cliente);
+        $senha_db = $lista_cliente['senha'];
+        //echo $senha_db;
+
+        $senha_decode = base64_decode($senha_db);
+        //echo $senha_decode;
+
+        if ($senha_decode === $senha_atual){
+          //echo "Senha válida";
+          $codigo_cliente = $lista_cliente['codigo'];
+          /*
+          $sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
+          $stmt = Database::prepare($sql);
+          $stmt->bindParam(':nova_senha', $nova_senha);
+          $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+          $stmt->execute();	
+          echo 'update';*/
+
+          
+          $cliente->update($codigo_cliente);
+          echo 'update';
+          
+          
+
+        } 
+        else{
+          echo '<script>alert("Senha atual incorreta")</script>';
+        }
+
+      }
+
+      include 'cabecalho2.php';
    ?>	
   <div class="container mt-5">
     <div class="row">
@@ -84,29 +136,35 @@
         </div>
           <!--Botao para encerrar a compra-->
           <div id="fade" class="hide"></div>
-          <div id="modal" class="hide">
-            <div class="modal-cabecalho">
-              <div class="fechar" onclick="window.location.href='perfil_cliente.php'"></div>
-                <h2 class="modal-titulo">Alterar senha</h2>
 
-                <div class="p-2 mb-3">
-                  <input required class="form-control mx-auto txtinput" type="password" name="senha_atual" id="email" placeholder="Senha atual">
-                </div>
+          <!--formulario de alterar senha-->
+          <form id="form_alterar" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div id="modal" class="hide">
+              <div class="modal-cabecalho">
+                <div class="fechar" onclick="window.location.href='perfil_cliente.php'"></div>
+                  <h2 class="modal-titulo">Alterar senha</h2>
 
-                <div class="p-2 mb-3">
-                  <input required class="form-control mx-auto txtinput" type="password" name="nova_senha" id="nome" placeholder="Nova senha">
-                </div>
+                  <div class="p-2 mb-3">
+                    <input required class="form-control mx-auto txtinput" type="password" name="senha_atual" id="email" placeholder="Senha atual">
+                  </div>
 
-                <div class="p-2 mb-3">
-                  <input required class="form-control m x-auto txtinput" type="password" name="confirmar_senha" id="senha" placeholder="Confirmar nova senha">
-  
-                <div class="botoes">
-                  <input id="entrar" type="submit" onclick="" name="enviar_alteracoes" class="btn-lg but" value="Alterar">
-                  <button id="fechar_modal" class="mt-3" onclick="window.location.href='perfil_cliente.php'">Fechar</button>
-                </div>
-                
-              </div>
-          </div>
+                  <div class="p-2 mb-3">
+                    <input required class="form-control mx-auto txtinput" type="password" name="nova_senha" id="nome" placeholder="Nova senha">
+                  </div>
+
+                  <div class="p-2 mb-3">
+                    <input required class="form-control m x-auto txtinput" type="password" name="confirmar_senha" id="senha" placeholder="Confirmar nova senha">
+                  </div>
+
+                  <div class="botoes">
+                    <input id="entrar" type="submit" onclick="" name="enviar_alteracoes" class="btn-lg but" value="Alterar">
+                    <button id="fechar_modal" class="mt-3" onclick="window.location.href='perfil_cliente.php'">Fechar</button>
+                  </div>
+
+              </div> 
+            </div>            
+          </form>
+          
 
       </section>
     </div>

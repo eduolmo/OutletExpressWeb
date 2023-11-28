@@ -72,8 +72,20 @@ delete - exclui um registro pelo id
 			$sql="DELETE FROM $this->table WHERE codigo = :codigo";
 			$stmt = Database::prepare($sql);	
 			$stmt->bindParam(':codigo', $codigo, PDO::PARAM_INT);
-			return $stmt->execute();
-			
+			return $stmt->execute();			
+		}
+
+		/***************
+		Objetivo: Altera um cliente pelo id
+		Parâmetro de entrada: $id - id do cliente
+		Parâmetro de saída: Retorna true em caso de sucesso ou false em caso de falha.
+		**************/
+		public function update($codigo_cliente){
+			$sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
+			$stmt = Database::prepare($sql);
+			$stmt->bindParam(':nova_senha', $nova_senha);
+			$stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+			$stmt->execute();			
 		}
 		
 	}
