@@ -39,7 +39,7 @@ $resposta = array();
 		$resposta["sucesso"] = 1;
 
 		if ($consulta->rowCount() > 0) {
-			while ($linha = $consulta->fetchAll(PDO::FETCH_ASSOC)) {
+			while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
 				// Para cada produto, sao retornados somente o 
 				// pid (id do produto), o nome do produto e o preço. Nao ha necessidade 
 				// de retornar nesse momento todos os campos dos produtos 
