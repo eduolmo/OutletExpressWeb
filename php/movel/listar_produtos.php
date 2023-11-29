@@ -25,9 +25,11 @@ $resposta = array();
 	
 	//$limit = $_GET['limit'];
 	//$offset = $_GET['offset'];
+	$categoria = $_GET['categoria'];
 
 	// Realiza uma consulta ao BD e obtem todos os produtos.
-	$consulta = $db_con->prepare("SELECT * FROM PRODUTO LIMIT " . $limit . " OFFSET " . $offset);
+	//$consulta = $db_con->prepare("SELECT * FROM PRODUTO LIMIT " . $limit . " OFFSET " . $offset);
+	$consulta = $db_con->prepare("SELECT produto.codigo,imagem,nome,valor_atual,avaliacao,desconto FROM $this->table INNER JOIN categoria_produto ON(categoria_produto.codigo = fk_categoria_produto_codigo) WHERE categoria_produto.descricao = " . $categoria);
 	if($consulta->execute()) {
 		// Caso existam produtos no BD, eles sao armazenados na 
 		// chave "produtos". O valor dessa chave e formado por um 
@@ -36,7 +38,7 @@ $resposta = array();
 		$resposta["sucesso"] = 1;
 
 		if ($consulta->rowCount() > 0) {
-			while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+			while ($linha = $consulta->fetchAll(PDO::FETCH_ASSOC)) {
 				// Para cada produto, sao retornados somente o 
 				// pid (id do produto), o nome do produto e o preço. Nao ha necessidade 
 				// de retornar nesse momento todos os campos dos produtos 
