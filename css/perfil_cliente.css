@@ -1,0 +1,186 @@
+/* Importação de fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+/* Definição da fonte padrão para todo o documento */
+* {
+    font-family: 'Kanit', sans-serif;
+}
+
+/* Estilos para a classe 'perfil' */
+.perfil {
+    color: #FF5A5F;
+    font-size: 40px;
+}
+
+/* Estilos para a classe 'subtitulo' */
+.subtitulo {
+    color: black;
+    white-space: nowrap;
+}
+
+/* Estilos para a classe 'nome' */
+.nome {
+    margin-left: 5px;
+}
+
+/* Estilos para a classe 'button' */
+.button {
+    background-color: #390099;
+    font-size: 20px;
+    color: white;
+    border-radius: 200px;
+    border: none;
+    height: 60px;
+    padding-left: 20px; /* Ajuste o espaçamento à esquerda conforme necessário */
+    padding-right: 20px; /* Ajuste o espaçamento à direita conforme necessário */
+    margin-left: auto; /* Empurrar para a direita usando margin-left: auto */
+    display: inline-block; /* Certifique-se de que o botão é exibido como um bloco em linha */
+}
+
+.button2 {
+    background-color: rgb(101, 99, 104);
+    font-size: 20px;
+    color: white;
+    border-radius: 200px;
+    border: none;
+    height: 60px;
+    padding-left: 20px; /* Ajuste o espaçamento à esquerda conforme necessário */
+    padding-right: 20px; /* Ajuste o espaçamento à direita conforme necessário */
+    margin-left: auto; /* Empurrar para a direita usando margin-left: auto */
+    display: inline-block; /* Certifique-se de que o botão é exibido como um bloco em linha */
+}
+
+
+/* Definição de estilos para as linhas */
+.linhas {
+    border-bottom: 1px solid #aaaaaa;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+/* Estilos para a classe 'compras' */
+#compras {
+    color: #ff5a5f;
+    font-size: 20px;
+}
+
+/* Estilos para tags de imagem */
+img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estilos para a tabela */
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela thead tr {
+    border-bottom: 3px solid #eee;
+}
+
+.tabela thead tr th {
+    text-align: left;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    color: #390099;
+}
+
+.tabela tbody tr {
+    border-bottom: 3px solid #eee;
+}
+
+.tabela tbody tr td {
+    padding: 15px 0;
+    text-align: center;
+}
+
+/* Estilos para as informações do produto */
+.produto-img {
+    margin-left: 10px;
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+}
+
+.produto {
+    display: flex;
+    align-items: center;
+}
+
+.produto .inf {
+    margin-left: 20px;
+}
+
+.produto .inf .nome {
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Estilos para a classe 'borda' */
+.borda {
+    padding-bottom: 20px;
+}
+
+/* Estilos para o modal */
+
+#fechar_modal_senha, #fechar_modal_nome {
+    color: #808080;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    opacity: 0.9;
+    font-size: 40px;
+    transition: 0.4s;
+    padding: none;
+}
+
+#fechar_modal_senha:after, #fechar_modal_nome:after, #fechar_modal_sair:after {
+    display: inline-block;
+    content: "\00d7"; /* This will render the 'X' */
+    font-size: 40px;
+}
+
+#fechar_modal_senha:hover, #fechar_modal_nome:hover, #fechar_modal_sair:hover {
+    color: #80808052;
+}
+
+#fade_senha, #modal_senha, #fade_nome, #modal_nome, #fade_sair, #modal_sair {
+    transition: 0.5s;
+    opacity: 1;
+    pointer-events: all;
+}
+
+#fade_senha, #fade_nome, #fade_sair {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 5;
+}
+
+#modal_senha, #modal_nome, #modal_sair {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 500px;
+    max-width: 90%;
+    padding: 1.2rem;
+    border-radius: 0.5rem;
+}
+
+#modal_senha.hide_senha, #fade_senha.hide_senha, #modal_nome.hide_nome, #fade_nome.hide_nome, #modal_sair.hide_sair, #fade_sair.hide_sair {
+    opacity: 0;
+    pointer-events: none;
+}
