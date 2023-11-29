@@ -57,12 +57,9 @@
             header("Location: http://$host$uri/$extra");
             
           }
-          else{
-            echo "Senha inválida";
-          }
         } 
         else{
-          echo 'Usuario não existe, cadastre-se';
+          echo '<script>alert("Usuario não existe, cadastre-se")</script>';
         } 
       }          
       

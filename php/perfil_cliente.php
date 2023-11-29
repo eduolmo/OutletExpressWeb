@@ -14,74 +14,87 @@
 
   <!-- php de alterar senha -->
   <?php     
-      error_reporting(0);
-      session_start();      
+    error_reporting(0);
+    session_start();    
+    
+    require_once 'cliente.php';
 
-      if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar_alteracoes'])){  
+    $codigo_cliente = $_SESSION['cliente']['codigo'];
+    $email = $_SESSION['cliente']['email'];
+    $senha_db = $_SESSION['cliente']['senha'];
+    $senha_decode = base64_decode($senha_db);
+    //echo $senha_decode;
 
-        $senha_atual = trim(filter_input(INPUT_POST,'senha_atual',FILTER_SANITIZE_SPECIAL_CHARS));
-        $nova_senha = trim(filter_input(INPUT_POST,'nova_senha',FILTER_SANITIZE_SPECIAL_CHARS));
-        $confirmar_senha = trim(filter_input(INPUT_POST,'confirmar_senha',FILTER_SANITIZE_SPECIAL_CHARS));
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar_alteracoes'])){  
 
-        require_once 'cliente.php';
-        //$cliente = new Cliente();
+      $senha_atual = trim(filter_input(INPUT_POST,'senha_atual',FILTER_SANITIZE_SPECIAL_CHARS));
+      $nova_senha = trim(filter_input(INPUT_POST,'nova_senha',FILTER_SANITIZE_SPECIAL_CHARS));
+      $confirmar_senha = trim(filter_input(INPUT_POST,'confirmar_senha',FILTER_SANITIZE_SPECIAL_CHARS));
+       
+      
+      if ($senha_decode === $senha_atual){
+        //echo "Senha válida";          
+        if($nova_senha === $confirmar_senha){
 
-        $email = $_SESSION['cliente']['email'];
-        /*
-        //consuta um usuario no bd pelo email
-        $sql = "SELECT * FROM usuario WHERE email = :email";
-        $stmt = Database::prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();*/
-        $senha_db = $_SESSION['cliente']['senha'];
-        //echo $senha_db;
+          $nova_senha_db = base64_encode($nova_senha);          
 
-        $senha_decode = base64_decode($senha_db);
-        //echo $senha_decode;
-        
-        if ($senha_decode === $senha_atual){
-          //echo "Senha válida";
-          $codigo_cliente = $_SESSION['cliente']['codigo'];
-
-          if($nova_senha === $corfirmar_senha){
-
-            $nova_senha_db = base64_encode($nova_senha);          
-
-            $sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
-            $stmt = Database::prepare($sql);
-            $stmt->bindParam(':nova_senha', $nova_senha_db);
-            $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
-            $stmt->execute();	
-          }
-          else{
-            echo '<script>alert("Senha não confirmada")</script>';
-          }
-
-          //$nova_senha_decode = base64_decode($nova_senha_db);
-          //echo $nova_senha_decode;
-
-          /*
-          $cliente->update($codigo_cliente);
-          echo 'update';*/
-          
-          
-
-        } 
+          $sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
+          $stmt = Database::prepare($sql);
+          $stmt->bindParam(':nova_senha', $nova_senha_db);
+          $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+          $stmt->execute();	
+        }
         else{
-          echo '<script>alert("Senha atual incorreta")</script>';
+          echo '<script>alert("Senha não confirmada")</script>';
         }
 
+        //$nova_senha_decode = base64_decode($nova_senha_db);
+        //echo $nova_senha_decode;
+
+        /*
+        $cliente->update($codigo_cliente);
+        echo 'update';*/       
+        
+      } 
+      else{
+        echo '<script>alert("Senha atual incorreta")</script>';
       }
 
-      if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['alterar_nome'])){  
+    }
 
-        $novo_nome = trim(filter_input(INPUT_POST,'novo_nome',FILTER_SANITIZE_SPECIAL_CHARS));
-        $senha_atual = trim(filter_input(INPUT_POST,'nova_senha',FILTER_SANITIZE_SPECIAL_CHARS));
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['alterar_nome'])){  
 
-
+      $novo_nome = trim(filter_input(INPUT_POST,'novo_nome',FILTER_SANITIZE_SPECIAL_CHARS));
+      $senha_atual = trim(filter_input(INPUT_POST,'senha_atual',FILTER_SANITIZE_SPECIAL_CHARS));
+      if ($senha_decode === $senha_atual){
+        $sql="UPDATE usuario SET nome = :novo_nome WHERE codigo = :codigo";
+        $stmt = Database::prepare($sql);
+        $stmt->bindParam(':novo_nome', $novo_nome);
+        $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+        $stmt->execute();	
+      }
+      
+      else{
+        echo '<script>alert("Senha inválida!")</script>';
       }
 
-      include 'cabecalho2.php';
+    }
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['excluir_conta'])){ 
+
+      $senha_atual = trim(filter_input(INPUT_POST,'senha_atual',FILTER_SANITIZE_SPECIAL_CHARS));
+      $confirmar_senha = trim(filter_input(INPUT_POST,'confirmar_senha',FILTER_SANITIZE_SPECIAL_CHARS));
+
+      if($senha_atual === $confirmar_senha){
+        $sql="UPDATE usuario SET nome = :novo_nome WHERE codigo = :codigo";
+        $stmt = Database::prepare($sql);
+        $stmt->bindParam(':novo_nome', $novo_nome);
+        $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+        $stmt->execute();	
+      }
+    }  
+
+    include 'cabecalho2.php';
    ?>	
   <div class="container mt-5">
     <div class="row">
@@ -94,8 +107,7 @@
 
             <div class="d-flex">
               <p class="text-md subtitulo"><strong>Nome:</strong></p>
-              <?php
-                //require_once 'cliente.php';                
+              <?php               
                 $nome_cliente = $_SESSION['cliente']['nome'];
 
                 echo "<p class='nome'>".$nome_cliente."</p>";
@@ -117,6 +129,7 @@
             <button class="button mt-3" id="abrir_modal">Alterar senha</button>
             <button class="button mt-3" id="abrir_modal_nome">Alterar nome</button>
             <button class="button mt-3">Sair da conta</button>
+            <button class="button mt-3">Excluir conta</button>
           </div>          
         </div>
 
@@ -192,7 +205,7 @@
                   <h2 class="modal-titulo">Alterar nome</h2>
 
                   <div class="p-2 mb-3">
-                    <input required class="form-control mx-auto txtinput" type="text" name="novo_nome" id="nome" placeholder="Nova nome">
+                    <input required class="form-control mx-auto txtinput" type="text" name="novo_nome" id="nome" placeholder="Novo nome">
                   </div>
 
                   <div class="p-2 mb-3">
@@ -208,7 +221,29 @@
             </div>            
           </form>
 
-          
+          <!--formulario de excluir conta-->
+          <form id="form_alterar" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div id="modal2" class="hide2">
+              <div class="modal-cabecalho">
+                <div class="fechar" onclick="window.location.href='perfil_cliente.php'"></div>
+                  <h2 class="modal-titulo">Excluir conta</h2>
+
+                  <div class="p-2 mb-3">
+                    <input required class="form-control mx-auto txtinput" type="password" name="senha_atual" id="nome" placeholder="Digite sua senha">
+                  </div>
+
+                  <div class="p-2 mb-3">
+                    <input required class="form-control m x-auto txtinput" type="password" name="confirmar_senha" id="senha" placeholder="Confirmar senha">
+                  </div>
+                  
+                  <div class="botoes">
+                    <input id="entrar" type="submit" onclick="" name="excluir_conta" class="btn-lg but" value="Excluir">
+                    <button id="fechar_modal" class="mt-3" onclick="window.location.href='perfil_cliente.php'">Fechar</button>
+                  </div>
+
+              </div> 
+            </div>            
+          </form>
 
       </section>
     </div>
