@@ -13,8 +13,7 @@
 <body>
     <!-- começo do cabecalho -->
     <?php
-        include "cabecalho2.php";  
-        
+                
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['detalhe_produto'])){
             $_SESSION['id_produto'] = $_POST['id_produto'];
             
@@ -26,6 +25,8 @@
             header("Location: http://$host$uri/$extra");
             
         }
+
+        include "cabecalho2.php"; 
     ?>                
     <!--fim do cabecalho-->
 
@@ -151,6 +152,7 @@
                                 <button type="submit" class="btn_produto" name="detalhe_produto">
 
                                     <input type="hidden" name="id_produto" value="<?php echo $resultado[$i]['codigo']; ?>">
+
                                     <div class="div_imgproduto" style="background-image: url('<?php echo $resultado[$i]['imagem']; ?>');"></div>
                                     <p class="produto_desconto">
                                         <?php 
