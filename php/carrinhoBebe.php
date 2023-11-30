@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/cabecalho2.css">
     <link rel="stylesheet" href="../css/comprar.css">
     <script src="../js/comprar.js" defer></script>
+    <script src="../js/quantidade.js" defer></script>
 
     
     
@@ -51,8 +52,15 @@
                         <div class="linhas"></div>
                         <!--div com os botoes Comprar Agora e Adicionar ao Carrinho-->
                         <div class="produto_botoes">
+                             <!-- Botão para aumentar e diminuir a quantidade de produtos -->
+
                             <button class="comprarAgora" onclick="window.location.href='pedido.php'">COMPRAR AGORA</button> <br>
                             <button class="adicionarCarrinho" onclick="window.location.href='carrinho.php'">ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div class="qtd mt-2 mb-0">
+                            <button class="btn-qtd" onclick="DiminuirQuantidade()">-</button>
+                            <input class="input-qtd" id="quantidade" min="1" value="1" readonly>
+                            <button class="btn-qtd" onclick="AumentarQuantidade()">+</button>
                         </div>
                         <!--div para os itens de calcular frete-->
                         <div class="calcularFrete">
