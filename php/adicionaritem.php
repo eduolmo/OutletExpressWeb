@@ -16,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtem o codigo do cliente da sessao
     $codigo_cliente = $_SESSION['cliente']['codigo'];
     $codigo_produto = $POST['codigo_produto'];
+    $quantidade = $POST['quantidade'];
+
     $sql = "
     SELECT p.codigo as produto_codigo
     FROM item_carrinho ic
@@ -37,17 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Atribui a quantidade ao objeto
     $itemCarrinho->setQuantidade($_POST['quantidade']);
     $itemCarrinho->setFk_CLIENTE_FK_USUARIO_codigo($codigo_cliente);
-    /itemCarrinho->setFk_PRODUTO_codigo($codigo_produto);
+    $itemCarrinho->setFk_PRODUTO_codigo($codigo_produto);
 
 
     // Verifique se o produto já está no carrinho (baseado em alguma chave única)
     // Substitua 'sua_chave_unica' pelo campo correto que você deseja verificar na tabela item_carrinho
     
-    $produtoJaNoCarrinho = $itemCarrinho->verificarProdutoNoCarrinho($codigo_produto);
+    $produtoJaNoCarrinho = $itemCarrinho->verificarProdutoNoCarrinho($codigo_produto, $codigo_cliente);
 
     if ($produtoJaNoCarrinho) {
         // Se o produto já está no carrinho, atualize a quantidade
-        $itemCarrinho->update($_POST['codigo_produto']);
+        $itemCarrinho->updatePlus($codigo_produto, $codigo_cliente, $quantidade);
         echo "Produto atualizado no carrinho com sucesso!";
     } else {
         // Se o produto ainda não está no carrinho, insira-o

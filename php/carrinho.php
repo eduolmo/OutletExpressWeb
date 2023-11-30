@@ -18,10 +18,22 @@
     <!-- cabecalho -->
     <?php
         include 'cabecalho2.php';
-        error_reporting(0);
+        include 'item_carrinho.php';
 
         $codigo_cliente = $_SESSION['cliente']['codigo'];
-    ?>	
+
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteic'])){
+            if(isset($_POST['codigo_cliente']) && isset($_POST['codigo_produto']) ) {
+                $item_carrinho = new ItemCarrinho();
+                $item_carrinho->deleteItem($_POST['codigo_produto'],$_POST['codigo_cliente']);
+            } else {
+                echo "Erro: Informações de codigo_cliente e codigo_produto não fornecidas.";
+            }
+        }
+             
+
+    ?>  
+
 
     <!-- Container Principal -->      
     <main class="px-3 pb-3">
@@ -64,7 +76,7 @@
                                             <tr class="produto-item">
                                                 <td>
                                                     <div class="produto patins">
-                                                        <img class="produto-img" src="<?php echo $row['imagem']; ?>">
+                                                        <img class="produto-img" src="<?php echo $row['imagem'];?>">
                                                         <div class="inf">
                                                             <div class="nome text-sm"><?php echo $row['nome'];?></div>
                                                             <div class="categoria"><?php echo $row['descricao'];?></div>
@@ -73,18 +85,25 @@
                                                 </td>
                                                 <td class="valor-unitario">R$ <?php echo $row['valor_atual']; ?></td>
                                                 <!-- Restante do código para as outras colunas -->
-                                                <td class="qtd-td">
+                                                <td>
                                                     <!-- Botão para aumentar e diminuir a quantidade de produtos -->
                                                     <div class="qtd">
                                                         <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                                        <input class="input-qtd" type="number" value="<?php echo $row['quantidade'];?>" min="1">
+                                                        <input class="input-qtd" type="number" value="<?php echo $row['quantidade']?>" min="1">
                                                         <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
+                                                    </div>
+                                                    <div class="qtdsave">
+                                                        <button class="btn-save" data-codigo-cliente="<?php echo $codigo_cliente; ?>" data-codigo-produto="<?php echo $row['fk_produto_codigo']; ?>">Salvar</button>
                                                     </div>
                                                 </td>
                                                 <!-- Subtotal calculado pelo preço unitário multiplicado pela quantidade -->
                                                 <td class="subtotal"></td>
                                                 <!-- Botão para excluir o produto da tabela de itens -->
-                                                <td><button class="delete"><i class='bx bx-x'></i></button></td>
+                                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <input type="hidden" name="codigo_cliente" value="<?php echo $codigo_cliente; ?>">
+                                                    <input type="hidden" name="codigo_produto" value="<?php echo $row['fk_produto_codigo']; ?>">
+                                                    <td><button class="delete" name="deleteic"type="submit"><i class='bx bx-x'></i></button></td>
+                                                </form>
                                             </tr>
                                         <?php
                                                 }
@@ -119,7 +138,7 @@
                                 <div id="total-value"></div>
                             </div>
                             <!-- Botao para encerrar a compra -->
-                            <button class="btn-finalizar">Finalizar Compra</button>
+                            <button class="btn-finalizar" id="btnFinalizarCompra">Finalizar Compra</button>
                         </aside>
                     </div>
                 </div>

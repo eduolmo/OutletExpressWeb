@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,14 +16,12 @@
     <!-- cabecalho -->
     <?php
         include 'cabecalho2.php';
-        error_reporting(0);
+        include 'finalizarCompra.php';
 
+        //finalizarCompra();
         
-        $cliente = $_SESSION['cliente'];
-        $name = $cliente->nome;
         
-        $_SESSION['resultado'] = $resultado;
-        $codigo_cliente = $resultado['codigo'];
+        $codigo_cliente = $_SESSION['cliente']['codigo'];
     ?>	
     <section class="finaliza_compra">
         <div class="container">
@@ -74,9 +71,10 @@
                                     JOIN produto p ON ic.fk_PRODUTO_codigo = p.codigo
                                     JOIN cliente c ON ic.fk_CLIENTE_FK_USUARIO_codigo = c.fk_USUARIO_codigo
                                     JOIN categoria_produto cp ON p.FK_CATEGORIA_PRODUTO_codigo = cp.codigo
-                                    WHERE c.fk_USUARIO_codigo = 22
+                                    WHERE c.fk_USUARIO_codigo = :codigo_cliente
                                     ");
                                 //$listagem->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
+                                $listagem->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
                                 $listagem->execute();
                                 while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
                         ?>
