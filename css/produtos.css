@@ -35,6 +35,7 @@
 
 .preco, .marca, .cor, .avaliacao{
     padding-top: 15px;
+    
 }
 
 .filtro_titulo{
@@ -125,6 +126,15 @@
     background-color: rgb(240, 240, 240);
     padding: 15px;
     width: 100%;
+}
+
+.comprarAgora{
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 300px;
+    border: 0;
+    background-color: #390099;
+    color: #ffff;
 }
 
 /*fim de produtos*/
