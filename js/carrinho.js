@@ -51,4 +51,34 @@ function calcularSubtotal() {
 /*Ao abrir o site, os calculos de subtotais serao realizados automaticamente*/
 window.addEventListener('load', () => {
     calcularSubtotal();
+
+document.getElementById('btnFinalizarCompra').addEventListener('click', function() {
+  window.location.href = 'pedido.php';
+});
+
+document.querySelector('.delete').onclick = function() {
+    deletarProduto($productId, $clientId);
+};
+
+
+$('.btn-save').on('click', function() {
+  var codigo_cliente = $(this).data('codigo-cliente');
+  var codigo_produto = $(this).data('codigo-produto');
+  var quantidade = $(this).prev('.input-qtd').val();
+
+  $.ajax({
+      url: 'item_carrinho.php',
+      type: 'POST',
+      data: {
+          'action': 'update',
+          'codigo_cliente': codigo_cliente,
+          'codigo_produto': codigo_produto,
+          'quantidade': quantidade
+      },
+      success: function(response) {
+          // Aqui você pode adicionar código para lidar com a resposta do servidor, se necessário
+      }
+  });
+});
+
 });
