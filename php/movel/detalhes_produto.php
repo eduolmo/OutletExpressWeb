@@ -19,7 +19,7 @@ if (isset($_GET["codigo"])) {
 	$codigo = $_GET['codigo'];
 	
 	// Obtem do BD os detalhes do produto com id especificado na requisicao GET
-	$consulta = $db_con->prepare('SELECT produto.nome as "produtoNome",produto.*,empresa.link,usuario.nome as "nomeEmpresa" FROM PRODUTO INNER JOIN EMPRESA ON(produto.fk_EMPRESA_fk_USUARIO_codigo = empresa.fk_USUARIO_codigo) INNER JOIN USUARIO ON(usuario.codigo = empresa.fk_USUARIO_codigo) WHERE produto.codigo = $codigo');
+	$consulta = $db_con->prepare('SELECT produto.nome as "produtoNome",produto.*,empresa.link,usuario.nome as "nomeEmpresa" FROM PRODUTO INNER JOIN EMPRESA ON(produto.fk_EMPRESA_fk_USUARIO_codigo = empresa.fk_USUARIO_codigo) INNER JOIN USUARIO ON(usuario.codigo = empresa.fk_USUARIO_codigo) WHERE produto.codigo = ' . $codigo);
 	
 	if ($consulta->execute()) {
 		if ($consulta->rowCount() > 0) {
