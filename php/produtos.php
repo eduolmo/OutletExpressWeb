@@ -19,9 +19,7 @@
         include_once 'produto.php';
 
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['detalhe_produto'])){
-            $_SESSION['id_produto'] = $_POST['id_produto'];
-            
-            echo 'id_produto: ' . $_SESSION['id_produto'];
+            $_SESSION['codigo_produto'] = $_POST['codigo_produto'];
             
             $host  = $_SERVER['HTTP_HOST'];
             $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -142,7 +140,7 @@
                             <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                 <button type="submit" class="btn_produto" name="detalhe_produto">
 
-                                    <input type="hidden" name="id_produto" value="<?php echo $resultado[$i]['codigo']; ?>">
+                                    <input type="hidden" name="codigo_produto" value="<?php echo $resultado[$i]['codigo']; ?>">
 
                                     <div class="div_imgproduto" style="background-image: url('<?php echo $resultado[$i]['imagem']; ?>');"></div>
                                     <p class="produto_desconto">
