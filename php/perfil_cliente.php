@@ -33,26 +33,27 @@
       
       if ($senha_decode === $senha_atual){
         //echo "Senha válida";          
+        
         if($nova_senha === $confirmar_senha){
 
           $nova_senha_db = base64_encode($nova_senha);          
+          //$campo_bd = "senha";
 
+          
           $sql="UPDATE usuario SET senha = :nova_senha WHERE codigo = :codigo";
           $stmt = Database::prepare($sql);
           $stmt->bindParam(':nova_senha', $nova_senha_db);
           $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
           $stmt->execute();	
+          
+          //$executa = CRUD::update($codigo_cliente, $campo_bd, $nova_senha_db);
+          
         }
         else{
           echo '<script>alert("Senha não confirmada")</script>';
         }
 
-        //$nova_senha_decode = base64_decode($nova_senha_db);
-        //echo $nova_senha_decode;
-
-        /*
-        $cliente->update($codigo_cliente);
-        echo 'update';*/       
+             
         
       } 
       else{
@@ -64,18 +65,11 @@
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['alterar_nome'])){  
 
       $novo_nome = trim(filter_input(INPUT_POST,'novo_nome',FILTER_SANITIZE_SPECIAL_CHARS));
-      $senha_atual = trim(filter_input(INPUT_POST,'senha_atual',FILTER_SANITIZE_SPECIAL_CHARS));
-      if ($senha_decode === $senha_atual){
-        $sql="UPDATE usuario SET nome = :novo_nome WHERE codigo = :codigo";
-        $stmt = Database::prepare($sql);
-        $stmt->bindParam(':novo_nome', $novo_nome);
-        $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
-        $stmt->execute();	
-      }
-      
-      else{
-        echo '<script>alert("Senha inválida!")</script>';
-      }
+      $sql="UPDATE usuario SET nome = :novo_nome WHERE codigo = :codigo";
+      $stmt = Database::prepare($sql);
+      $stmt->bindParam(':novo_nome', $novo_nome);
+      $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+      $stmt->execute();	
 
     }
 
@@ -83,13 +77,25 @@
 
       $senha_atual = trim(filter_input(INPUT_POST,'senha_atual',FILTER_SANITIZE_SPECIAL_CHARS));
       $confirmar_senha = trim(filter_input(INPUT_POST,'confirmar_senha',FILTER_SANITIZE_SPECIAL_CHARS));
-
+      $apagar = " ";
       if($senha_atual === $confirmar_senha){
         $sql="UPDATE usuario SET nome = :novo_nome WHERE codigo = :codigo";
         $stmt = Database::prepare($sql);
-        $stmt->bindParam(':novo_nome', $novo_nome);
+        $stmt->bindParam(':novo_nome', $apagar);
         $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
-        $stmt->execute();	
+        $stmt->execute();
+        
+        $sql="UPDATE usuario SET email = :novo_nome WHERE codigo = :codigo";
+        $stmt = Database::prepare($sql);
+        $stmt->bindParam(':novo_nome', $apagar);
+        $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sql="UPDATE usuario SET senha = :novo_nome WHERE codigo = :codigo";
+        $stmt = Database::prepare($sql);
+        $stmt->bindParam(':novo_nome', $apagar);
+        $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
+        $stmt->execute();
       }
     }  
 
@@ -194,10 +200,6 @@
 
                   <div class="p-2 mb-3">
                     <input required class="form-control mx-auto txtinput" type="text" name="novo_nome" id="nome" placeholder="Novo nome">
-                  </div>
-
-                  <div class="p-2 mb-3">
-                    <input required class="form-control mx-auto txtinput" type="email" name="senha_atual" id="email" placeholder="Senha atual">
                   </div>
                   
                   <div class="botoes">

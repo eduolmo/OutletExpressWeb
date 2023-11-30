@@ -13,7 +13,11 @@
 <body>
     <!-- começo do cabecalho -->
     <?php
-                
+        error_reporting(0);
+        session_start(); 
+
+        include_once 'produto.php';
+
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['detalhe_produto'])){
             $_SESSION['id_produto'] = $_POST['id_produto'];
             
@@ -25,6 +29,16 @@
             header("Location: http://$host$uri/$extra");
             
         }
+
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['filtrar'])){
+            $preco = trim(filter_input(INPUT_POST,'preco',FILTER_SANITIZE_SPECIAL_CHARS));
+            $desconto = trim(filter_input(INPUT_POST,'desconto',FILTER_SANITIZE_SPECIAL_CHARS));
+            $avaria = trim(filter_input(INPUT_POST,'avaria',FILTER_SANITIZE_SPECIAL_CHARS));
+            $avaliacao = trim(filter_input(INPUT_POST,'avaliacao',FILTER_SANITIZE_SPECIAL_CHARS));
+
+
+
+        }    
 
         include "cabecalho2.php"; 
     ?>                
@@ -47,87 +61,64 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body row">
-                <div class="filtro">
-                    <div class="categoria">
-                        <p class="filtro_titulo">Tipo de produto</p>
-                        <input type="checkbox" name="" id="tipo1">
-                        <label for="tipo1">Masculino</label><br>
-                        <input type="checkbox" name="" id="tipo2">
-                        <label for="tipo2">Feminino</label><br>
-                        <input type="checkbox" name="" id="tipo3">
-                        <label for="tipo3">Computador</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Celular</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Carrinho de bebe</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Salto</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Cama</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Tênis</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Fogão</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Geladeira</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Guarda-Roupa</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Máquna de lavar</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Notebook</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Ventilador</label><br>
-                        <input type="checkbox" name="" id="tipo4">
-                        <label for="tipo4">Televisão</label><br>
-                    </div>
-    
+                <form id="filtro" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="filtro">
+
                     <div class="preco">
                         <p class="filtro_titulo">Preço</p>
-                        <input type="number">
-                    </div>
-
-                    <div class="marca">
-                        <p class="filtro_titulo">Marca</p>
-                        <input type="checkbox" name="" id="item1">
-                        <label for="item1">Nike</label><br>
-                        <input type="checkbox" name="" id="item2">
-                        <label for="item2">Brastemp</label><br>
-                        <input type="checkbox" name="" id="item3">
-                        <label for="item3">Samsung</label><br>
-                        <input type="checkbox" name="" id="item4">
-                        <label for="item4">Consul</label><br>
-                        <input type="checkbox" name="" id="item5">
-                        <label for="item5">Lenovo</label><br>
-                        <input type="checkbox" name="" id="item5">
-                        <label for="item5">Mallory</label><br>
+                        <input type="number" name="preco">
                     </div>
 
                     <div class="cor">
-                        <p class="filtro_titulo">Cor</p>
-                        <input type="checkbox" name="" id="cor1">
-                        <label for="cor1">Inox</label><br>
-                        <input type="checkbox" name="" id="cor2">
-                        <label for="cor2">Preto</label><br>
-                        <input type="checkbox" name="" id="cor3">
-                        <label for="cor3">Branco</label><br>
+                        <p class="filtro_titulo">Desconto</p>
+                        <input type="radio" name="desconto" id="cor1">
+                        <label for="cor1">Até 20%</label><br>
+                        <input type="radio" name="desconto" id="cor2">
+                        <label for="cor2">Até 50%</label><br>
+                        <input type="radio" name="desconto" id="cor3">
+                        <label for="cor3">Até 70%</label><br>
+                        <input type="radio" name="desconto" id="cor4">
+                        <label for="cor3">Acima de 70%</label><br>
                     </div>
 
+                    <div class="marca">
+                        <p class="filtro_titulo">Avaria</p>
+                        <input type="radio" name="avaria" id="item1">
+                        <label for="item1">Arranhão</label><br>
+                        <input type="radio" name="avaria" id="item2">
+                        <label for="item2">Amassado</label><br>
+                        <input type="radio" name="avaria" id="item3">
+                        <label for="item3">Mancha</label><br>
+                        <input type="radio" name="avaria" id="item4">
+                        <label for="item4">Embalagem danificada</label><br>
+                        <input type="radio" name="avaria" id="item5">
+                        <label for="item5">Modelo antigo</label><br>
+                        <input type="radio" name="avaria" id="item5">
+                        <label for="item5">Peça ausente ou substituída</label><br>
+                        <input type="radio" name="avaria" id="item5">
+                        <label for="item5">	Item de devolução</label><br>
+                        <input type="radio" name="avaria" id="item5">
+                        <label for="item5">Pequeno defeito funcional</label><br>
+                    </div>
+                    
                     <div class="avaliacao">
                         <p class="filtro_titulo">Avaliação do produto</p>
-                        <input type="checkbox" name="" id="">
+                        <input type="radio" name="avaliacao" id="">
                         <img class="estrelas" src="../imagens/5estrelas.jpg" alt=""><br>
-                        <input type="checkbox" name="" id="">
+                        <input type="radio" name="avaliacao" id="">
                         <img class="estrelas" src="../imagens/4estrelas.jpg" alt=""><br>
-                        <input type="checkbox" name="" id="">
+                        <input type="radio" name="avaliacao" id="">
                         <img class="estrelas" src="../imagens/3estrelas.jpg" alt=""><br>
-                        <input type="checkbox" name="" id="">
+                        <input type="radio" name="avaliacao" id="">
                         <img class="estrelas" src="../imagens/2estrelas.jpg" alt=""><br>
-                        <input type="checkbox" name="" id="">
+                        <input type="radio" name="avaliacao" id="">
                         <img class="estrelas" src="../imagens/1estrela.jpg" alt=""><br>
                     </div>
                     
-                </div>
+                    <div class="produto_botoes">
+                        <button type="submit" name="filtrar" class="comprarAgora">FILTRAR</button>
+                    </div>
+
+                </form>
             </div>
         </div>
         <!-- fim do filtro do site -->     
