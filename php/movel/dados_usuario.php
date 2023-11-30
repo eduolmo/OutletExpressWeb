@@ -19,13 +19,13 @@ $resposta = array();
 if(autenticar($db_con)) {
  
 	// Verifica se o parametro id foi enviado na requisicao
-	if (isset($_GET["codigo"])) {
+	if (isset($_GET["email"])) {
 		
 		// Aqui sao obtidos os parametros
-		$codigo = $_GET['codigo'];
+		$email = $_GET['email'];
 	 
 		// Obtem do BD os detalhes do produto com id especificado na requisicao GET
-		$consulta = $db_con->prepare("SELECT * FROM USUARIO WHERE codigo = $codigo");
+		$consulta = $db_con->prepare("SELECT * FROM USUARIO WHERE email = email");
 	 
 		if ($consulta->execute()) {
 			if ($consulta->rowCount() > 0) {
