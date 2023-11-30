@@ -16,9 +16,15 @@
 <body>
     <!-- cabecalho -->
     <?php
+        error_reporting(0);
+        session_start();
+        include_once 'produto.php';
+
+        $codigo = $_SESSION['codigo_produto'];
         
-        $id = $_SESSION['id_produto'];
-        echo 'id do produto: ' . $id;
+        $produto = new Produto();
+        $produto = $produto->productDetail($codigo);
+        
 
         include 'cabecalho2.php';
     ?>	
@@ -29,22 +35,22 @@
             <div class="row">
                 <div class="col-md-6">
                     <!--imagem do produto escolhido-->
-                    <img class="produto_imagem img-fluid mt-md-5 " src="../imagens/carrinho.jpg" alt="">
+                    <img class="produto_imagem img-fluid mt-md-5 " src="<?php echo $produto['imagem']; ?>" alt="">
                     <!--div com as informacoes do produto-->
                 </div>
                 <div class="col-md-4 p-3 mt-md-5">
                     <div class="produto_informacoes">
-                    <p class="produto_nome"><?php echo $resultado[$id]['nome']; ?></p>
-                        <p class="produto_valor">R$ <?php echo $resultado[$id]['valor_atual']; ?></p>
+                    <p class="produto_nome"><?php echo $produto['nome']; ?></p>
+                        <p class="produto_valor">R$ <?php echo $produto['valor_atual']; ?></p>
                         <p class="produto_pagamento">até 10x  sem juros</p>
-                        <p class="produto_avaria"> <?php echo $resultado[$id]['avaria']; ?></p>
-                        <p class="produto_cor mb-0"> <strong>Descrição: </strong>Descrição do produto com dimensões</p>
+                        <p class="produto_avaria"> <?php echo $produto['avaria']; ?></p>
+                        <p class="produto_cor mb-0"> <strong>Descrição: </strong><?php echo $produto['descricao']; ?></p>
                         <ul class="rating d-flex">
-                            <li class="valor" data-avaliacao="1"></li>
-                            <li class="valor" data-avaliacao="2"></li>
-                            <li class="valor" data-avaliacao="3"></li>
-                            <li class="valor" data-avaliacao="4"></li>
-                            <li class="valor" data-avaliacao="5"></li>
+                            <li class="star-icon" data-avaliacao="1"></li>
+                            <li class="star-icon" data-avaliacao="2"></li>
+                            <li class="star-icon" data-avaliacao="3"></li>
+                            <li class="star-icon" data-avaliacao="4"></li>
+                            <li class="star-icon" data-avaliacao="5"></li>
                         </ul>
 
                         <div class="linhas"></div>
@@ -52,6 +58,11 @@
                         <div class="produto_botoes">
                             <button class="comprarAgora" onclick="window.location.href='pedido.php'">COMPRAR AGORA</button> <br>
                             <button class="adicionarCarrinho" onclick="window.location.href='carrinho.php'">ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div class="qtd mt-2 mb-0">
+                            <button class="btn-qtd" onclick="DiminuirQuantidade()">-</button>
+                            <input class="input-qtd" id="quantidade" min="1" value="1" readonly>
+                            <button class="btn-qtd" onclick="AumentarQuantidade()">+</button>
                         </div>
                         <!--div para os itens de calcular frete-->
                         <div class="calcularFrete">

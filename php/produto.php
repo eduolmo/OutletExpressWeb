@@ -98,11 +98,15 @@ class Produto extends CRUD {
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
-	/*
-	public function __toString(){
-		return $this->nome;
+
+	public function productDetail($codigo){
+		$sql = "SELECT * FROM $this->table WHERE codigo = :codigo";
+		$stmt = Database::prepare($sql);
+		$stmt->bindParam(':codigo', $codigo, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
-	*/
+	
 	public function update($codigo){
 		return 0;
 	}
