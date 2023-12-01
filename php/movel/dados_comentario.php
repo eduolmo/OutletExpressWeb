@@ -23,17 +23,23 @@ if (isset($_GET["codigo"])) {
 	// Obtem do BD os detalhes do produto com id especificado na requisicao GET
 	$consulta = $db_con->prepare('SELECT comentario.*,usuario.nome FROM COMENTARIO INNER JOIN CLIENTE ON(cliente.fk_USUARIO_codigo = comentario.fk_cliente_fk_USUARIO_codigo) INNER JOIN USUARIO ON(usuario.codigo = cliente.fk_USUARIO_codigo) WHERE comentario.fk_PRODUTO_codigo = ' . $codigo);
 	
-	$resposta["comentarios"] = array();
-	$resposta["sucesso"] = 1;
+	
 
 	if ($consulta->execute()) {
-		while ($consulta->rowCount() > 0) {
+		// Caso existam comentarios no BD, eles sao armazenados na 
+		// chave "comentarios". O valor dessa chave e formado por um 
+		// array onde cada elemento e um comentario.
+		$resposta["comentarios"] = array();
+		$resposta["sucesso"] = 1;
+
+		if ($consulta->rowCount() > 0) {
+			while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
 	
 			// Se o produto existe, os dados completos do produto 
 			// sao adicionados no array de resposta. A imagem nao 
 			// e entregue agora pois ha um php exclusivo para obter 
 			// a imagem do produto.
-			$linha = $consulta->fetch(PDO::FETCH_ASSOC);
+			//$linha = $consulta->fetch(PDO::FETCH_ASSOC);
 	
 			$comentarios = array();
 			$comentarios["nome"] = $linha["nome"];
@@ -46,23 +52,18 @@ if (isset($_GET["codigo"])) {
 			// Caso o produto exista no BD, o cliente 
 			// recebe a chave "sucesso" com valor 1.
 			//$resposta["sucesso"] = 1;
-			
-		} else {
-			// Caso o produto nao exista no BD, o cliente 
-			// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
-			// motivo da falha.
-			$resposta["sucesso"] = 0;
-			$resposta["erro"] = "Comentário não encontrado
-			";
-		}
-	} else {
+			}
+		} 
+	} 
+	else {
 		// Caso ocorra falha no BD, o cliente 
 		// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
 		// motivo da falha.
 		$resposta["sucesso"] = 0;
 		$resposta["erro"] = "Erro no BD: " . $consulta->error;
 	}
-} else {
+} 
+else {
 	// Se a requisicao foi feita incorretamente, ou seja, os parametros 
 	// nao foram enviados corretamente para o servidor, o cliente 
 	// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
