@@ -64,10 +64,6 @@ $('.btn-save').on('click', function() {
   let codigo_produto = $(this).data('codigo-produto');
   let quantidade = $(this).closest('.produto-item').find('.input-qtd').val();
 
-  console.log('Código Cliente:', codigo_cliente);
-  console.log('Código Produto:', codigo_produto);
-  console.log('Quantidade:', quantidade);
-
   $.ajax({
       url: 'item_carrinho.php',
       type: 'POST',
