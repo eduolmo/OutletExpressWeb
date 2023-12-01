@@ -33,7 +33,7 @@ if (isset($_GET["codigo"])) {
 			$linha = $consulta->fetch(PDO::FETCH_ASSOC);
 	
 			$resposta["nome"] = $linha["nome"];
-			$resposta["comentario"] = $linha["comentario"];
+			$resposta["comentario"] = $linha["conteudo"];
 			$resposta["avaliacao"] = $linha["avaliacao"];		
 			
 			// Caso o produto exista no BD, o cliente 
