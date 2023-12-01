@@ -56,27 +56,26 @@ document.getElementById('btnFinalizarCompra').addEventListener('click', function
   window.location.href = 'pedido.php';
 });
 
-document.querySelector('.delete').onclick = function() {
-    deletarProduto($productId, $clientId);
-};
+
 
 
 $('.btn-save').on('click', function() {
-  var codigo_cliente = $(this).data('codigo-cliente');
-  var codigo_produto = $(this).data('codigo-produto');
-  var quantidade = $(this).prev('.input-qtd').val();
+  let codigo_cliente = $(this).data('codigo-cliente');
+  let codigo_produto = $(this).data('codigo-produto');
+  let quantidade = $(this).closest('.produto-item').find('.input-qtd').val();
+
+  console.log('Código Cliente:', codigo_cliente);
+  console.log('Código Produto:', codigo_produto);
+  console.log('Quantidade:', quantidade);
 
   $.ajax({
       url: 'item_carrinho.php',
       type: 'POST',
       data: {
           'action': 'update',
-          'codigo_cliente': codigo_cliente,
           'codigo_produto': codigo_produto,
+          'codigo_cliente': codigo_cliente,
           'quantidade': quantidade
-      },
-      success: function(response) {
-          // Aqui você pode adicionar código para lidar com a resposta do servidor, se necessário
       }
   });
 });
