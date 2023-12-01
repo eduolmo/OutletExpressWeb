@@ -43,7 +43,7 @@ if (isset($_GET["codigo"])) {
 	
 			$comentarios = array();
 			$comentarios["nome"] = $linha["nome"];
-			$comentarios["comentario"] = $linha["conteudo"];
+			$comentarios["conteudo"] = $linha["conteudo"];
 			$comentarios["avaliacao"] = $linha["avaliacao"];	
 			
 			// Adiciona o comentario no array de comentario.
