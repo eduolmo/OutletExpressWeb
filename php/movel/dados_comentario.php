@@ -21,7 +21,7 @@ if (isset($_GET["codigo"])) {
 	$codigo = $_GET['codigo'];
 	
 	// Obtem do BD os detalhes do produto com id especificado na requisicao GET
-	$consulta = $db_con->prepare('SELECT comentario.*,usuario.nome FROM COMENTARIO INNER JOIN CLIENTE ON(cliente.fk_USUARIO_codigo = comentario.fk_cliente_fk_USUARIO_codigo) INNER JOIN USUARIO ON(usuario.codigo = cliente.fk_USUARIO_codigo) WHERE comentarios.fk_PRODUTO_codigo = ' . $codigo);
+	$consulta = $db_con->prepare('SELECT comentario.*,usuario.nome FROM COMENTARIO INNER JOIN CLIENTE ON(cliente.fk_USUARIO_codigo = comentario.fk_cliente_fk_USUARIO_codigo) INNER JOIN USUARIO ON(usuario.codigo = cliente.fk_USUARIO_codigo) WHERE comentario.fk_PRODUTO_codigo = ' . $codigo);
 	
 	if ($consulta->execute()) {
 		if ($consulta->rowCount() > 0) {
