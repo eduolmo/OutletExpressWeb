@@ -157,6 +157,15 @@
             </td>
           </tr>
 
+      <!--
+        select cliente.fk_usuario_codigo, compra.codigo as "codigo_compra", item_compra.codigo as "codigo_tem_compra", produto.codigo as "codigo_produto" from cliente
+        inner join COMPRA
+        on(compra.fk_cliente_fk_usuario_codigo = cliente.fk_usuario_codigo)
+        inner join ITEM_COMPRA
+        on(item_compra.fk_compra_codigo = compra.codigo)
+        inner join PRODUTO
+        on(item_compra.fk_produto_codigo = produto.codigo);
+       -->
           
   </div>
           
