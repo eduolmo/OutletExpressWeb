@@ -25,7 +25,7 @@ if(autenticar($db_con)) {
 		$email = $_GET['email'];
 	 
 		// Obtem do BD os detalhes do produto com id especificado na requisicao GET
-		$consulta = $db_con->prepare("SELECT * FROM USUARIO WHERE email = " . $email);
+		$consulta = $db_con->prepare("SELECT * FROM USUARIO WHERE email = '" . $email . "'");
 	 
 		if ($consulta->execute()) {
 			if ($consulta->rowCount() > 0) {
