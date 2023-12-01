@@ -1,7 +1,6 @@
 <?php
 
 require_once 'crud.php';
-
 /*************************************************************
 Objetivo: Classe responsável por representar todas as operações com o item do carrinho do negócio.
 
@@ -17,7 +16,6 @@ getQuantidade - Retorna a quantidade ao item do carrinho
 *************************************************************/
 
 class ItemCarrinho extends CRUD {
-	
 	protected $table ='item_carrinho';
 	
 	private $quantidade;
@@ -60,15 +58,20 @@ class ItemCarrinho extends CRUD {
 		
 	}
 
-	public function update($codigo_produto, $codigo_cliente, $quantidade){
-		$sql="UPDATE $this->table SET quantidade = :quantidade WHERE fk_PRODUTO_codigo = :codigo_produto AND fk_CLIENTE_FK_USUARIO_codigo = :codigo_cliente";
-
+	public static function update(){
+		$codigo_produto = $_POST['codigo_produto'];
+		$codigo_cliente = $_POST['codigo_cliente'];
+		$quantidade = $_POST['quantidade'];
+		
+		$sql = "UPDATE item_carrinho SET quantidade = :quantidade WHERE fk_PRODUTO_codigo = :codigo_produto AND fk_CLIENTE_FK_USUARIO_codigo = :codigo_cliente";
 		$stmt = Database::prepare($sql);
 		$stmt->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
 		$stmt->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
 		$stmt->bindParam(':codigo_produto', $codigo_produto, PDO::PARAM_INT);
-		return $stmt->execute();
+		$stmt->execute();
 	}
+	
+	
 
 	public function deleteItem($codigo_produto,$codigo_cliente){
 		if(isset($_POST['deleteic'])){
@@ -87,7 +90,7 @@ class ItemCarrinho extends CRUD {
 	
 	public function updatePlus($codigo_produto, $codigo_cliente, $quantidade){
 		// Obtêm a quantidade atual do produto no banco de dados
-        $sql="SELECT * FROM $this->table WHERE fk_PRODUTO_codigo = :codigo_produto AND fk_CLIENTE_FK_USUARIO_codigo = :codigo_cliente";
+        $sql="SELECT * FROM item_carrinho WHERE fk_PRODUTO_codigo = :codigo_produto AND fk_CLIENTE_FK_USUARIO_codigo = :codigo_cliente";
 
 		$listacarrinho = Database::prepare($sql);
 		$listacarrinho->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
@@ -129,4 +132,8 @@ class ItemCarrinho extends CRUD {
 
 }
 
+if (isset($_POST['action']) && $_POST['action'] === 'update') {
+    // Chama o método estático update da classe ItemCarrinho
+    ItemCarrinho::update($_POST['codigo_produto'], $_POST['codigo_cliente'], $_POST['quantidade']);
+}
 ?>

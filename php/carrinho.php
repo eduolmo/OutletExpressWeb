@@ -89,7 +89,7 @@
                                                     <!-- Botão para aumentar e diminuir a quantidade de produtos -->
                                                     <div class="qtd">
                                                         <button class="btn-qtd btn-minus"><i class='bx bx-minus'></i></button>
-                                                        <input class="input-qtd" type="number" value="<?php echo $row['quantidade']?>" min="1">
+                                                        <input class="input-qtd" type="number" name="input_qtd" value="<?php echo $row['quantidade']?>" min="1">
                                                         <button class="btn-qtd btn-plus"><i class='bx bx-plus'></i></button>
                                                     </div>
                                                     <div class="qtdsave">
