@@ -23,8 +23,11 @@ if (isset($_GET["codigo"])) {
 	// Obtem do BD os detalhes do produto com id especificado na requisicao GET
 	$consulta = $db_con->prepare('SELECT comentario.*,usuario.nome FROM COMENTARIO INNER JOIN CLIENTE ON(cliente.fk_USUARIO_codigo = comentario.fk_cliente_fk_USUARIO_codigo) INNER JOIN USUARIO ON(usuario.codigo = cliente.fk_USUARIO_codigo) WHERE comentario.fk_PRODUTO_codigo = ' . $codigo);
 	
+	$resposta["comentarios"] = array();
+	$resposta["sucesso"] = 1;
+
 	if ($consulta->execute()) {
-		if ($consulta->rowCount() > 0) {
+		while ($consulta->rowCount() > 0) {
 	
 			// Se o produto existe, os dados completos do produto 
 			// sao adicionados no array de resposta. A imagem nao 
@@ -32,13 +35,17 @@ if (isset($_GET["codigo"])) {
 			// a imagem do produto.
 			$linha = $consulta->fetch(PDO::FETCH_ASSOC);
 	
-			$resposta["nome"] = $linha["nome"];
-			$resposta["comentario"] = $linha["conteudo"];
-			$resposta["avaliacao"] = $linha["avaliacao"];		
+			$comentarios = array();
+			$comentarios["nome"] = $linha["nome"];
+			$comentarios["comentario"] = $linha["conteudo"];
+			$comentarios["avaliacao"] = $linha["avaliacao"];	
+			
+			// Adiciona o comentario no array de comentario.
+			array_push($resposta["comentarios"], $comentarios);
 			
 			// Caso o produto exista no BD, o cliente 
 			// recebe a chave "sucesso" com valor 1.
-			$resposta["sucesso"] = 1;
+			//$resposta["sucesso"] = 1;
 			
 		} else {
 			// Caso o produto nao exista no BD, o cliente 
