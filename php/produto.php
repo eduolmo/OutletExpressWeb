@@ -107,6 +107,18 @@ class Produto extends CRUD {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function filterProducts($precoMin,$precoMax,$desconto,$avaria,$avaliacao){
+		$sql = "SELECT * FROM $this->table INNER JOIN CATEGORIA_AVARIA ON(categoria_avaria.codigo = produto.fk_categoria_avaria_codigo) WHERE valor_atual BETWEEN :precoMin AND :precoMax AND avaliacao >= :avaliacao_min AND categoria_avaria.descricao = :avaria AND desconto >= :desconto_min";
+		$stmt = Database::prepare($sql);
+		$stmt->bindParam(':precoMin', $precoMin, PDO::PARAM_INT);
+		$stmt->bindParam(':precoMax', $precoMax, PDO::PARAM_INT);
+		$stmt->bindParam(':desconto', $desconto, PDO::PARAM_INT);
+		$stmt->bindParam(':avaria', $avaria);
+		$stmt->bindParam(':avaliacao_min', $avaliacao, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function productDetail($codigo){
 		$sql = "SELECT * FROM $this->table WHERE codigo = :codigo";
 		$stmt = Database::prepare($sql);

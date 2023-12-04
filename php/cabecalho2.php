@@ -11,6 +11,7 @@ e depois redirecionar o cliente para a tela de produtos
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
     $_SESSION['categoria_produto'] = $_POST['categoria_produto'];
     unset($_SESSION['pesquisa']);
+    unset($_SESSION['filtrar']);
 
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -22,6 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['barra_pesquisa'])){
     $_SESSION['pesquisa'] = $_POST['barra_pesquisa'];
     unset($_SESSION['categoria_produto']);
+    unset($_SESSION['filtrar']);
 
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');

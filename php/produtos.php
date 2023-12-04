@@ -13,11 +13,12 @@
 <body>
     <!-- começo do cabecalho -->
     <?php
-        error_reporting(0);
+        //error_reporting(0);
         session_start(); 
 
         include_once 'produto.php';
 
+        //se a pargina for aberta quando o suaurio estiver buscando por um produto especifico
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['detalhe_produto'])){
             $_SESSION['codigo_produto'] = $_POST['codigo_produto'];
             
@@ -26,18 +27,15 @@
             $extra = 'detalhe_produto.php';
             header("Location: http://$host$uri/$extra");
             
-        }
-
+        }  
+        
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['filtrar'])){
-            $preco = trim(filter_input(INPUT_POST,'preco',FILTER_SANITIZE_SPECIAL_CHARS));
-            $desconto = trim(filter_input(INPUT_POST,'desconto',FILTER_SANITIZE_SPECIAL_CHARS));
-            $avaria = trim(filter_input(INPUT_POST,'avaria',FILTER_SANITIZE_SPECIAL_CHARS));
-            $avaliacao = trim(filter_input(INPUT_POST,'avaliacao',FILTER_SANITIZE_SPECIAL_CHARS));
+            unset($_SESSION['pesquisa']);
+            unset($_SESSION['categoria_produto']);
+        }  
+    
 
-                        
-        }    
-
-        include "cabecalho2.php"; 
+        include_once "cabecalho2.php"; 
     ?>                
     <!--fim do cabecalho-->
 
@@ -62,52 +60,69 @@
 
                     <div class="preco">
                         <p class="filtro_titulo">Preço</p>
-                        <input type="number" name="preco">
-                    </div>
+                        <div>
+                            <label for="precoMin">Min.</label>
+                            <input type="number" name="precoMin" id="precoMin">
+                        </div>
+                        <div>
+                            <label for="precoMax">Max.</label>
+                            <input type="number" name="precoMax" id="precoMax">
+                        </div>                 
+                    </div>                    
 
                     <div class="cor">
                         <p class="filtro_titulo">Desconto</p>
-                        <input type="radio" name="desconto" id="cor1" value="20">
-                        <label for="cor1">Até 20%</label><br>
-                        <input type="radio" name="desconto" id="cor2" value="50">
-                        <label for="cor2">Até 50%</label><br>
-                        <input type="radio" name="desconto" id="cor3" value="70">
-                        <label for="cor3">Até 70%</label><br>
-                        <input type="radio" name="desconto" id="cor4" value="acima70">
-                        <label for="cor3">Acima de 70%</label><br>
+                        <input type="radio" name="desconto" value="10" id="10">
+                        <label for="10">Acima de 10%</label><br>
+                        <input type="radio" name="desconto" value="20" id="20">
+                        <label for="20">Acima de 20%</label><br>
+                        <input type="radio" name="desconto" value="30" id="30">
+                        <label for="30">Acima de 30%</label><br>
+                        <input type="radio" name="desconto" value="40" id="40">
+                        <label for="40">Acima de 30%</label><br>
+                        <input type="radio" name="desconto" value="50" id="50">
+                        <label for="50">Acima de 50%</label><br>
+                        <input type="radio" name="desconto" value="60" id="60">
+                        <label for="60">Acima de 60%</label><br>
+                        <input type="radio" name="desconto" value="70" id="70">
+                        <label for="70">Acima de 70%</label><br>
+                        <input type="radio" name="desconto" value="80" id="80">
+                        <label for="80">Acima de 80%</label><br>
+                        <input type="radio" name="desconto" value="90" id="90">
+                        <label for="90">Acima de 90%</label><br>
                     </div>
 
                     <div class="marca">
                         <p class="filtro_titulo">Avaria</p>
-                        <input type="radio" name="avaria" id="item1" value="arranhao">
+                        <input type="radio" name="avaria" value="Arranhão" id="item1">
                         <label for="item1">Arranhão</label><br>
-                        <input type="radio" name="avaria" id="item2" value="amassado">
+                        <input type="radio" name="avaria" value="Amassado" id="item2">
                         <label for="item2">Amassado</label><br>
-                        <input type="radio" name="avaria" id="item3" value="mancha">
+                        <input type="radio" name="avaria" value="Mancha" id="item3">
                         <label for="item3">Mancha</label><br>
-                        <input type="radio" name="avaria" id="item4" value="embalagem">
+                        <input type="radio" name="avaria" value="Embalagem danificada" id="item4">
                         <label for="item4">Embalagem danificada</label><br>
-                        <input type="radio" name="avaria" id="item5" value="antigo">
+                        <input type="radio" name="avaria" value="Modelo antigo" id="item5">
                         <label for="item5">Modelo antigo</label><br>
-                        <input type="radio" name="avaria" id="item5" value="ausente">
+                        <input type="radio" name="avaria" value="Peça ausente ou substituída" id="item6">
                         <label for="item5">Peça ausente ou substituída</label><br>
-                        <input type="radio" name="avaria" id="item5" value="devolucao">
+                        <input type="radio" name="avaria" value="Item de devolução" id="item7">
                         <label for="item5">	Item de devolução</label><br>
-                        <input type="radio" name="avaria" id="item5" value="defeito">
+                        <input type="radio" name="avaria" value="Pequeno defeito funcional" id="item8">
                         <label for="item5">Pequeno defeito funcional</label><br>
                     </div>
                     
                     <div class="avaliacao">
                         <p class="filtro_titulo">Avaliação do produto</p>
-                        <input type="radio" name="avaliacao" id="" value="1">
+                        <input type="radio" name="avaliacao" value="5" id="">
                         <img class="estrelas" src="../imagens/5estrelas.jpg" alt=""><br>
-                        <input type="radio" name="avaliacao" id="" value="2">
+                        <input type="radio" name="avaliacao" value="4" id="">
                         <img class="estrelas" src="../imagens/4estrelas.jpg" alt=""><br>
-                        <input type="radio" name="avaliacao" id="" value="3">
+                        <input type="radio" name="avaliacao" value="3" id="">
                         <img class="estrelas" src="../imagens/3estrelas.jpg" alt=""><br>
-                        <input type="radio" name="avaliacao" id="" value="4">
+                        <input type="radio" name="avaliacao" value="2" id="">
                         <img class="estrelas" src="../imagens/2estrelas.jpg" alt=""><br>
-                        <input type="radio" name="avaliacao" id="" value="5">
+                        <input type="radio" name="avaliacao" value="1" id="">
                         <img class="estrelas" src="../imagens/1estrela.jpg" alt=""><br>
                     </div>
                     
@@ -123,56 +138,97 @@
 
         <div class="row produtos col-10">
             <?php
+                //echo 'antes dos produtos';
                 if(isset($_SESSION['categoria_produto'])){
+                    //echo 'comeco da categoria';
                     $categoria = $_SESSION['categoria_produto'];
-
-                    include_once 'produto.php';
 
                     $produtos_categorizados = new Produto();
                     $resultado = $produtos_categorizados->categorizeProducts($categoria);
                     
-                    for($i = 0; $i < sizeof($resultado); $i++){
-                        ?> 
-
-                        <div class="produto_dados col-5 col-md-3 col-xl-2">
-
-                            <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                <button type="submit" class="btn_produto" name="detalhe_produto">
-
-                                    <input type="hidden" name="codigo_produto" value="<?php echo $resultado[$i]['codigo']; ?>">
-
-                                    <div class="div_imgproduto" style="background-image: url('<?php echo $resultado[$i]['imagem']; ?>');"></div>
-                                    <p class="produto_desconto">
-                                        <?php 
-                                        $porcentagem = $resultado[$i]['desconto'] + $resultado[$i]['valor_atual'];
-                                        $porcentagem = $resultado[$i]['desconto'] / $porcentagem * 100;
-                                        echo round($porcentagem,0) . '%';
-                                        ?>
-                                    </p>
-                                    <p class="produto_nome">
-                                        <?php  
-                                        //echo strlen($resultado[$i]['nome']);
-                                        if(strlen($resultado[$i]['nome']) > 30){
-                                            $novo_nome = substr($resultado[$i]['nome'],0,27);
-                                            echo $novo_nome.'...';
-                                        }
-                                        else{
-                                            echo $resultado[$i]['nome'];
-                                        }
-                                        
-                                        ?>
-                                    </p>
-                                    <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
-                                    <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
-
-                                </button>
-                            </form>   
-                                                     
-                        </div>
-                                                
-                        <?php                        
-                    }                    
                 }
+                elseif(isset($_SESSION['pesquisa'])){
+                    //echo 'comeco da pesquisa';
+                    $pesquisa = $_SESSION['pesquisa'];
+
+                    $produtos = new Produto();
+                    $resultado = $produtos->searchProducts($pesquisa);
+                }
+                elseif(isset($_POST['filtrar'])){
+                    $precoMin = trim(filter_input(INPUT_POST,'precoMin',FILTER_SANITIZE_SPECIAL_CHARS));
+                    $precoMax = trim(filter_input(INPUT_POST,'precoMax',FILTER_SANITIZE_SPECIAL_CHARS));
+                    $desconto = trim(filter_input(INPUT_POST,'desconto',FILTER_SANITIZE_SPECIAL_CHARS));
+                    $avaria = trim(filter_input(INPUT_POST,'avaria',FILTER_SANITIZE_SPECIAL_CHARS));
+                    $avaliacao = trim(filter_input(INPUT_POST,'avaliacao',FILTER_SANITIZE_SPECIAL_CHARS));
+
+                    echo 'precoMin: ' . var_dump($precoMin);
+                    echo 'precoMax: ' . var_dump($precoMax);
+
+                    $porcentagem = $resultado[$i]['desconto'] + $resultado[$i]['valor_atual'];
+                    $porcentagem = $resultado[$i]['desconto'] / $porcentagem * 100;
+                    $porcentagem = round($porcentagem,0) . '%';
+
+                    if($precoMin == ""){
+                        $precoMin = 0;
+                    }
+                    if($precoMax == ""){
+                        $precoMax = null;
+                    }
+                    if($desconto == ""){
+                        $desconto = 0;
+                    }
+                    if($avaria == ""){
+                        $avaria = null;
+                    }
+                    if($avaliacao == ""){
+                        $avaliacao = 0;
+                    }
+
+                    $produtos = new Produto();
+                    $resultado = $produtos->filterProducts($precoMin,$precoMax,$desconto,$avaria,$avaliacao);
+                }
+
+                for($i = 0; $i < sizeof($resultado); $i++){
+                    ?> 
+
+                    <div class="produto_dados col-5 col-md-3 col-xl-2">
+
+                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                            <button type="submit" class="btn_produto" name="detalhe_produto">
+
+                                <input type="hidden" name="codigo_produto" value="<?php echo $resultado[$i]['codigo']; ?>">
+
+                                <div class="div_imgproduto" style="background-image: url('<?php echo $resultado[$i]['imagem']; ?>');"></div>
+                                <p class="produto_desconto">
+                                    <?php 
+                                    $porcentagem = $resultado[$i]['desconto'] + $resultado[$i]['valor_atual'];
+                                    $porcentagem = $resultado[$i]['desconto'] / $porcentagem * 100;
+                                    echo round($porcentagem,0) . '%';
+                                    ?>
+                                </p>
+                                <p class="produto_nome">
+                                    <?php  
+                                    //echo strlen($resultado[$i]['nome']);
+                                    if(strlen($resultado[$i]['nome']) > 30){
+                                        $novo_nome = substr($resultado[$i]['nome'],0,27);
+                                        echo $novo_nome.'...';
+                                    }
+                                    else{
+                                        echo $resultado[$i]['nome'];
+                                    }
+                                    
+                                    ?>
+                                </p>
+                                <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
+                                <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
+
+                            </button>
+                        </form>   
+                                                 
+                    </div>
+                                            
+                    <?php                                               
+                }                 
             ?>            
         </div>
     </section>
