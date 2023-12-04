@@ -57,12 +57,14 @@
     gap: 20px;
     justify-content: space-around;
     margin-left: 20px;
+    padding-top: 20px;
 }
 
 .produto_nome {
     color: black;
     font-size: 18px;
     margin: 0px;
+    height: 60px;
 }
 
 .img-fluid{
