@@ -19,34 +19,49 @@ $resposta = array();
 if(autenticar($db_con)) {
  
 	// Verifica se o parametro id foi enviado na requisicao
-	if (isset($_GET["codigo_cliente"])) {
+	if (isset($_GET["email"])) {
 		
 		// Aqui sao obtidos os parametros
-		$codigo = $_GET['codigo_cliente'];
+		$email = $_GET['email'];
+
+		//consulta codigo do cliente pelo email
+		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo from USUARIO
+		inner join CLIENTE
+		on(cliente.fk_usuario_codigo = usuario.codigo)
+		where(email = '" . $email . "'");
+		$lista_codigo_cliente = $codigo_cliente->fetch(PDO::FETCH_ASSOC);
+		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
 	 
-		// Obtem do BD os detalhes do produto com id especificado na requisicao GET
-		$consulta = $db_con->prepare('SELECT cliente.fk_usuario_codigo, compra.codigo as "codigo_compra", item_compra.codigo as "codigo_item_compra", produto.codigo as "codigo_produto" from cliente
+		// Obtem do BD os produtos que aquele cliente comprou
+		$consulta = $db_con->prepare("SELECT cliente.fk_usuario_codigo, compra.codigo as "codigo_compra", item_compra.codigo as "codigo_item_compra", produto.codigo as "codigo_produto" from CLIENTE
 		  inner join COMPRA
-		  on(compra.fk_cliente_fk_usuario_codigo = :codigo_cliente)
+		  on(compra.fk_cliente_fk_usuario_codigo = '" . $codigo_cliente . "')
 		  inner join ITEM_COMPRA
 		  on(item_compra.fk_compra_codigo = compra.codigo)
 		  inner join PRODUTO
 		  on(item_compra.fk_produto_codigo = produto.codigo)
-		  where cliente.fk_usuario_codigo = :codigo_cliente');
-		$consulta->bindParam(':codigo_cliente', $codigo_cliente); 
-		
+		  where cliente.fk_usuario_codigo = '" . $codigo_cliente . "'");		
 	 
 		if ($consulta->execute()) {
+  		//pega detalhes do produto comprado    			 			
+    
 			$linha = $consulta->fetch(PDO::FETCH_ASSOC);	
 			$codigo_produto = $linha[0]['codigo_produto'];
 
-			$sql = $db_con->prepare('SELECT * FROM PRODUTO WHERE codigo = :codigo);
-			$sql->bindParam(':codigo', $codigo_produto, PDO::PARAM_INT);
+			$sql = $db_con->prepare("SELECT * FROM PRODUTO WHERE codigo = '" . $codigo_produto . "'");
    
-   			if($sql->execute()){      
-				$produtos = $stmt->fetch(PDO::FETCH_ASSOC);
-    				$resposta["nome"] = $produtos["nome"];
-				$resposta["descricao"] = $produtos["descricao"];			
+   			$resposta["produtos"] = array(); 
+   			if($sql->execute()){            
+      				while ($detalhes = $sql->fetch(PDO::FETCH_ASSOC)) {
+					$produto = array();
+		  			$produto["nome"] = $detalhes["nome"];
+	      				$produto["descricao"] = $detalhes["descricao"];
+	   				// Adiciona o produto no array de produtos.
+					array_push($resposta["produtos"], $produto);
+   				}
+	  			
+				$produtos = $sql->fetch(PDO::FETCH_ASSOC);
+    						
 				$resposta["sucesso"] = 1;
 	 		} else {
     				$resposta["sucesso"] = 0;
