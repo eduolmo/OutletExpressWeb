@@ -1,37 +1,43 @@
-$(document).ready(function() {
-    // Quando o botão for clicado
-    $("#btnAdicionarCarrinho").click(function() {
-        // Recupere a quantidade definida pelo usuário
-        var quantidade = parseInt($("#quantidadeProduto").val());
+$('.adicionarCarrinho').on('click', function() {
+    let codigo_produto = $(this).data('codigo-produto');
+    let codigo_cliente = $(this).data('codigo-cliente');
+    let quantidade = parseInt($("#quantidade").val());
 
-        // Verifique se a quantidade é válida
-        if (isNaN(quantidade) || quantidade <= 0) {
-            alert("Por favor, insira uma quantidade válida.");
-            return;
+    $.ajax({
+        url: 'adicionaritem.php',
+        type: 'POST',
+        data: {
+            'action': 'adicionarCarrinho',
+            'codigo_produto': codigo_produto,
+            'codigo_cliente': codigo_cliente,
+            'quantidade': quantidade
         }
-
-        // Crie um objeto com os dados a serem enviados para o servidor
-        var dados = {
-            quantidade: quantidade
-            // Adicione outras informações necessárias aqui
-        };
-
-        // Faça uma requisição Ajax para o servidor
-        $.ajax({
-            type: "POST",
-            url: "caminho/para/seu/script_php.php", // Substitua pelo caminho correto do seu script PHP
-            data: dados,
-            success: function(response) {
-                // A resposta do servidor (pode ser usada para feedback ao usuário)
-                console.log(response);
-
-                // Redirecione para a página do carrinho após a inserção (opcional)
-                window.location.href = 'carrinho.php';
-            },
-            error: function(error) {
-                // Trate erros aqui, se necessário
-                console.error(error);
-            }
-        });
     });
 });
+
+const inputQtds = document.querySelectorAll('.input-qtd');
+const decrementButtons = document.querySelectorAll('.btn-qtd.btn-minus');
+const incrementButtons = document.querySelectorAll('.btn-qtd.btn-plus');
+
+
+for (let i = 0; i < inputQtds.length; i++) {
+    /*Recebendo a variavel correta a partir do indice da lista*/
+    const inputQtd = inputQtds[i];
+    const decrementButton = decrementButtons[i];
+    const incrementButton = incrementButtons[i];
+
+    console.log(inputQtds);
+    /*Adicionando a funcionalidade de aumentar o valor ao clicar no botao de soma*/
+    decrementButton.addEventListener('click', () => {
+        if (inputQtd.value > 1) {
+        inputQtds[0].value = parseInt(inputQtds[0].value) - 1;
+        inputQtds[1].value = parseInt(inputQtds[1].value) - 1;
+        }
+    });
+
+    /*Adicionana funcionalidade de diminuir o valor ao clicar no botao de subtracao*/
+    incrementButton.addEventListener('click', () => {
+        inputQtds[0].value = parseInt(inputQtds[0].value) + 1;
+        inputQtds[1].value = parseInt(inputQtds[1].value) + 1;
+    });
+}
