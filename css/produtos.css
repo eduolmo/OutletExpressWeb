@@ -34,8 +34,13 @@
 }
 
 .preco, .marca, .cor, .avaliacao{
-    padding-top: 15px;
-    
+    padding-top: 15px; 
+}
+
+.preco{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .filtro_titulo{
