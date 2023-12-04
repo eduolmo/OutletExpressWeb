@@ -71,8 +71,6 @@ class ItemCarrinho extends CRUD {
 		$stmt->execute();
 	}
 	
-	
-
 	public function deleteItem($codigo_produto,$codigo_cliente){
 		if(isset($_POST['deleteic'])){
 			try{
@@ -87,6 +85,14 @@ class ItemCarrinho extends CRUD {
 		}
 	}
 
+	public static function deleteCarrinho(){
+		$codigo_cliente = $_POST['codigo_cliente'];
+		
+		$sql="DELETE FROM item_carrinho WHERE fk_CLIENTE_FK_USUARIO_codigo = :codigo_cliente";
+		$stmt = Database::prepare($sql);	
+		$stmt->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
+		return $stmt->execute();	
+	}
 	
 	public function updatePlus($codigo_produto, $codigo_cliente, $quantidade){
 		// Obtêm a quantidade atual do produto no banco de dados
@@ -96,29 +102,35 @@ class ItemCarrinho extends CRUD {
 		$listacarrinho->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
 		$listacarrinho->bindParam(':codigo_produto', $codigo_produto, PDO::PARAM_INT);
 		$listacarrinho->execute();
-
-        // Recupera a quantidade atual do banco de dados
-        $quantidadeAtual = $listacarrinho->fetch(PDO::FETCH_ASSOC);
-
-        // Soma a quantidade atual com a quantidade recebida pelo método POST
-        $novaQuantidade = $quantidadeAtual + $quantidade;
-
-        // Atualiza a quantidade do produto no carrinho no banco de dados
-
-		$sql="UPDATE $this->table SET quantidade = :novaQuantidade WHERE fk_PRODUTO_codigo = :codigo_produto AND fk_CLIENTE_FK_USUARIO_codigo = :codigo_cliente";
-
-		$stmt = Database::prepare($sql);
-		$stmt->bindParam(':novaQuantidade', $novaQuantidade, PDO::PARAM_INT);
-		$stmt->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
-		$stmt->bindParam(':codigo_produto', $codigo_produto, PDO::PARAM_INT);
-		return $stmt->execute();
+		
+		$row = $listacarrinho->fetch(PDO::FETCH_ASSOC);
+		
+        if ($row && isset($row['quantidade'])) {
+			// Converta a string para inteiro
+			$qtdAt = intval($row['quantidade']);
+	
+			// Soma a quantidade atual com a quantidade recebida pelo método POST
+			$novaQuantidade = $qtdAt + $quantidade;
+	
+			// Atualiza a quantidade do produto no carrinho no banco de dados
+			$sql = "UPDATE $this->table SET quantidade = :novaQuantidade WHERE fk_PRODUTO_codigo = :codigo_produto AND fk_CLIENTE_FK_USUARIO_codigo = :codigo_cliente";
+	
+			$stmt = Database::prepare($sql);
+			$stmt->bindParam(':novaQuantidade', $novaQuantidade, PDO::PARAM_INT);
+			$stmt->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
+			$stmt->bindParam(':codigo_produto', $codigo_produto, PDO::PARAM_INT);
+			return $stmt->execute();
+		} else {
+			// Faça algo aqui caso a chave 'quantidade' não esteja definida
+			return false;
+		}
 	}
 	
-	public function verificarProdutoNoCarrinho($fk_cliente_fk_usuario_codigo, $fk_produto_codigo){
-		$sql="SELECT * FROM $this->table WHERE fk_cliente_fk_usuario_codigo=:fk_cliente_fk_usuario_codigo AND fk_produto_codigo=:fk_produto_codigo";
+	public function verificarProdutoNoCarrinho($codigo_produto, $codigo_cliente){
+		$sql="SELECT * FROM $this->table WHERE fk_cliente_fk_usuario_codigo=:fk_cliente_fk_usuario_codigo AND fk_produto_codigo=:codigo_produto";
 		$stmt = Database::prepare($sql);
-		$stmt->bindParam(':fk_cliente_fk_usuario_codigo', $fk_cliente_fk_usuario_codigo, PDO::PARAM_INT);    
-		$stmt->bindParam(':fk_produto_codigo', $fk_produto_codigo, PDO::PARAM_INT);    
+		$stmt->bindParam(':fk_cliente_fk_usuario_codigo', $codigo_cliente, PDO::PARAM_INT);    
+		$stmt->bindParam(':codigo_produto', $codigo_produto, PDO::PARAM_INT);    
 		$stmt->execute();
 	
 		// Verifica se o registro existe no banco de dados
@@ -135,5 +147,10 @@ class ItemCarrinho extends CRUD {
 if (isset($_POST['action']) && $_POST['action'] === 'update') {
     // Chama o método estático update da classe ItemCarrinho
     ItemCarrinho::update($_POST['codigo_produto'], $_POST['codigo_cliente'], $_POST['quantidade']);
+}
+
+if (isset($_POST['action']) && $_POST['action'] === 'delete') {
+    // Chama o método estático update da classe ItemCarrinho
+    ItemCarrinho::deleteCarrinho($_POST['codigo_cliente']);
 }
 ?>

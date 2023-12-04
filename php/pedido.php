@@ -16,7 +16,7 @@
     <!-- cabecalho -->
     <?php
         include 'cabecalho2.php';
-        include 'finalizarCompra.php';
+        include 'item_carrinho.php';
 
         //finalizarCompra();
         
@@ -64,45 +64,65 @@
                     <div>
                         <p class="titulo m-3">Produtos</p>
                         <?php
-                            try {
-                                $listagem = Database::prepare(" 
-                                    SELECT ic.*, p.*, cp.*
-                                    FROM item_carrinho ic
-                                    JOIN produto p ON ic.fk_PRODUTO_codigo = p.codigo
-                                    JOIN cliente c ON ic.fk_CLIENTE_FK_USUARIO_codigo = c.fk_USUARIO_codigo
-                                    JOIN categoria_produto cp ON p.FK_CATEGORIA_PRODUTO_codigo = cp.codigo
-                                    WHERE c.fk_USUARIO_codigo = :codigo_cliente
-                                    ");
-                                //$listagem->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
-                                $listagem->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
-                                $listagem->execute();
-                                while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
-
-                        <tr class=" col-md-6">
-                            <div class= "produtos">
-                                <td>
-                                    <div class="revisao d-flex">
-                                        <img class="imagem img-fluid" src="<?php echo $row['imagem']; ?>" alt="">
-                                        <div class="informacoes">
-                                            <div class="p-3"><?php echo $row['nome'];?></div>
-                                            <div class="p-3"><?php echo $row['descricao']; ?></div>
-                                            <div class="p-3">Quantidade: <?php echo $row['quantidade']; ?></div>
-                                        </div>
+                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                $nomeind = $_POST['nomeind'];
+                                $imagemind = $_POST['imagemind'];
+                                $descricaoind = $_POST['descricaoind'];
+                                $quantidadeind = $_POST['quantidadeind'];
+                                ?>
+                                <tr class="col-md-6">
+                                    <div class="produtos">
+                                        <td>
+                                            <div class="revisao d-flex">
+                                                <img class="imagem img-fluid" src="<?php echo $imagemind; ?>" alt="">
+                                                <div class="informacoes">
+                                                    <div class="p-3"><?php echo $nomeind; ?></div>
+                                                    <div class="p-3"><?php echo $descricaoind; ?></div>
+                                                    <div class="p-3">Quantidade: <?php echo $quantidadeind; ?></div>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </div>
-                                </td>
-                            </div>
-                        </tr>
-
-                        <?php
+                                </tr>
+                            <?php
+                            } else {
+                                try {
+                                    $listagem = Database::prepare("
+                                        SELECT ic.*, p.*, cp.*
+                                        FROM item_carrinho ic
+                                        JOIN produto p ON ic.fk_PRODUTO_codigo = p.codigo
+                                        JOIN cliente c ON ic.fk_CLIENTE_FK_USUARIO_codigo = c.fk_USUARIO_codigo
+                                        JOIN categoria_produto cp ON p.FK_CATEGORIA_PRODUTO_codigo = cp.codigo
+                                        WHERE c.fk_USUARIO_codigo = :codigo_cliente
+                                    ");
+                                    $listagem->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
+                                    $listagem->execute();
+                                    while ($row = $listagem->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
+                                        <tr class="col-md-4">
+                                            <div class="produtos">
+                                                <td>
+                                                    <div class="revisao d-flex">
+                                                        <img class="imagem img-fluid" src="<?php echo $row['imagem']; ?>" alt="">
+                                                        <div class="informacoes">
+                                                            <div class="p-3"><?php echo $row['nome']; ?></div>
+                                                            <div class="p-3"><?php echo $row['descricao']; ?></div>
+                                                            <div class="p-3">Quantidade: <?php echo $row['quantidade']; ?></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </div>
+                                        </tr>
+                            <?php
+                                    }
+                                } catch (PDOException $e) {
+                                    echo "Erro na execução da consulta: " . $e->getMessage();
                                 }
-                            } catch (PDOException $e) {
-                                echo "Erro na execução da consulta: " . $e->getMessage();
                             }
-                        ?>
-                    </div>
+                            ?>
 
-                    <div class="col-md-6 col-sm-3 mt-5">
+
+                    <div class="col-md-4 col-sm-3 mt-5">
                         <aside>
                             <!--Div com as informacoes da compra-->
                             <div class="inf">
@@ -116,7 +136,7 @@
                             <div id="total-value"></div>
                         </div>
                         <!--Botao para encerrar a compra-->
-                        <button class="btn-finalizar" id="abrir_modal" onclick="imprimir()">Concluir compra</button>
+                        <button class="btn-finalizar" data-codigo-cliente="<?php echo $codigo_cliente; ?>" id="abrir_modal" onclick="imprimir()">Concluir compra</button>
                         <div id="fade" class="hide"></div>
                         <div id="modal" class="hide">
                             <div class="modal-cabecalho">
@@ -135,6 +155,8 @@
     <?php
 	
 	?>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="../js/pedido.js"></script>   
 </body>
 </html>

@@ -1,23 +1,22 @@
 <?php
 // Código PHP para lidar com a inserção/atualização do item_carrinho
-error_reporting(0);
+//error_reporting(0);
 session_start();
 // Inclui o arquivo da sua classe
-require_once 'item_carrinho.php';
+
 
 // Verifica se a requisição é do tipo POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST'  && $_POST['action'] === 'adicionarCarrinho') {
     // Cria uma instância da classe item_carrinho
 
-    include 'banco_conexao.php';
-    
-    $db = Database::getInstance();
-    
-    // Obtem o codigo do cliente da sessao
-    $codigo_cliente = $_SESSION['cliente']['codigo'];
-    $codigo_produto = $POST['codigo_produto'];
-    $quantidade = $POST['quantidade'];
+    include 'item_carrinho.php';
 
+    // Obtem o codigo do cliente da sessao
+    $codigo_produto = $_POST['codigo_produto'];
+    $codigo_cliente = $_POST['codigo_cliente'];
+    $quantidade = $_POST['quantidade'];
+
+    /*
     $sql = "
     SELECT p.codigo as produto_codigo
     FROM item_carrinho ic
@@ -32,10 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $valor = $listacarrinho->fetch(PDO::FETCH_ASSOC);
 
+    */
 
-    $itemCarrinho = new item_carrinho();
-    
-
+    $itemCarrinho = new itemCarrinho();
     // Atribui a quantidade ao objeto
     $itemCarrinho->setQuantidade($_POST['quantidade']);
     $itemCarrinho->setFk_CLIENTE_FK_USUARIO_codigo($codigo_cliente);

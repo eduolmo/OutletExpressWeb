@@ -21,6 +21,7 @@
         include_once 'produto.php';
 
         $codigo = $_SESSION['codigo_produto'];
+        $codigo_cliente = $_SESSION['cliente']['codigo'];
         
         $produto = new Produto();
         $produto = $produto->productDetail($codigo);
@@ -44,7 +45,7 @@
                         <p class="produto_valor">R$ <?php echo $produto['valor_atual']; ?></p>
                         <p class="produto_pagamento">até 10x  sem juros</p>
                         <p class="produto_avaria"> <?php echo $produto['avaria']; ?></p>
-                        <p class="produto_cor mb-0"> <strong>Descrição: </strong><?php echo $produto['descricao']; ?></p>
+                        <p class="produto_cor mb-0"> <strong>Descrição:  </strong><?php echo $produto['descricao']; ?></p>
                         <ul class="rating d-flex">
                             <li class="star-icon" data-avaliacao="1"></li>
                             <li class="star-icon" data-avaliacao="2"></li>
@@ -56,13 +57,20 @@
                         <div class="linhas"></div>
                         <!--div com os botoes Comprar Agora e Adicionar ao Carrinho-->
                         <div class="produto_botoes">
-                            <button class="comprarAgora" onclick="window.location.href='pedido.php'">COMPRAR AGORA</button> <br>
-                            <button class="adicionarCarrinho" onclick="window.location.href='carrinho.php'">ADICIONAR AO CARRINHO</button>
+                        <form action="pedido.php" method="post">
+                            <input type="hidden" name="nomeind" value="<?php echo $produto['nome']; ?>">
+                            <input type="hidden" name="imagemind" value="<?php echo $produto['imagem']; ?>">
+                            <input type="hidden" name="descricaoind" value="<?php echo $produto['descricao']; ?>">
+                            <input type="hidden" name="quantidadeind" class="input-qtd" min="1" value="1">
+
+                            <button type="submit" class="comprarAgora">COMPRAR AGORA</button>
+                        </form>
+                            <button class="adicionarCarrinho" data-codigo-cliente="<?php echo $codigo_cliente; ?>" data-codigo-produto="<?php echo $codigo;?>">ADICIONAR AO CARRINHO</button>
                         </div>
                         <div class="qtd mt-2 mb-0">
-                            <button class="btn-qtd" onclick="DiminuirQuantidade()">-</button>
-                            <input class="input-qtd" id="quantidade" min="1" value="1" readonly>
-                            <button class="btn-qtd" onclick="AumentarQuantidade()">+</button>
+                            <button class="btn-qtd btn-minus">-</button>
+                            <input class="input-qtd" id="quantidade" min="1" value="1" >
+                            <button class="btn-qtd btn-plus">+</button>
                         </div>
                         <!--div para os itens de calcular frete-->
                         <div class="calcularFrete">
@@ -118,6 +126,7 @@
     
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="../js/adicionaritem.js"></script> 
 </body>
 </html>
 
