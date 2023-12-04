@@ -19,38 +19,39 @@ $resposta = array();
 if(autenticar($db_con)) {
  
 	// Verifica se o parametro id foi enviado na requisicao
-	if (isset($_GET["codigo"])) {
+	if (isset($_GET["codigo_cliente"])) {
 		
 		// Aqui sao obtidos os parametros
-		$codigo = $_GET['codigo'];
+		$codigo = $_GET['codigo_cliente'];
 	 
 		// Obtem do BD os detalhes do produto com id especificado na requisicao GET
-		$consulta = $db_con->prepare("SELECT * FROM COMENTARIO WHERE codigo = $codigo");
+		$consulta = $db_con->prepare('SELECT cliente.fk_usuario_codigo, compra.codigo as "codigo_compra", item_compra.codigo as "codigo_item_compra", produto.codigo as "codigo_produto" from cliente
+		  inner join COMPRA
+		  on(compra.fk_cliente_fk_usuario_codigo = :codigo_cliente)
+		  inner join ITEM_COMPRA
+		  on(item_compra.fk_compra_codigo = compra.codigo)
+		  inner join PRODUTO
+		  on(item_compra.fk_produto_codigo = produto.codigo)
+		  where cliente.fk_usuario_codigo = :codigo_cliente');
+		$consulta->bindParam(':codigo_cliente', $codigo_cliente); 
+		
 	 
 		if ($consulta->execute()) {
-			if ($consulta->rowCount() > 0) {
-	 
-				// Se o produto existe, os dados completos do produto 
-				// sao adicionados no array de resposta. A imagem nao 
-				// e entregue agora pois ha um php exclusivo para obter 
-				// a imagem do produto.
-				$linha = $consulta->fetch(PDO::FETCH_ASSOC);
-	 
-				$resposta["FK_USUARIO_codigo"] = $linha["FK_USUARIO_codigo"];
-                $resposta["conteudo"] = $linha["conteudo"];
-				$resposta["avaliacao"] = $linha["avaliacao"];		
-				
-				// Caso o produto exista no BD, o cliente 
-				// recebe a chave "sucesso" com valor 1.
+			$linha = $consulta->fetch(PDO::FETCH_ASSOC);	
+			$codigo_produto = $linha[0]['codigo_produto'];
+
+			$sql = $db_con->prepare('SELECT * FROM PRODUTO WHERE codigo = :codigo);
+			$sql->bindParam(':codigo', $codigo_produto, PDO::PARAM_INT);
+   
+   			if($sql->execute()){      
+				$produtos = $stmt->fetch(PDO::FETCH_ASSOC);
+    				$resposta["nome"] = $produtos["nome"];
+				$resposta["descricao"] = $produtos["descricao"];			
 				$resposta["sucesso"] = 1;
-				
-			} else {
-				// Caso o produto nao exista no BD, o cliente 
-				// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
-				// motivo da falha.
-				$resposta["sucesso"] = 0;
-				$resposta["erro"] = "Comentário não encontrado
-                ";
+	 		} else {
+    				$resposta["sucesso"] = 0;
+				$resposta["erro"] = "Erro no BD: " . $consulta->error;
+			
 			}
 		} else {
 			// Caso ocorra falha no BD, o cliente 
