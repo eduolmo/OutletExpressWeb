@@ -18,6 +18,7 @@
 
         include_once 'produto.php';
 
+        //se a pargina for aberta quando o suaurio estiver buscando por um produto especifico
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['detalhe_produto'])){
             $_SESSION['codigo_produto'] = $_POST['codigo_produto'];
             
@@ -38,7 +39,7 @@
 
         }    
 
-        include "cabecalho2.php"; 
+        include_once "cabecalho2.php"; 
     ?>                
     <!--fim do cabecalho-->
 
@@ -124,7 +125,9 @@
 
         <div class="row produtos col-10">
             <?php
-                if(isset($_SESSION['categoria_produto'])){
+                //echo 'antes dos produtos';
+                if(isset($_SESSION['categoria_produto']) && $_SESSION['categoria_produto'] != ""){
+                    //echo 'comeco da categoria';
                     $categoria = $_SESSION['categoria_produto'];
 
                     include_once 'produto.php';
@@ -171,9 +174,63 @@
                                                      
                         </div>
                                                 
-                        <?php                        
-                    }                    
+                        <?php                                              
+                    }
+                    //$_SESSION['categoria_produto'] = "";
                 }
+                elseif(isset($_SESSION['pesquisa']) && $_SESSION['pesquisa'] != ""){
+                    //echo 'comeco da pesquisa';
+                    $pesquisa = $_SESSION['pesquisa'];
+
+                    include_once 'produto.php';
+
+                    $produtos = new Produto();
+                    $resultado = $produtos->searchProducts($pesquisa);
+                    
+                    for($i = 0; $i < sizeof($resultado); $i++){
+                        ?> 
+
+                        <div class="produto_dados col-5 col-md-3 col-xl-2">
+
+                            <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                <button type="submit" class="btn_produto" name="detalhe_produto">
+
+                                    <input type="hidden" name="codigo_produto" value="<?php echo $resultado[$i]['codigo']; ?>">
+
+                                    <div class="div_imgproduto" style="background-image: url('<?php echo $resultado[$i]['imagem']; ?>');"></div>
+                                    <p class="produto_desconto">
+                                        <?php 
+                                        $porcentagem = $resultado[$i]['desconto'] + $resultado[$i]['valor_atual'];
+                                        $porcentagem = $resultado[$i]['desconto'] / $porcentagem * 100;
+                                        echo round($porcentagem,0) . '%';
+                                        ?>
+                                    </p>
+                                    <p class="produto_nome">
+                                        <?php  
+                                        //echo strlen($resultado[$i]['nome']);
+                                        if(strlen($resultado[$i]['nome']) > 30){
+                                            $novo_nome = substr($resultado[$i]['nome'],0,27);
+                                            echo $novo_nome.'...';
+                                        }
+                                        else{
+                                            echo $resultado[$i]['nome'];
+                                        }
+                                        
+                                        ?>
+                                    </p>
+                                    <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
+                                    <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
+
+                                </button>
+                            </form>   
+                                                     
+                        </div>
+                                                
+                        <?php                                               
+                    }                    
+                    //$_SESSION['pesquisa'] = "";
+                }
+
             ?>            
         </div>
     </section>

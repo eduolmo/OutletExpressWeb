@@ -10,6 +10,18 @@ e depois redirecionar o cliente para a tela de produtos
 */
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
     $_SESSION['categoria_produto'] = $_POST['categoria_produto'];
+    $_SESSION['pesquisa'] = "";
+
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $extra = 'produtos.php';
+    header("Location: http://$host$uri/$extra");
+}
+
+//se a pagina for aberta quando o usuario tiver pesquisado algo na barra de pesquisa
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['barra_pesquisa'])){
+    $_SESSION['pesquisa'] = $_POST['barra_pesquisa'];
+    $_SESSION['categoria_produto'] = "";
 
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -33,7 +45,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoria_produto'])){
             <!-- div que tem a barra de pesquisa -->
             <div class="col-7 col-md-8 ms-md-5 col-lg-5 pt-lg-3 col-xxl-5 ms-xxl-0  busca">
                 <!--<img class="lupa" src="../icones/lupa.png" alt="">-->
-                <input type="text" class="pesquisa" placeholder="   Buscar">
+                <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST" id="form_pesquisa">
+                    <input type="text" id="barra_pesquisa" name="barra_pesquisa" class="pesquisa" placeholder="    Buscar...">
+                    <button type="submit" id="btn_pesquisa">
+                        <img src="../imagens/icone_lupa.png" alt="">
+                    </button>                    
+                </form>
             </div>
             <!-- div que tem os botoes para o carrinho e para entrar -->
             <div class="col-12 col-md-4 pt-md-5 pt-lg-3 col-xxl-3 botoes">

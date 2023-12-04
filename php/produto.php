@@ -99,6 +99,14 @@ class Produto extends CRUD {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function searchProducts($pesquisa){
+		$sql = "SELECT produto.codigo,imagem,nome,valor_atual,avaliacao,desconto FROM $this->table WHERE UNACCENT(LOWER(nome)) LIKE UNACCENT(LOWER(:pesquisa))";
+		$stmt = Database::prepare($sql);
+		$stmt->bindValue(':pesquisa', "%$pesquisa%", PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function productDetail($codigo){
 		$sql = "SELECT * FROM $this->table WHERE codigo = :codigo";
 		$stmt = Database::prepare($sql);
