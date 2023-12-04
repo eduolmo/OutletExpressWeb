@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho de bebê</title>
+    
     <link rel="shortcut icon" href="../imagens/logo2.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/cabecalho2.css">
     <link rel="stylesheet" href="../css/comprar.css">
@@ -29,7 +29,10 @@
 
         include 'cabecalho2.php';
     ?>	
-    
+
+    <!-- titulo da pagina de acordo com o nome do produto -->
+    <title><?php echo $produto['nome']; ?></title>
+
     <!--section da pagina-->
     <section class="primeiraSecao">
         <div class="container">

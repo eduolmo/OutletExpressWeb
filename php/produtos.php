@@ -13,7 +13,7 @@
 <body>
     <!-- começo do cabecalho -->
     <?php
-        //error_reporting(0);
+        error_reporting(0);
         session_start(); 
 
         include_once 'produto.php';
@@ -79,7 +79,7 @@
                         <input type="radio" name="desconto" value="30" id="30">
                         <label for="30">Acima de 30%</label><br>
                         <input type="radio" name="desconto" value="40" id="40">
-                        <label for="40">Acima de 30%</label><br>
+                        <label for="40">Acima de 40%</label><br>
                         <input type="radio" name="desconto" value="50" id="50">
                         <label for="50">Acima de 50%</label><br>
                         <input type="radio" name="desconto" value="60" id="60">
@@ -160,25 +160,27 @@
                     $desconto = trim(filter_input(INPUT_POST,'desconto',FILTER_SANITIZE_SPECIAL_CHARS));
                     $avaria = trim(filter_input(INPUT_POST,'avaria',FILTER_SANITIZE_SPECIAL_CHARS));
                     $avaliacao = trim(filter_input(INPUT_POST,'avaliacao',FILTER_SANITIZE_SPECIAL_CHARS));
-
+                    /*
                     echo 'precoMin: ' . var_dump($precoMin);
                     echo 'precoMax: ' . var_dump($precoMax);
-
+                    
                     $porcentagem = $resultado[$i]['desconto'] + $resultado[$i]['valor_atual'];
                     $porcentagem = $resultado[$i]['desconto'] / $porcentagem * 100;
                     $porcentagem = round($porcentagem,0) . '%';
+                    */
+                    $desconto = intval($desconto);
 
                     if($precoMin == ""){
                         $precoMin = 0;
                     }
                     if($precoMax == ""){
-                        $precoMax = null;
+                        $precoMax = 1000000000;
                     }
                     if($desconto == ""){
                         $desconto = 0;
                     }
                     if($avaria == ""){
-                        $avaria = null;
+                        $avaria = '%';
                     }
                     if($avaliacao == ""){
                         $avaliacao = 0;
@@ -206,7 +208,7 @@
                                     echo round($porcentagem,0) . '%';
                                     ?>
                                 </p>
-                                <p class="produto_nome">
+                                <div class="produto_nome">
                                     <?php  
                                     //echo strlen($resultado[$i]['nome']);
                                     if(strlen($resultado[$i]['nome']) > 30){
@@ -218,7 +220,7 @@
                                     }
                                     
                                     ?>
-                                </p>
+                                </div>
                                 <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
                                 <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
 
