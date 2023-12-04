@@ -22,6 +22,31 @@ button{
     align-items: center;
 }
 
+#form_pesquisa{
+    display: flex;
+    flex-direction: row;
+}
+
+#barra_pesquisa{
+    border-radius: 20px 0px 0px 20px;
+    border: 0;
+    width: 700px;
+    height: 30px;
+}
+
+#btn_pesquisa{
+    border-radius: 0px 20px 20px 0px;
+    border: 0px;
+    background-color: #FF5A5F;
+    color: white;
+    width: 70px;
+}
+
+#btn_pesquisa img{
+    width: 20px;
+    height: 20px;
+}
+
 .cabecalho_menu{
     background-color: #FF5A5F;
 }
@@ -69,13 +94,6 @@ header .logo_titulo{
 .busca{
     padding-top: 20px;
 }*/
-
-.pesquisa{
-    border-radius: 20px;
-    border: 0;
-    width: 700px;
-    height: 30px;
-}
 
 .botoes{
     padding-top: 20px;
@@ -132,5 +150,7 @@ header .logo_titulo{
     background-color: transparent;
     color: white;
 }
+
+
 
 /* Fim dos itens do cabecalho */
