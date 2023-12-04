@@ -144,18 +144,50 @@
 
       <div class="pedidos">
         <p class=" d-flex justify-content-center" id="compras">Meus Produtos Comprados</p>
+          <?php
+          require_once 'cliente.php';
+          require_once 'produto.php';
+          $codigo_cliente = $_SESSION['cliente']['codigo'];
 
-          <tr class="produto-item">
-            <td>
-              <div class="produto mb-3">
-                <img class="produto-img " src="../imagens/patins.png" alt="">
-                <div class="inf">
-                  <div class="nome text-sm">Patins Inline Roller</div>
-                  <div class="categoria">Calçados</div>
+          $sql='SELECT cliente.fk_usuario_codigo, compra.codigo as "codigo_compra", item_compra.codigo as "codigo_item_compra", produto.codigo as "codigo_produto" from cliente
+          inner join COMPRA
+          on(compra.fk_cliente_fk_usuario_codigo = :codigo_cliente)
+          inner join ITEM_COMPRA
+          on(item_compra.fk_compra_codigo = compra.codigo)
+          inner join PRODUTO
+          on(item_compra.fk_produto_codigo = produto.codigo)
+          where cliente.fk_usuario_codigo = :codigo_cliente';
+          $stmt = Database::prepare($sql);
+          $stmt->bindParam(':codigo_cliente', $codigo_cliente);                   
+          $stmt->execute();
+
+          $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+          //print_r($lista);
+
+          $produtos_categorizados = new Produto();
+          for($i = 0; $i < sizeof($lista); $i++){
+            $codigo_produto = $lista[0]['codigo_produto'];
+            $resultado = $produtos_categorizados->productDetail($codigo_produto);
+            ?>
+
+            <tr class="produto-item">
+              <td>
+                <div class="produto mb-3">                
+                  <img class="produto-img " src="<?php echo $resultado['imagem']; ?>" alt="">
+                  <div class="inf">                  
+                    <div class="nome text-sm"><?php echo $resultado['nome']; ?></div>
+                    <div class="text-sm"><?php echo $resultado['descricao']; ?></div>
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
+
+        <?php
+        
+          }  
+          
+        ?>
+          
 
       <!--
         select cliente.fk_usuario_codigo, compra.codigo as "codigo_compra", item_compra.codigo as "codigo_tem_compra", produto.codigo as "codigo_produto" from cliente
