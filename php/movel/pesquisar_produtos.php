@@ -30,7 +30,7 @@ $resposta = array();
 	// Realiza uma consulta ao BD e obtem todos os produtos.
 	//$consulta = $db_con->prepare("SELECT * FROM PRODUTO LIMIT " . $limit . " OFFSET " . $offset);
 	$consulta = $db_con->prepare("SELECT produto.codigo,imagem,nome,valor_atual,avaliacao,desconto FROM PRODUTO WHERE UNACCENT(LOWER(nome)) LIKE UNACCENT(LOWER(:pesquisa))");
-	$consulta->bindParam(':pesquisa', "%$pesquisa%", PDO::PARAM_STR);
+	$consulta->bindValue(':pesquisa', "%$pesquisa%", PDO::PARAM_STR);
 	if($consulta->execute()) {
 		// Caso existam produtos no BD, eles sao armazenados na 
 		// chave "produtos". O valor dessa chave e formado por um 
