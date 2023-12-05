@@ -92,7 +92,7 @@ class Produto extends CRUD {
 	}
 
 	public function categorizeProducts($categoria){
-		$sql = "SELECT produto.codigo,imagem,nome,valor_atual,avaliacao,desconto FROM $this->table INNER JOIN categoria_produto ON(categoria_produto.codigo = fk_categoria_produto_codigo) WHERE categoria_produto.descricao = :categoria";
+		$sql = "SELECT produto.codigo,imagem,nome,valor_atual,avaliacao,desconto FROM $this->table INNER JOIN categoria_produto ON(categoria_produto.codigo = produto.fk_categoria_produto_codigo) WHERE LOWER(categoria_produto.descricao) = LOWER(:categoria)";
 		$stmt = Database::prepare($sql);
 		$stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
 		$stmt->execute();
@@ -107,14 +107,37 @@ class Produto extends CRUD {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function filterProducts($precoMin,$precoMax,$desconto,$avaria,$avaliacao){
-		$sql = "SELECT * FROM $this->table INNER JOIN CATEGORIA_AVARIA ON(categoria_avaria.codigo = produto.fk_categoria_avaria_codigo) WHERE valor_atual BETWEEN :precoMin AND :precoMax AND avaliacao >= :avaliacao_min AND categoria_avaria.descricao LIKE :avaria AND desconto/(desconto+valor_atual)*100 >= :desconto_min";
+	public function filterProducts($precoMin,$precoMax,$desconto,$avaria,$avaliacao,$pesquisa,$categoria){
+		$sql = "SELECT * FROM $this->table 
+		INNER JOIN CATEGORIA_AVARIA ON(categoria_avaria.codigo = produto.fk_categoria_avaria_codigo) 
+		INNER JOIN categoria_produto ON(categoria_produto.codigo = produto.fk_categoria_produto_codigo) 
+		WHERE valor_atual BETWEEN :precoMin AND :precoMax
+		AND avaliacao >= :avaliacao_min
+		AND LOWER(categoria_avaria.descricao) LIKE LOWER(:avaria)
+		AND desconto/(desconto+valor_atual)*100 >= :desconto_min 
+		AND UNACCENT(LOWER(produto.nome)) LIKE UNACCENT(LOWER(:pesquisa)) 
+		AND LOWER(categoria_produto.descricao) LIKE LOWER(:categoria)";
+/*
+"SELECT * 
+FROM $this->table 
+INNER JOIN CATEGORIA_AVARIA ON categoria_avaria.codigo = produto.fk_categoria_avaria_codigo
+INNER JOIN categoria_produto ON categoria_produto.codigo = produto.fk_categoria_produto_codigo
+WHERE valor_atual BETWEEN :precoMin AND :precoMax 
+AND avaliacao >= :avaliacao_min 
+AND categoria_avaria.descricao LIKE CONCAT('%', :avaria, '%') 
+AND desconto/(desconto+valor_atual)*100 >= :desconto_min 
+AND UNACCENT(LOWER(produto.nome)) LIKE UNACCENT(LOWER(:pesquisa)) 
+AND LOWER(categoria_produto.descricao) LIKE LOWER(:categoria)";
+*/
+
 		$stmt = Database::prepare($sql);
 		$stmt->bindParam(':precoMin', $precoMin, PDO::PARAM_INT);
 		$stmt->bindParam(':precoMax', $precoMax, PDO::PARAM_INT);
 		$stmt->bindParam(':desconto_min', $desconto, PDO::PARAM_INT);
-		$stmt->bindParam(':avaria', $avaria);
+		$stmt->bindParam(':avaria', $avaria, PDO::PARAM_STR);
 		$stmt->bindParam(':avaliacao_min', $avaliacao, PDO::PARAM_INT);
+		$stmt->bindValue(':pesquisa', "%$pesquisa%", PDO::PARAM_STR);
+		$stmt->bindValue(':categoria', "%$categoria%", PDO::PARAM_STR);
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}

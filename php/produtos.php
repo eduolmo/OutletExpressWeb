@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="../css/cabecalho2.css">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- Inclua a biblioteca RateYo! via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+    <link rel="stylesheet" href="jquery.rateyo.css"/>
+
 </head>
 <body>
     <!-- começo do cabecalho -->
@@ -27,11 +35,6 @@
             $extra = 'detalhe_produto.php';
             header("Location: http://$host$uri/$extra");
             
-        }  
-        
-        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['filtrar'])){
-            unset($_SESSION['pesquisa']);
-            unset($_SESSION['categoria_produto']);
         }  
     
 
@@ -138,38 +141,31 @@
 
         <div class="row produtos col-10">
             <?php
-                //echo 'antes dos produtos';
-                if(isset($_SESSION['categoria_produto'])){
-                    //echo 'comeco da categoria';
-                    $categoria = $_SESSION['categoria_produto'];
-
-                    $produtos_categorizados = new Produto();
-                    $resultado = $produtos_categorizados->categorizeProducts($categoria);
-                    
-                }
-                elseif(isset($_SESSION['pesquisa'])){
-                    //echo 'comeco da pesquisa';
-                    $pesquisa = $_SESSION['pesquisa'];
-
-                    $produtos = new Produto();
-                    $resultado = $produtos->searchProducts($pesquisa);
-                }
-                elseif(isset($_POST['filtrar'])){
+                if(isset($_POST['filtrar'])){
                     $precoMin = trim(filter_input(INPUT_POST,'precoMin',FILTER_SANITIZE_SPECIAL_CHARS));
                     $precoMax = trim(filter_input(INPUT_POST,'precoMax',FILTER_SANITIZE_SPECIAL_CHARS));
                     $desconto = trim(filter_input(INPUT_POST,'desconto',FILTER_SANITIZE_SPECIAL_CHARS));
                     $avaria = trim(filter_input(INPUT_POST,'avaria',FILTER_SANITIZE_SPECIAL_CHARS));
                     $avaliacao = trim(filter_input(INPUT_POST,'avaliacao',FILTER_SANITIZE_SPECIAL_CHARS));
-                    /*
-                    echo 'precoMin: ' . var_dump($precoMin);
-                    echo 'precoMax: ' . var_dump($precoMax);
                     
-                    $porcentagem = $resultado[$i]['desconto'] + $resultado[$i]['valor_atual'];
-                    $porcentagem = $resultado[$i]['desconto'] / $porcentagem * 100;
-                    $porcentagem = round($porcentagem,0) . '%';
-                    */
                     $desconto = intval($desconto);
 
+                    //mantendo as variaveis de pesquisa ou categoria, para filtrar com base na busca anterior
+                    if(isset($_SESSION['pesquisa'])){
+                        $pesquisa = $_SESSION['pesquisa'];
+                    }
+                    else{
+                        $pesquisa = '%';
+                    }
+
+                    if(isset($_SESSION['categoria_produto'])){
+                        $categoria = $_SESSION['categoria_produto'];
+                    }
+                    else{
+                        $categoria = '%';
+                    }
+
+                    //ajeitando os valores padroes do filtro
                     if($precoMin == ""){
                         $precoMin = 0;
                     }
@@ -187,9 +183,25 @@
                     }
 
                     $produtos = new Produto();
-                    $resultado = $produtos->filterProducts($precoMin,$precoMax,$desconto,$avaria,$avaliacao);
+                    $resultado = $produtos->filterProducts($precoMin,$precoMax,$desconto,$avaria,$avaliacao,$pesquisa,$categoria);
                 }
 
+                elseif(isset($_SESSION['categoria_produto'])){
+                    //echo 'comeco da categoria';
+                    $categoria = $_SESSION['categoria_produto'];
+
+                    $produtos_categorizados = new Produto();
+                    $resultado = $produtos_categorizados->categorizeProducts($categoria);
+                    
+                }
+                elseif(isset($_SESSION['pesquisa'])){
+                    //echo 'comeco da pesquisa';
+                    $pesquisa = $_SESSION['pesquisa'];
+
+                    $produtos = new Produto();
+                    $resultado = $produtos->searchProducts($pesquisa);
+                }
+                
                 for($i = 0; $i < sizeof($resultado); $i++){
                     ?> 
 
@@ -222,8 +234,25 @@
                                     ?>
                                 </div>
                                 <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
-                                <img class="estrelas" src="../imagens/5estrelas.jpg" alt="">
+                                <!-- <img class="estrelas" src="../imagens/5estrelas.jpg" alt=""> -->
+                                <div id="rateYo"></div>
 
+                                
+                                
+                                <script>
+                                    $(document).ready((function () {
+                                        $("#rateYo").rateYo({
+                                        rating: 3.5, // Substitua pelo seu valor decimal
+                                        readOnly: true, // Para torná-lo somente leitura
+                                        starWidth: "30px", // Largura das estrelas
+                                        normalFill: "#A0A0A0", // Cor das estrelas não preenchidas
+                                        ratedFill: "#FFD700" // Cor das estrelas preenchidas
+                                        });
+                                    }));
+                                </script>
+
+                                <script src="jquery.js"></script>
+                                <script src="jquery.rateyo.js"></script>
                             </button>
                         </form>   
                                                  
