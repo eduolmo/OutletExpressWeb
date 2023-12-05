@@ -25,7 +25,7 @@ $resposta = array();
 	
 	//$limit = $_GET['limit'];
 	//$offset = $_GET['offset'];
-	$categoria = $_GET['pesquisa'];
+	$pesquisa = $_GET['pesquisa'];
 
 	// Realiza uma consulta ao BD e obtem todos os produtos.
 	//$consulta = $db_con->prepare("SELECT * FROM PRODUTO LIMIT " . $limit . " OFFSET " . $offset);
