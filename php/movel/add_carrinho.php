@@ -79,27 +79,24 @@ if(autenticar($db_con)) {
 					$resposta["mensagem"] = "Item não inserido no carrinho.";
 				}
 			} 
-			}
 		} else {
-			// Caso ocorra um erro na execução da consulta
-			$resposta["sucesso"] = 0;
-			$resposta["mensagem"] = "Erro na consulta do código do cliente.";
+				// Caso ocorra um erro na execução da consulta
+				$resposta["sucesso"] = 0;
+				$resposta["mensagem"] = "Erro na consulta do código do cliente.";
 		}
-		
-	}
-	else {
+	} else {
 		// se não foram enviados todos os parâmetros para o servidor, 
 		// indicamos que não houve sucesso
 		// na operação e o motivo no campo de erro.
 		$resposta["sucesso"] = 0;
 		$resposta["erro"] = "faltam parametros";
 	}
-}
-else {
+}else {
 	// senha ou usuario nao confere
 	$resposta["sucesso"] = 0;
 	$resposta["error"] = "usuario ou senha não confere";
 }
+
 
 // A conexão com o bd sempre tem que ser fechada
 $db_con = null;
