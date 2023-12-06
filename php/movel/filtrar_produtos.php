@@ -46,13 +46,13 @@ $resposta = array();
 		AND LOWER(categoria_produto.descricao) LIKE LOWER(:categoria)";
 
 	$consulta = $db_con->prepare($sql);
-	$stmt->bindParam(':precoMin', $precoMin, PDO::PARAM_INT);
-    $stmt->bindParam(':precoMax', $precoMax, PDO::PARAM_INT);
-    $stmt->bindParam(':desconto_min', $desconto, PDO::PARAM_INT);
-    $stmt->bindParam(':avaria', $avaria, PDO::PARAM_STR);
-    $stmt->bindParam(':avaliacao_min', $avaliacao, PDO::PARAM_INT);
-    $stmt->bindValue(':pesquisa', "%$pesquisa%", PDO::PARAM_STR);
-    $stmt->bindValue(':categoria', "%$categoria%", PDO::PARAM_STR);
+	$consulta->bindParam(':precoMin', $precoMin, PDO::PARAM_INT);
+    $consulta->bindParam(':precoMax', $precoMax, PDO::PARAM_INT);
+    $consulta->bindParam(':desconto_min', $desconto, PDO::PARAM_INT);
+    $consulta->bindParam(':avaria', $avaria, PDO::PARAM_STR);
+    $consulta->bindParam(':avaliacao_min', $avaliacao, PDO::PARAM_INT);
+    $consulta->bindValue(':pesquisa', "%$pesquisa%", PDO::PARAM_STR);
+    $consulta->bindValue(':categoria', "%$categoria%", PDO::PARAM_STR);
 
 	if($consulta->execute()) {
 		// Caso existam produtos no BD, eles sao armazenados na 
