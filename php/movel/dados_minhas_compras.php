@@ -33,22 +33,53 @@ if(autenticar($db_con)) {
 		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
 	 
 		// Obtem do BD os produtos que aquele cliente comprou
-		$consulta = $db_con->prepare("SELECT cliente.fk_usuario_codigo, compra.codigo as codigo_compra, item_compra.codigo as codigo_item_compra, produto.codigo as codigo_produto from CLIENTE
+		/*$consulta = $db_con->prepare("SELECT cliente.fk_usuario_codigo, compra.codigo as codigo_compra, item_compra.codigo as codigo_item_compra, produto.codigo as codigo_produto from CLIENTE
 		  inner join COMPRA
 		  on(compra.fk_cliente_fk_usuario_codigo = " . $codigo_cliente . ")
 		  inner join ITEM_COMPRA
 		  on(item_compra.fk_compra_codigo = compra.codigo)
 		  inner join PRODUTO
 		  on(item_compra.fk_produto_codigo = produto.codigo)
-		  where cliente.fk_usuario_codigo = " . $codigo_cliente);		
+		  where cliente.fk_usuario_codigo = " . $codigo_cliente);	
+		*/
+		/*
+		$consulta = $db_con->prepare("SELECT cliente.fk_usuario_codigo, compra.codigo as codigo_compra, item_compra.codigo as codigo_item_compra, produto.codigo as codigo_produto from CLIENTE
+		  inner join COMPRA
+		  on(compra.fk_cliente_fk_usuario_codigo = cliente.fk_usuario_codigo)
+		  inner join ITEM_COMPRA
+		  on(item_compra.fk_compra_codigo = compra.codigo)
+		  inner join PRODUTO
+		  on(item_compra.fk_produto_codigo = produto.codigo)
+		  where cliente.fk_usuario_codigo = " . $codigo_cliente);	
+		*/
+		$consulta = $db_con->prepare("SELECT cliente.*, compra.*, item_compra.*, produto.* from CLIENTE
+			inner join COMPRA
+			on(compra.fk_cliente_fk_usuario_codigo = cliente.fk_usuario_codigo)
+			inner join ITEM_COMPRA
+			on(item_compra.fk_compra_codigo = compra.codigo)
+			inner join PRODUTO
+			on(item_compra.fk_produto_codigo = produto.codigo)
+			where cliente.fk_usuario_codigo = " . $codigo_cliente);	
 		if ($consulta->execute()) {
-  		//pega detalhes do produto comprado    			 			
-    
+  		//pega detalhes do produto comprado    	
+			$resposta["compras"] = array();
+			$resposta["sucesso"] = 1;
+	
+			if ($consulta->rowCount() > 0) {
+				while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {	
+					$itemCompra = array();
+		  			$itemCompra["nome"] = $linha["nome"];
+					$itemCompra["valor_item"] = $linha["valor_item"];
+					$itemCompra["quantidade"] = $linha["quantidade"];
+
+					array_push($resposta["compras"], $itemCompra);
+				}
+			/*
 			$linha = $consulta->fetch(PDO::FETCH_ASSOC);	
 			$codigo_produto = $linha[0]['codigo_produto'];
 
 			$sql = $db_con->prepare("SELECT * FROM PRODUTO WHERE codigo = '" . $codigo_produto . "'");
-   
+			
    			$resposta["produtos"] = array(); 
    			if($sql->execute()){            
       				while ($detalhes = $sql->fetch(PDO::FETCH_ASSOC)) {
@@ -61,7 +92,7 @@ if(autenticar($db_con)) {
 	  			
 				$produtos = $sql->fetch(PDO::FETCH_ASSOC);
     						
-				$resposta["sucesso"] = 1;
+				$resposta["sucesso"] = 1;*/
 	 		} else {
     				$resposta["sucesso"] = 0;
 				$resposta["erro"] = "Erro no BD: " . $consulta->error;
