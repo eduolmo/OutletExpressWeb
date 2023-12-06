@@ -35,7 +35,7 @@ $resposta = array();
 
 	// Realiza uma consulta ao BD e obtem todos os produtos.
 	//$consulta = $db_con->prepare("SELECT * FROM PRODUTO LIMIT " . $limit . " OFFSET " . $offset);
-    $sql = "SELECT * FROM $this->table 
+    $sql = "SELECT * FROM PRODUTO
 		INNER JOIN CATEGORIA_AVARIA ON(categoria_avaria.codigo = produto.fk_categoria_avaria_codigo) 
 		INNER JOIN categoria_produto ON(categoria_produto.codigo = produto.fk_categoria_produto_codigo) 
 		WHERE valor_atual BETWEEN :precoMin AND :precoMax
@@ -53,7 +53,7 @@ $resposta = array();
     $stmt->bindParam(':avaliacao_min', $avaliacao, PDO::PARAM_INT);
     $stmt->bindValue(':pesquisa', "%$pesquisa%", PDO::PARAM_STR);
     $stmt->bindValue(':categoria', "%$categoria%", PDO::PARAM_STR);
-    
+
 	if($consulta->execute()) {
 		// Caso existam produtos no BD, eles sao armazenados na 
 		// chave "produtos". O valor dessa chave e formado por um 
