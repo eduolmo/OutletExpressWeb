@@ -19,53 +19,57 @@ $resposta = array();
 if(autenticar($db_con)) {
  
 	// Verifica se o parametro id foi enviado na requisicao
-	if (isset($_GET["codigo"])) {
+	if (isset($_GET["email"])) {
 		
 		// Aqui sao obtidos os parametros
-		$codigo = $_GET['codigo'];
-	 
+		$email = $_GET['email'];
+		
+		$consulta_codigo_cliente = $db_con->prepare("SELECT USUARIO.codigo FROM USUARIO INNER JOIN CLIENTE on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email'");
+		
 		// Obtem do BD os detalhes do produto com id especificado na requisicao GET
-		$consulta = $db_con->prepare("SELECT * FROM Item_carrinho WHERE codigo = $codigo");
-	 
-		if ($consulta->execute()) {
-			if ($consulta->rowCount() > 0) {
-	 
-				// Se o produto existe, os dados completos do produto 
-				// sao adicionados no array de resposta. A imagem nao 
-				// e entregue agora pois ha um php exclusivo para obter 
-				// a imagem do produto.
-				$linha = $consulta->fetch(PDO::FETCH_ASSOC);
-	 
-				$resposta["FK_USUARIO_codigo"] = $linha["FK_USUARIO_codigo"];
-                $resposta["FK_PRODUTO_codigo"] = $linha["FK_PRODUTO_codigo"];
-				$resposta["quantidade"] = $linha["quantidade"];		
-				
-				// Caso o produto exista no BD, o cliente 
-				// recebe a chave "sucesso" com valor 1.
-				$resposta["sucesso"] = 1;
-				
+		if ($consulta_codigo_cliente->execute()) {
+			$consulta = $db_con->prepare("SELECT * FROM Item_carrinho WHERE fk_cliente_fk_usuario_codigo = '$consulta_codigo_cliente'");
+		
+			if ($consulta->execute()) {
+				if ($consulta->rowCount() > 0) {
+						while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+
+						$itensCarrinho = array();
+
+						$itensCarrinho["nome"] = $linha["nome"];
+						$itensCarrinho["imagem"] = $linha["imagem"];
+						$itensCarrinho["valor_atual"] = $linha["valor_atual"];		
+						$itensCarrinho["quantidade"] = $linha["quantidade"];	
+
+						array_push($resposta["itensCarrinho"], $itensCarrinho);
+
+					}
+				} else {
+					// Caso o produto nao exista no BD, o cliente 
+					// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
+					// motivo da falha.
+					$resposta["sucesso"] = 0;
+					$resposta["erro"] = "Carrinho não encontrado
+					";
+				}
 			} else {
-				// Caso o produto nao exista no BD, o cliente 
+				// Caso ocorra falha no BD, o cliente 
 				// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
 				// motivo da falha.
 				$resposta["sucesso"] = 0;
-				$resposta["erro"] = "Carrinho não encontrado
-                ";
+				$resposta["erro"] = "Erro no BD: " . $consulta->error;
 			}
 		} else {
-			// Caso ocorra falha no BD, o cliente 
+			// Se a requisicao foi feita incorretamente, ou seja, os parametros 
+			// nao foram enviados corretamente para o servidor, o cliente 
 			// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
 			// motivo da falha.
 			$resposta["sucesso"] = 0;
-			$resposta["erro"] = "Erro no BD: " . $consulta->error;
+			$resposta["erro"] = "Campo requerido não preenchido";
 		}
-	} else {
-		// Se a requisicao foi feita incorretamente, ou seja, os parametros 
-		// nao foram enviados corretamente para o servidor, o cliente 
-		// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
-		// motivo da falha.
+	}  else{
 		$resposta["sucesso"] = 0;
-		$resposta["erro"] = "Campo requerido não preenchido";
+		$resposta["erro"] = "Codigo do cliente não encontrado";
 	}
 }
 else {
