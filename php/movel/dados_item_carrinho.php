@@ -28,10 +28,13 @@ if(autenticar($db_con)) {
 		
 		// Obtem do BD os detalhes do produto com id especificado na requisicao GET
 		if ($consulta_codigo_cliente->execute()) {
-			$consulta = $db_con->prepare("SELECT * FROM Item_carrinho WHERE fk_cliente_fk_usuario_codigo = '$consulta_codigo_cliente'");
-		
-			if ($consulta->execute()) {
-				if ($consulta->rowCount() > 0) {
+			$row = $consulta_codigo_cliente->fetch(PDO::FETCH_ASSOC);
+			if ($row && isset($row['codigo'])) {
+				$codigo_cliente = $row['codigo'];
+				$consulta = $db_con->prepare("SELECT * FROM Item_carrinho WHERE fk_cliente_fk_usuario_codigo = '$codigo_cliente'");
+			
+				if ($consulta->execute()) {
+					if ($consulta->rowCount() > 0) {
 						while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
 
 						$itensCarrinho = array();
@@ -43,29 +46,29 @@ if(autenticar($db_con)) {
 
 						array_push($resposta["itensCarrinho"], $itensCarrinho);
 
+						}
+					} else {
+						// Caso o produto nao exista no BD, o cliente 
+						// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
+						// motivo da falha.
+						$resposta["sucesso"] = 0;
+						$resposta["erro"] = "Carrinho não encontrado";
 					}
 				} else {
-					// Caso o produto nao exista no BD, o cliente 
+					// Caso ocorra falha no BD, o cliente 
 					// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
 					// motivo da falha.
 					$resposta["sucesso"] = 0;
-					$resposta["erro"] = "Carrinho não encontrado
-					";
+					$resposta["erro"] = "Erro no BD: " . $consulta->error;
 				}
 			} else {
-				// Caso ocorra falha no BD, o cliente 
+				// Se a requisicao foi feita incorretamente, ou seja, os parametros 
+				// nao foram enviados corretamente para o servidor, o cliente 
 				// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
 				// motivo da falha.
 				$resposta["sucesso"] = 0;
-				$resposta["erro"] = "Erro no BD: " . $consulta->error;
+				$resposta["erro"] = "Campo requerido não preenchido";
 			}
-		} else {
-			// Se a requisicao foi feita incorretamente, ou seja, os parametros 
-			// nao foram enviados corretamente para o servidor, o cliente 
-			// recebe a chave "sucesso" com valor 0. A chave "erro" indica o 
-			// motivo da falha.
-			$resposta["sucesso"] = 0;
-			$resposta["erro"] = "Campo requerido não preenchido";
 		}
 	}  else{
 		$resposta["sucesso"] = 0;
