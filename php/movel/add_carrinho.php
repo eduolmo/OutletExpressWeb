@@ -29,7 +29,7 @@ if (isset($_POST['codigo_produto']) && isset($_POST['email']) && isset($_POST['q
 		// além de indicar sucesso na operação.
 		$consulta_item_carrinho = $db_con->prepare("SELECT Item_carrinho.* FROM Item_carrinho INNER JOIN CLIENTE on(Item_carrinho.fk_cliente_FK_USUARIO_codigo = CLIENTE.FK_USUARIO_codigo) INNER JOIN USUARIO on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email' AND fk_produto_codigo='$codigo_produto'");
 		//if($consulta_item_carrinho->execute()){
-		$consulta_item_carrinho->execute()
+		$consulta_item_carrinho->execute();
 		$row = $consulta_item_carrinho->fetch(PDO::FETCH_ASSOC);
 
 		if ($row && isset($row['quantidade'])) {
