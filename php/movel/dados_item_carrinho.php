@@ -31,7 +31,7 @@ if(autenticar($db_con)) {
 			$row = $consulta_codigo_cliente->fetch(PDO::FETCH_ASSOC);
 			if ($row && isset($row['codigo'])) {
 				$codigo_cliente = $row['codigo'];
-				$consulta = $db_con->prepare("SELECT Item_carrinho.*, PRODUTO.* FROM PRODUTO INNER JOIN Item_carrinho on(Item_carrinho.fk_PRODUTO_codigo = PRODUTO.codigo) INNER JOIN CLIENTE on(Item_carrinho.fk_cliente_FK_USUARIO_codigo = CLIENTE.FK_USUARIO_codigo) INNER JOIN USUARIO on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email");
+				$consulta = $db_con->prepare("SELECT Item_carrinho.*, PRODUTO.* FROM PRODUTO INNER JOIN Item_carrinho on(Item_carrinho.fk_PRODUTO_codigo = PRODUTO.codigo) INNER JOIN CLIENTE on(Item_carrinho.fk_cliente_FK_USUARIO_codigo = CLIENTE.FK_USUARIO_codigo) INNER JOIN USUARIO on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email'");
 			
 				if ($consulta->execute()) {
 					if ($consulta->rowCount() > 0) {
