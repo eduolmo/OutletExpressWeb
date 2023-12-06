@@ -48,7 +48,7 @@ if(autenticar($db_con)) {
 						$novaQuantidade = $qtdAt + $quantidade;
 						
 						// Atualiza a tabela com a nova quantidade
-						$consulta_atualizar_qtd = $db_con->prepare("UPDATE Item_carrinho SET quantidade = '$novaQuantidade' FROM Item_carrinho INNER JOIN CLIENTE on(Item_carrinho.fk_cliente_FK_USUARIO_codigo = CLIENTE.FK_USUARIO_codigo) INNER JOIN USUARIO on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email'");
+						$consulta_atualizar_qtd = $db_con->prepare("UPDATE item_carrinho SET quantidade = '$novaQuantidade' WHERE fk_cliente_fk_usuario_codigo = '$codigo_cliente' AND fk_produto_codigo = '$codigo_produto'");
 						
 						if($consulta_atualizar_qtd->execute()){
 							$resposta["sucesso"] = 1;
