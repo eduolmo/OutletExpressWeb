@@ -31,20 +31,20 @@ if(autenticar($db_con)) {
 			$row = $consulta_codigo_cliente->fetch(PDO::FETCH_ASSOC);
 			if ($row && isset($row['codigo'])) {
 				$codigo_cliente = $row['codigo'];
-				$consulta = $db_con->prepare("SELECT * FROM Item_carrinho WHERE fk_cliente_fk_usuario_codigo = '$codigo_cliente'");
+				$consulta = $db_con->prepare("SELECT Item_carrinho.*, PRODUTO.* FROM PRODUTO INNER JOIN Item_carrinho on(Item_carrinho.fk_PRODUTO_codigo = PRODUTO.codigo) INNER JOIN CLIENTE on(Item_carrinho.fk_cliente_FK_USUARIO_codigo = CLIENTE.FK_USUARIO_codigo) INNER JOIN USUARIO on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email");
 			
 				if ($consulta->execute()) {
 					if ($consulta->rowCount() > 0) {
 						while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
 
-						$itensCarrinho = array();
+						$itemCarrinho = array();
 
-						$itensCarrinho["nome"] = $linha["nome"];
-						$itensCarrinho["imagem"] = $linha["imagem"];
-						$itensCarrinho["valor_atual"] = $linha["valor_atual"];		
-						$itensCarrinho["quantidade"] = $linha["quantidade"];	
+						$itemCarrinho["nome"] = $linha["nome"];
+						$itemCarrinho["imagem"] = $linha["imagem"];
+						$itemCarrinho["valor_atual"] = $linha["valor_atual"];		
+						$itemCarrinho["quantidade"] = $linha["quantidade"];	
 
-						array_push($resposta["itensCarrinho"], $itensCarrinho);
+						array_push($resposta["itensCarrinho"], $itemCarrinho);
 
 						}
 					} else {
