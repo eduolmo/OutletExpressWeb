@@ -29,7 +29,7 @@ if(autenticar($db_con)) {
 		inner join CLIENTE
 		on(cliente.fk_usuario_codigo = usuario.codigo)
 		where(email = '" . $email . "'");
-		$lista_codigo_cliente = $codigo_cliente->fetch(PDO::FETCH_ASSOC);
+		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
 		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
 	 
 		// Obtem do BD os produtos que aquele cliente comprou
