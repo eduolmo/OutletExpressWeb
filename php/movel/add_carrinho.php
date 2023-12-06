@@ -28,38 +28,40 @@ if (isset($_POST['codigo_produto']) && isset($_POST['email']) && isset($_POST['q
 		// mesmo código e indicamos que a quantidade foi alterada,
 		// além de indicar sucesso na operação.
 		$consulta_item_carrinho = $db_con->prepare("SELECT Item_carrinho.* FROM Item_carrinho INNER JOIN CLIENTE on(Item_carrinho.fk_cliente_FK_USUARIO_codigo = CLIENTE.FK_USUARIO_codigo) INNER JOIN USUARIO on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email' AND fk_produto_codigo='$codigo_produto'");
-		if($consulta_quantidade_antiga->execute()){
-			$row = $consulta_quantidade_antiga->fetch(PDO::FETCH_ASSOC);
+		//if($consulta_item_carrinho->execute()){
+		$consulta_item_carrinho->execute()
+		$row = $consulta_item_carrinho->fetch(PDO::FETCH_ASSOC);
 
-			if ($row && isset($row['quantidade'])) {
-				// Converta a string para inteiro
-				$qtdAt = intval($row['quantidade']);
-		
-				// Soma a quantidade atual com a quantidade recebida pelo método POST
-				$novaQuantidade = $qtdAt + $quantidade;
-				
-				// Atualiza a tabela com a nova quantidade
-				$consulta_atualizar_qtd = $db_con->prepare("UPDATE Item_carrinho SET quantidade = '$novaQuantidade' FROM Item_carrinho INNER JOIN CLIENTE on(Item_carrinho.fk_cliente_FK_USUARIO_codigo = CLIENTE.FK_USUARIO_codigo) INNER JOIN USUARIO on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email'");
-				
-				if($consulta_atualizar_qtd->execute()){
-					$resposta["sucesso"] = 1;
-				}else {
-					// se houve erro na consulta, indicamos que não houve sucesso
-					// na operação e o motivo no campo de erro.
-					$resposta["sucesso"] = 0;
-					$resposta["erro"] = "erro BD: " . $consulta_atualizar_qtd->error;
-				}
-			}	else {
-				// Caso ocorra um erro na execução da consulta
+		if ($row && isset($row['quantidade'])) {
+			// Converta a string para inteiro
+			$qtdAt = intval($row['quantidade']);
+	
+			// Soma a quantidade atual com a quantidade recebida pelo método POST
+			$novaQuantidade = $qtdAt + $quantidade;
+			
+			// Atualiza a tabela com a nova quantidade
+			$consulta_atualizar_qtd = $db_con->prepare("UPDATE Item_carrinho SET quantidade = '$novaQuantidade' FROM Item_carrinho INNER JOIN CLIENTE on(Item_carrinho.fk_cliente_FK_USUARIO_codigo = CLIENTE.FK_USUARIO_codigo) INNER JOIN USUARIO on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email'");
+			
+			if($consulta_atualizar_qtd->execute()){
+				$resposta["sucesso"] = 1;
+			}else {
+				// se houve erro na consulta, indicamos que não houve sucesso
+				// na operação e o motivo no campo de erro.
 				$resposta["sucesso"] = 0;
-				$resposta["mensagem"] = "Item não encontrado no carrinho.";
+				$resposta["erro"] = "erro BD: " . $consulta_atualizar_qtd->error;
 			}
+		}	else {
+			// Caso ocorra um erro na execução da consulta
+			$resposta["sucesso"] = 0;
+			$resposta["mensagem"] = "Item não encontrado no carrinho.";
+		}
+		/*
 		} else {
 			// Caso ocorra um erro na execução da consulta
 			$resposta["sucesso"] = 0;
 			$resposta["mensagem"] = "Erro na consulta.";
 		}
-		
+		*/
 
 
 	}
