@@ -35,7 +35,7 @@
 		$codigo_cliente = $lista_codigo_cliente["codigo"];
 
 
-		$resposta['codigo_cliente'] = $codigo_cliente;
+		//$resposta['codigo_cliente'] = $codigo_cliente;
 
 		if($codigo_cliente){
 			
