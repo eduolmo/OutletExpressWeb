@@ -18,8 +18,8 @@ if(autenticar($db_con)) {
 	if (isset($_POST['codigo_produto']) && isset($_POST['email'])) {
 	
 		// o método trim elimina caracteres especiais/ocultos da string
-		$codigo_produto = trim($_POST['codigo_produto']);
-		$email = trim($_POST['email']);
+		$codigo_produto = $_POST['codigo_produto'];
+		$email = $_POST['email'];
 		
 		// antes de adicionar item ao carrinho, verificamos se ele já
 		// não existe.
