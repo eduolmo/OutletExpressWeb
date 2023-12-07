@@ -52,7 +52,7 @@
 
 		// Substitua os marcadores de posição pelos valores reais
 		$consulta_insercao->bindParam(':forma_pagamento', $forma_pagamento);
-		$consulta_insercao->bindParam(':codigo_cliente', $codigo_cliente);
+		$consulta_insercao->bindParam(':codigo_cliente', $lista_codigo_cliente);
 		$consulta_insercao->bindParam(':data_hora', $data_hora);
 		
 		/*
