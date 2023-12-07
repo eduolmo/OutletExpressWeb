@@ -36,7 +36,6 @@ $resposta = array();
     LIMIT 10 
     ");
 
-	$consulta->bindParam(':categoria', $categoria, PDO::PARAM_STR);
 	if($consulta->execute()) {
 		// Caso existam produtos no BD, eles sao armazenados na 
 		// chave "produtos". O valor dessa chave e formado por um 
