@@ -32,7 +32,7 @@
 		$consulta_cliente->bindParam(':email', $email);
 		$consulta_cliente->execute();
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
-		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
+		$codigo_cliente = $lista_codigo_cliente["codigo"];
 
 
 		$resposta['codigo_cliente'] = $codigo_cliente;
