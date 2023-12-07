@@ -50,6 +50,7 @@
 			if($insere_endereco->execute()){
 				//insere endereco para cliente
 				$endereco_cliente = $db_con->prepare("INSERT INTO CLIENTE(cpf, fk_usuario_codigo, fk_endereco_codigo) VALUES('$cpf', $codigo_cliente, $codigo_endereco)");
+				$endereco_cliente->execute();
 				$resposta["sucesso"] = 1;
 			}
 			
