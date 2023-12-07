@@ -40,6 +40,7 @@
 		//definindo rua como tipo_logradouiro padrao
 		//$insere_endereco = $db_con->prepare("INSERT INTO TIPO_LOGRADOURO(numero, cep, nome_logradouro) VALUES(:numero, :cep, :rua)");
 
+		$insere_pais = $db_con->prepare("INSERT INTO PAIS(fk_estado_codigo) VALUES(1)");
 
 		$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro, fk_tipo_logradouro_codigo, fk_pais_codigo) VALUES(:numero, :cep, :rua, 1, 1)");
 
@@ -67,8 +68,6 @@
 			$endereco_cliente->bindParam(':codigo_cliente', $codigo_cliente);
 			$endereco_cliente->bindParam(':codigo_endereco', $codigo_endereco);
 			
-			
-			$resposta["sucesso"] = 1;
 			if($endereco_cliente->execute()){
 				// Consulta a data e hora atual com fuso horário do Brasil
 
