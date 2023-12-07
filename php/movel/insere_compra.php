@@ -60,37 +60,39 @@
 			$lista_endereco = $consulta_endereco->fetch(PDO::FETCH_ASSOC);
 			$codigo_endereco = $lista_endereco["codigo"];
 
-			//insere endereco para cliente
-			//$endereco_cliente = $db_con->prepare("INSERT INTO CLIENTE(cpf, fk_usuario_codigo, fk_endereco_codigo) VALUES('$cpf', $codigo_cliente, $codigo_endereco)");
-			$endereco_cliente = $db_con->prepare("INSERT INTO CLIENTE(cpf, fk_usuario_codigo, fk_endereco_codigo) VALUES(:cpf, :codigo_cliente, :codigo_endereco)");
-			// Substitua os marcadores de posição pelos valores reais
-			$endereco_cliente->bindParam(':cpf', $cpf);
-			$endereco_cliente->bindParam(':codigo_cliente', $codigo_cliente);
-			$endereco_cliente->bindParam(':codigo_endereco', $codigo_endereco);
+			//aqui
+			$busca_cliente = $db_con->prepare("SELECT codigo FROM CLIENTE WHERE codigo = :codigo_cliente");
+			$busca_cliente->bindParam(':codigo_cliente', $codigo_cliente);
+			if($busca_cliente->execute()){
+				if(!$busca_cliente->rowCount() > 0){
+					//insere endereco para cliente
+					//$endereco_cliente = $db_con->prepare("INSERT INTO CLIENTE(cpf, fk_usuario_codigo, fk_endereco_codigo) VALUES('$cpf', $codigo_cliente, $codigo_endereco)");
+					$endereco_cliente = $db_con->prepare("INSERT INTO CLIENTE(cpf, fk_usuario_codigo, fk_endereco_codigo) VALUES(:cpf, :codigo_cliente, :codigo_endereco)");
+					// Substitua os marcadores de posição pelos valores reais
+					$endereco_cliente->bindParam(':cpf', $cpf);
+					$endereco_cliente->bindParam(':codigo_cliente', $codigo_cliente);
+					$endereco_cliente->bindParam(':codigo_endereco', $codigo_endereco);
+				}
+			}
+
 			
-			if($endereco_cliente->execute()){
-				// Consulta a data e hora atual com fuso horário do Brasil
+			// Consulta a data e hora atual com fuso horário do Brasil
 
-				$consulta_data = $db_con->prepare("SELECT CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS data_hora_brasil");
-				$consulta_data->execute();
-				$resposta_data = $consulta_data->fetch(PDO::FETCH_ASSOC);
-				$data_hora = $resposta_data["data_hora_brasil"];
+			$consulta_data = $db_con->prepare("SELECT CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS data_hora_brasil");
+			$consulta_data->execute();
+			$resposta_data = $consulta_data->fetch(PDO::FETCH_ASSOC);
+			$data_hora = $resposta_data["data_hora_brasil"];
 
-				// Insere uma compra usando consulta preparada
-				$consulta_insercao = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, fk_cliente_fk_usuario_codigo, data) VALUES(:forma_pagamento, :codigo_cliente, :data_hora)");
+			// Insere uma compra usando consulta preparada
+			$consulta_insercao = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, fk_cliente_fk_usuario_codigo, data) VALUES(:forma_pagamento, :codigo_cliente, :data_hora)");
 
-				// Substitua os marcadores de posição pelos valores reais
-				$consulta_insercao->bindParam(':forma_pagamento', $forma_pagamento);
-				$consulta_insercao->bindParam(':codigo_cliente', $codigo_cliente);
-				$consulta_insercao->bindParam(':data_hora', $data_hora);
-				$consulta_insercao->execute();
-				
-				$resposta["sucesso"] = 1;
-			}
-			else{
-				$resposta["sucesso"] = 0;
-				$resposta["erro"] = "Erro ao inserir endereco no BD: " . $consulta->error;
-			}
+			// Substitua os marcadores de posição pelos valores reais
+			$consulta_insercao->bindParam(':forma_pagamento', $forma_pagamento);
+			$consulta_insercao->bindParam(':codigo_cliente', $codigo_cliente);
+			$consulta_insercao->bindParam(':data_hora', $data_hora);
+			$consulta_insercao->execute();
+			
+			$resposta["sucesso"] = 1;
 		}
 		else{
 			$resposta["sucesso"] = 0;
