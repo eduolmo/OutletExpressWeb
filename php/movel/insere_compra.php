@@ -21,15 +21,25 @@
 		$cep = $_POST['cep'];
 		$rua = $_POST['rua'];
 		$numero = $_POST['numero'];
-
+		/*
 		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo FROM USUARIO
 		INNER JOIN CLIENTE ON (cliente.fk_usuario_codigo = usuario.codigo)
+		WHERE email = :email");*/
+
+		$consulta_cliente = $db_con->prepare("SELECT usuario.codigo FROM USUARIO
 		WHERE email = :email");
 
 		$consulta_cliente->bindParam(':email', $email);
 		$consulta_cliente->execute();
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
 		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
+
+
+		$resposta['codigo_cliente'] = $codigo_cliente;
+
+		if($codigo_cliente){
+			
+		}
 
 		// Consulta a data e hora atual com fuso horário do Brasil
 		$consulta_data = $db_con->prepare("SELECT CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS data_hora_brasil");
