@@ -28,8 +28,8 @@ if(autenticar($db_con)) {
 		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo from USUARIO
 		inner join CLIENTE
 		on(cliente.fk_usuario_codigo = usuario.codigo)
-		where(email = '" . $email . "'");
-		
+		where(email = " . $email);
+
 		$consulta_cliente->execute();
 
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
