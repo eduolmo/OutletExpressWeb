@@ -61,7 +61,7 @@
 			$codigo_endereco = $lista_endereco["codigo"];
 
 			//aqui
-			$busca_cliente = $db_con->prepare("SELECT codigo FROM CLIENTE WHERE codigo = :codigo_cliente");
+			$busca_cliente = $db_con->prepare("SELECT fk_usuario_codigo FROM CLIENTE WHERE fk_usuario_codigo = :codigo_cliente");
 			$busca_cliente->bindParam(':codigo_cliente', $codigo_cliente);
 			if($busca_cliente->execute()){
 				if(!$busca_cliente->rowCount() > 0){
