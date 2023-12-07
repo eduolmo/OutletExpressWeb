@@ -28,7 +28,14 @@ if(autenticar($db_con)) {
 			$row = $consulta_codigo_cliente->fetch(PDO::FETCH_ASSOC);
 			if ($row && isset($row['codigo'])) {
 				$codigo_cliente = $row['codigo'];
-				$consulta_deletar_item_carrinho = $db_con->prepare("DELETE FROM item_carrinho WHERE fk_cliente_fk_usuario_codigo= '$codigo_cliente' AND fk_produto_codigo= '$codigo_produto'");
+				//$consulta_deletar_item_carrinho = $db_con->prepare("DELETE FROM item_carrinho WHERE fk_cliente_fk_usuario_codigo= '$codigo_cliente' AND fk_produto_codigo= '$codigo_produto'");
+
+                $consulta_deletar_item_carrinho = $db_con->prepare("DELETE FROM item_carrinho WHERE fk_cliente_fk_usuario_codigo= :codigo_cliente AND fk_produto_codigo= :codigo_produto");
+
+                $consulta_deletar_item_carrinho->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
+                $consulta_deletar_item_carrinho->bindParam(':codigo_produto', $codigo_produto, PDO::PARAM_INT);
+
+
 				if ($consulta_deletar_item_carrinho->execute()) { 
                     $resposta["sucesso"] = 1;
                 } else {
