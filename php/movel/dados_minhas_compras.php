@@ -25,10 +25,11 @@ if(autenticar($db_con)) {
 		$email = $_GET['email'];
 
 		//consulta codigo do cliente pelo email
-		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo from USUARIO
-		inner join CLIENTE
-		on(cliente.fk_usuario_codigo = usuario.codigo)
-		where(email = " . $email);
+		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo FROM USUARIO
+		INNER JOIN CLIENTE
+		ON(cliente.fk_usuario_codigo = usuario.codigo)
+		WHERE(email = :email");
+		$consulta_cliente->bindParam(':email', $email);
 
 		$consulta_cliente->execute();
 
