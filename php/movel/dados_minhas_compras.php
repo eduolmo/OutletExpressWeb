@@ -30,16 +30,18 @@ if(autenticar($db_con)) {
 		$consulta_cliente->bindParam(':email', $email);
 		$consulta_cliente->execute();
 
-		$codigo_cliente = -1;
+		//$codigo_cliente = -1;
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
+		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
+		/*
 		if ($lista_codigo_cliente) {
 			$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
-			$resposta['codigo_cliente'] = $codigo_cliente;
+			//$resposta['codigo_cliente'] = $codigo_cliente;
 			// Faça algo com $codigo_cliente, pois parece que o cliente foi encontrado
 		} else {
 			// Trate o caso em que não há cliente com o e-mail fornecido
 			echo "Cliente não encontrado.";
-		}
+		}*/
 		/*
 		// Aqui sao obtidos os parametros
 		$email = $_GET['email'];
