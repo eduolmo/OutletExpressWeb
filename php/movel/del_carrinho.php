@@ -23,12 +23,13 @@ if(autenticar($db_con)) {
 		
 		// antes de adicionar item ao carrinho, verificamos se ele já
 		// não existe.
-		$consulta_codigo_cliente = $db_con->prepare("SELECT USUARIO.* FROM USUARIO INNER JOIN CLIENTE on(CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = '$email'");
-		if($consulta_codigo_cliente->execute()){
-			$row = $consulta_codigo_cliente->fetch(PDO::FETCH_ASSOC);
-			if ($row && isset($row['codigo'])) {
-				$codigo_cliente = $row['codigo'];
-				//$consulta_deletar_item_carrinho = $db_con->prepare("DELETE FROM item_carrinho WHERE fk_cliente_fk_usuario_codigo= '$codigo_cliente' AND fk_produto_codigo= '$codigo_produto'");
+		$consulta_codigo_cliente = $db_con->prepare("SELECT USUARIO.* FROM USUARIO INNER JOIN CLIENTE ON (CLIENTE.FK_USUARIO_codigo = USUARIO.codigo) WHERE email = :email");
+        $consulta_codigo_cliente->bindParam(':email', $email, PDO::PARAM_STR);
+        if ($consulta_codigo_cliente->execute()) {
+            if ($consulta_codigo_cliente->rowCount() > 0) {
+                $row = $consulta_codigo_cliente->fetch(PDO::FETCH_ASSOC);
+                $codigo_cliente = $row['codigo'];
+                //$consulta_deletar_item_carrinho = $db_con->prepare("DELETE FROM item_carrinho WHERE fk_cliente_fk_usuario_codigo= '$codigo_cliente' AND fk_produto_codigo= '$codigo_produto'");
 
                 $consulta_deletar_item_carrinho = $db_con->prepare("DELETE FROM item_carrinho WHERE fk_cliente_fk_usuario_codigo= :codigo_cliente AND fk_produto_codigo= :codigo_produto");
 
@@ -36,14 +37,17 @@ if(autenticar($db_con)) {
                 $consulta_deletar_item_carrinho->bindParam(':codigo_produto', $codigo_produto, PDO::PARAM_INT);
 
 
-				if ($consulta_deletar_item_carrinho->execute()) { 
+                if ($consulta_deletar_item_carrinho->execute()) { 
                     $resposta["sucesso"] = 1;
                 } else {
                     $resposta["sucesso"] = 0;
                     $resposta["mensagem"] = "Erro ao deletar item do carrinho.";
                 }
-			}
-			
+            } else {
+				// Caso ocorra um erro na execução da consulta
+				$resposta["sucesso"] = 0;
+				$resposta["mensagem"] = "Nenhum cliente encontrado com o email fornecido.";
+		    }
 		} else {
 				// Caso ocorra um erro na execução da consulta
 				$resposta["sucesso"] = 0;
