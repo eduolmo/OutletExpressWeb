@@ -46,11 +46,11 @@ $resposta = array();
 		AND LOWER(categoria_produto.descricao) LIKE LOWER(:categoria)";
 
 	$consulta = $db_con->prepare($sql);
-	$consulta->bindParam(':precoMin', $precoMin, PDO::PARAM_INT);
-    $consulta->bindParam(':precoMax', $precoMax, PDO::PARAM_INT);
-    $consulta->bindParam(':desconto_min', $desconto, PDO::PARAM_INT);
+	$consulta->bindParam(':precoMin', $precoMin);
+    $consulta->bindParam(':precoMax', $precoMax);
+    $consulta->bindParam(':desconto_min', $desconto);
     $consulta->bindParam(':avaria', $avaria, PDO::PARAM_STR);
-    $consulta->bindParam(':avaliacao_min', $avaliacao, PDO::PARAM_INT);
+    $consulta->bindParam(':avaliacao_min', $avaliacao);
     $consulta->bindValue(':pesquisa', "%$pesquisa%", PDO::PARAM_STR);
     $consulta->bindValue(':categoria', "%$categoria%", PDO::PARAM_STR);
 
