@@ -27,9 +27,9 @@ $resposta = array();
 	//$offset = $_GET['offset'];
     $precoMin = $_GET['precoMin'];
     $precoMax = $_GET['precoMax'];
-    $desconto = $_GET['desconto'];
-    $avaria = $_GET['avaria'];
-    $avaliacao = $_GET['avaliacao'];
+    $desconto = $_GET['descontoSelecionado'];
+    $avaria = $_GET['avariaSelecionada'];
+    $avaliacao = $_GET['filtroAvaliacao'];
     $pesquisa = $_GET['pesquisa'];
 	$categoria = $_GET['categoria'];
 
