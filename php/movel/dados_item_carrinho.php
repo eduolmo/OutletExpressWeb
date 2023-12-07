@@ -42,7 +42,7 @@ if(autenticar($db_con)) {
 							$itemCarrinho = array();
 
 							$itemCarrinho["nome"] = $linha["nome"];
-							$itemCarrinho["codigo_produto"] = $linha["fk_produto_codigo	"];
+							$itemCarrinho["codigo_produto"] = $linha["fk_produto_codigo"];
 							$itemCarrinho["imagem"] = $linha["imagem"];
 							$itemCarrinho["valor_atual"] = $linha["valor_atual"];		
 							$itemCarrinho["quantidade"] = $linha["quantidade"];	
