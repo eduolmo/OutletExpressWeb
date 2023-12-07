@@ -32,6 +32,30 @@ if(autenticar($db_con)) {
 
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
 		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
+
+		// Consulta para obter dados do cliente, compra, item_compra, e produto
+		$consulta = $db_con->prepare("SELECT cliente.*, compra.*, item_compra.*, produto.* FROM CLIENTE
+			INNER JOIN COMPRA ON (compra.fk_cliente_fk_usuario_codigo = cliente.fk_usuario_codigo)
+			INNER JOIN ITEM_COMPRA ON (item_compra.fk_compra_codigo = compra.codigo)
+			INNER JOIN PRODUTO ON (item_compra.fk_produto_codigo = produto.codigo)
+			WHERE cliente.fk_usuario_codigo = :codigo_cliente");
+
+		$consulta->bindParam(':codigo_cliente', $codigo_cliente);
+		//$consulta->execute();
+
+		/*
+		$email = $_GET['email'];
+		
+		// Consulta código do cliente pelo email
+		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo FROM USUARIO
+			INNER JOIN CLIENTE ON (cliente.fk_usuario_codigo = usuario.codigo)
+			WHERE email = :email");
+
+		$consulta_cliente->bindParam(':email', $email);
+		$consulta_cliente->execute();
+
+		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
+		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
 		
 		$consulta = $db_con->prepare("SELECT cliente.*, compra.*, item_compra.*, produto.* from CLIENTE
 			inner join COMPRA
@@ -41,7 +65,7 @@ if(autenticar($db_con)) {
 			inner join PRODUTO
 			on(item_compra.fk_produto_codigo = produto.codigo)
 			where cliente.fk_usuario_codigo = " . $codigo_cliente);
-
+		*/
 		if ($consulta->execute()) {
   		//pega detalhes do produto comprado    	
 			$resposta["compras"] = array();
