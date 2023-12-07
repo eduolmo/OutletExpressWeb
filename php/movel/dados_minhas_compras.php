@@ -59,7 +59,8 @@ if(autenticar($db_con)) {
 			on(item_compra.fk_compra_codigo = compra.codigo)
 			inner join PRODUTO
 			on(item_compra.fk_produto_codigo = produto.codigo)
-			where cliente.fk_usuario_codigo = $codigo_cliente");	
+			where cliente.fk_usuario_codigo = " . $codigo_cliente);
+				
 		if ($consulta->execute()) {
   		//pega detalhes do produto comprado    	
 			$resposta["compras"] = array();
