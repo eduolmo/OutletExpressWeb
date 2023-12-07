@@ -67,7 +67,6 @@
 			$resposta["sucesso"] = 1;
 			if($endereco_cliente->execute();){
 				// Consulta a data e hora atual com fuso horário do Brasil
-				
 
 				$consulta_data = $db_con->prepare("SELECT CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS data_hora_brasil");
 				$consulta_data->execute();
@@ -81,6 +80,7 @@
 				$consulta_insercao->bindParam(':forma_pagamento', $forma_pagamento);
 				$consulta_insercao->bindParam(':codigo_cliente', $codigo_cliente);
 				$consulta_insercao->bindParam(':data_hora', $data_hora);
+				$consulta_insercao->execute();
 				
 				$resposta["sucesso"] = 1;
 			}
