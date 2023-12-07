@@ -23,15 +23,27 @@
 		$numero = $_POST['numero'];
 
 		//consulta codigo do cliente pelo email
+		// Consulta código do cliente pelo email
+		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo FROM USUARIO
+			INNER JOIN CLIENTE ON (cliente.fk_usuario_codigo = usuario.codigo)
+			WHERE email = :email");
+
+		$consulta_cliente->bindParam(':email', $email);
+		$consulta_cliente->execute();
+
+		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
+		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
+
+		/*
 		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo from USUARIO
 		inner join CLIENTE
 		on(cliente.fk_usuario_codigo = usuario.codigo)
 		where(email = '" . $email . "'");
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
-		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
+		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];*/
 
 		//insere uma compra
-		$consulta = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, FK_CLIENTE_codigo) VALUES('$forma_pagamento', $FK_CLIENTE_codigo)");	
+		$consulta = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, FK_CLIENTE_codigo) VALUES('$forma_pagamento', $codigo_cliente)");	
 		if ($consulta->execute()) {			
 			//insere endereco do cliente
 			$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro) VALUES($numero, '$cep', '$rua')");
