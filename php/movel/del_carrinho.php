@@ -33,8 +33,8 @@ if(autenticar($db_con)) {
 
                 $consulta_deletar_item_carrinho = $db_con->prepare("DELETE FROM item_carrinho WHERE fk_cliente_fk_usuario_codigo= :codigo_cliente AND fk_produto_codigo= :codigo_produto");
 
-                $consulta_deletar_item_carrinho->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
-                $consulta_deletar_item_carrinho->bindParam(':codigo_produto', $codigo_produto, PDO::PARAM_INT);
+                $consulta_deletar_item_carrinho->bindParam(':codigo_cliente', $codigo_cliente);
+                $consulta_deletar_item_carrinho->bindParam(':codigo_produto', $codigo_produto);
 
 
                 if ($consulta_deletar_item_carrinho->execute()) { 
