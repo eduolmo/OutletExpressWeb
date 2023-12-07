@@ -12,7 +12,7 @@
 	$resposta = array();
 		
 	// Primeiro, verifica-se se todos os parametros foram enviados pelo cliente.
-	if (isset($_POST['forma_pagamento']) && isset($_POST['email']) && isset($_POST['cpf']) && isset($_POST['cep']) && isset($_POST['rua']) && isset($_POST['numero'])) {
+	if (isset($_POST['forma_pagamento']) && isset($_POST['email']) && isset($_POST['cpf']) && isset($_POST['cep']) && isset($_POST['rua']) && isset($_POST['numero']) && isset($_POST['data_hora'])) {
 		
 		// Aqui sao obtidos os parametros
 		$forma_pagamento = $_POST['forma_pagamento'];
@@ -21,6 +21,7 @@
 		$cep = $_POST['cep'];
 		$rua = $_POST['rua'];
 		$numero = $_POST['numero'];
+		$data_hora = $_POST['data_hora'];
 
 		//consulta codigo do cliente pelo email
 		// Consulta código do cliente pelo email
@@ -34,16 +35,8 @@
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
 		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
 
-		/*
-		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo from USUARIO
-		inner join CLIENTE
-		on(cliente.fk_usuario_codigo = usuario.codigo)
-		where(email = '" . $email . "'");
-		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
-		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];*/
-
 		//insere uma compra
-		$consulta = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, fk_cliente_fk_usuario_codigo) VALUES('$forma_pagamento', $codigo_cliente)");	
+		$consulta = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, fk_cliente_fk_usuario_codigo, data_hora) VALUES('$forma_pagamento', $codigo_cliente, '$data_hora')");	
 		if ($consulta->execute()) {			
 			//insere endereco do cliente
 			$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro) VALUES($numero, '$cep', '$rua')");
