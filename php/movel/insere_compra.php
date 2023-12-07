@@ -31,16 +31,16 @@
 		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
 
 		//insere uma compra
-		$consulta = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, FK_CLIENTE_codigo) VALUES('$forma_pagamento', '$data', '$FK_CLIENTE_codigo')");	
+		$consulta = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, FK_CLIENTE_codigo) VALUES('$forma_pagamento', '$data', $FK_CLIENTE_codigo)");	
 		if ($consulta->execute()) {			
 			//insere endereco do cliente
-			$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro) VALUES('$numero', '$cep', '$rua')");
+			$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro) VALUES($numero, '$cep', '$rua')");
 			$lista_endereco = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
 			$codigo_endereco = $lista_endereco["codigo"];
 			
 			if($insere_endereco->execute()){
 				//insere endereco para cliente
-				$endereco_cliente = $db_con->prepare("INSERT INTO CLIENTE(cpf, fk_usuario_codigo, fk_endereco_codigo) VALUES('$cpf', '$codigo_cliente', '$codigo_endereco')");
+				$endereco_cliente = $db_con->prepare("INSERT INTO CLIENTE(cpf, fk_usuario_codigo, fk_endereco_codigo) VALUES('$cpf', $codigo_cliente, $codigo_endereco)");
 				$resposta["sucesso"] = 1;
 			}
 			
