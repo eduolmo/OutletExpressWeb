@@ -40,7 +40,7 @@
 		$data_hora = $resposta_data["data_hora_brasil"];
 
 		//insere uma compra
-		$consulta = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, fk_cliente_fk_usuario_codigo, data_hora) VALUES('$forma_pagamento', $codigo_cliente, '$data_hora')");	
+		$consulta = $db_con->prepare("INSERT INTO COMPRA(forma_pagamento, fk_cliente_fk_usuario_codigo, data) VALUES('$forma_pagamento', $codigo_cliente, '$data_hora')");	
 		if ($consulta->execute()) {			
 			//insere endereco do cliente
 			$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro) VALUES($numero, '$cep', '$rua')");
