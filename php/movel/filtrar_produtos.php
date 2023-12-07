@@ -33,13 +33,6 @@ $resposta = array();
     $pesquisa = $_GET['pesquisa'];
 	$categoria = $_GET['categoria'];
 
-	$resposta["variaveisGET"] = array($precoMin,$precoMax,$desconto,$avaria,$avaliacao,$pesquisa,$categoria);
-	
-	$precoMin = floatval($precoMin);
-    $precoMax = floatval($precoMax);
-    $desconto = intval($desconto);
-    $avaliacao = floatval($avaliacao);
-
 	// Realiza uma consulta ao BD e obtem todos os produtos.
 	//$consulta = $db_con->prepare("SELECT * FROM PRODUTO LIMIT " . $limit . " OFFSET " . $offset);
     $sql = "SELECT * FROM PRODUTO
@@ -67,7 +60,6 @@ $resposta = array();
 		// array onde cada elemento e um produto.
 		$resposta["produtos"] = array();
 		$resposta["sucesso"] = 1;
-		$resposta["variaveis"] = array($precoMin,$precoMax,$desconto,$avaria,$avaliacao,$pesquisa,$categoria);
 
 		if ($consulta->rowCount() > 0) {
 			while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
