@@ -41,7 +41,7 @@
 		//$insere_endereco = $db_con->prepare("INSERT INTO TIPO_LOGRADOURO(numero, cep, nome_logradouro) VALUES(:numero, :cep, :rua)");
 
 
-		$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro, fk_tipo_logradouro_codigo) VALUES(:numero, :cep, :rua, 1)");
+		$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro, fk_tipo_logradouro_codigo, fk_pais_codigo) VALUES(:numero, :cep, :rua, 1, 1)");
 
 		// Substituindo os parâmetros usando bindParam
 		$insere_endereco->bindParam(':numero', $numero, PDO::PARAM_INT);
