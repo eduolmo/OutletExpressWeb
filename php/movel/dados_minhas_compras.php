@@ -30,34 +30,9 @@ if(autenticar($db_con)) {
 		$consulta_cliente->bindParam(':email', $email);
 		$consulta_cliente->execute();
 
-		//$codigo_cliente = -1;
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
 		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
-		/*
-		if ($lista_codigo_cliente) {
-			$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
-			//$resposta['codigo_cliente'] = $codigo_cliente;
-			// Faça algo com $codigo_cliente, pois parece que o cliente foi encontrado
-		} else {
-			// Trate o caso em que não há cliente com o e-mail fornecido
-			echo "Cliente não encontrado.";
-		}*/
-		/*
-		// Aqui sao obtidos os parametros
-		$email = $_GET['email'];
-
-		//consulta codigo do cliente pelo email
-		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo FROM USUARIO
-		INNER JOIN CLIENTE
-		ON(cliente.fk_usuario_codigo = usuario.codigo)
-		WHERE(email = :email");
-		$consulta_cliente->bindParam(':email', $email);
-
-		$consulta_cliente->execute();
-
-		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
-		$codigo_cliente = $lista_codigo_cliente["fk_usuario_codigo"];
-	 	*/
+		
 		$consulta = $db_con->prepare("SELECT cliente.*, compra.*, item_compra.*, produto.* from CLIENTE
 			inner join COMPRA
 			on(compra.fk_cliente_fk_usuario_codigo = cliente.fk_usuario_codigo)
@@ -80,26 +55,7 @@ if(autenticar($db_con)) {
 					$itemCompra["quantidade"] = $linha["quantidade"];
 
 					array_push($resposta["compras"], $itemCompra);
-				}
-			/*
-			$linha = $consulta->fetch(PDO::FETCH_ASSOC);	
-			$codigo_produto = $linha[0]['codigo_produto'];
-
-			$sql = $db_con->prepare("SELECT * FROM PRODUTO WHERE codigo = '" . $codigo_produto . "'");
-			
-   			$resposta["produtos"] = array(); 
-   			if($sql->execute()){            
-      				while ($detalhes = $sql->fetch(PDO::FETCH_ASSOC)) {
-					$produto = array();
-		  			$produto["nome"] = $detalhes["nome"];
-	      				$produto["descricao"] = $detalhes["descricao"];
-	   				// Adiciona o produto no array de produtos.
-					array_push($resposta["produtos"], $produto);
-   				}
-	  			
-				$produtos = $sql->fetch(PDO::FETCH_ASSOC);
-    						
-				$resposta["sucesso"] = 1;*/
+				}			
 	 		} else {
 				$resposta["sucesso"] = 0;
 				$resposta["erro"] = "Erro no BD: " . $consulta->error;			
