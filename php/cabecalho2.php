@@ -122,13 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['barra_pesquisa'])){
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item pe-lg-5 col-xl-2 pe-xxl-5">
-                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                            <input type="hidden" name="categoria_produto" value="Recomendado" display="hidden">
-                            <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="RECOMENDADO">
-                        </form>
-                    </li>
-                    
+                                        
                     <li class="nav-item pe-lg-5 ps-xl-1 pe-xxl-5">
                         <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Roupa" display="hidden">
@@ -145,6 +139,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['barra_pesquisa'])){
                         <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="categoria_produto" value="Eletrodoméstico" display="hidden">
                             <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ELETRODOMÉSTICO">
+                        </form>
+                    </li>
+                    <li class="nav-item pe-lg-5 col-xl-2 pe-xxl-5">
+                        <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                            <input type="hidden" name="categoria_produto" value="Eletroportátil" display="hidden">
+                            <input type="submit" name="procura_categoria" class="btn-lg but procura_categoria" value="ELETROPORTÁTIL">
                         </form>
                     </li>
                     <li class="nav-item pe-lg-5  ps-xl-5">

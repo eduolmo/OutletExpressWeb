@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../imagens/logo2.png" type="image/x-icon">
     <title>Produtos</title>
+    
     <link rel="stylesheet" href="../css/produtos.css">
     <link rel="stylesheet" href="../css/cabecalho2.css">
     
@@ -19,6 +22,7 @@
 
 </head>
 <body>
+    
     <!-- começo do cabecalho -->
     <?php
         error_reporting(0);
@@ -35,8 +39,7 @@
             $extra = 'detalhe_produto.php';
             header("Location: http://$host$uri/$extra");
             
-        }  
-    
+        }
 
         include_once "cabecalho2.php"; 
     ?>                
@@ -202,6 +205,19 @@
                     $resultado = $produtos->searchProducts($pesquisa);
                 }
                 
+                //funcao que ira mostrar as estrelas de avaliacao de cada produto
+                function starRating($starsTotal, $starsFilled) {
+                    $output = '';
+                    for ($i = 1; $i <= $starsTotal; $i++) {
+                        if ($i <= $starsFilled) {
+                            $output .= '<span class="filled span_stars">★</span>';
+                        } else {
+                            $output .= '<span class="empty span_stars">★</span>';
+                        }
+                    }
+                    return $output;
+                }
+
                 for($i = 0; $i < sizeof($resultado); $i++){
                     ?> 
 
@@ -233,26 +249,10 @@
                                     
                                     ?>
                                 </div>
-                                <p class="produto_valor">R$ <?php echo $resultado[$i]['valor_atual'] ?></p>
-                                <!-- <img class="estrelas" src="../imagens/5estrelas.jpg" alt=""> -->
-                                <div id="rateYo"></div>
+                                <p class="produto_valor">R$ <?php echo number_format($resultado[$i]['valor_atual'],2); ?></p>
 
-                                
-                                
-                                <script>
-                                    $(document).ready((function () {
-                                        $("#rateYo").rateYo({
-                                        rating: 3.5, // Substitua pelo seu valor decimal
-                                        readOnly: true, // Para torná-lo somente leitura
-                                        starWidth: "30px", // Largura das estrelas
-                                        normalFill: "#A0A0A0", // Cor das estrelas não preenchidas
-                                        ratedFill: "#FFD700" // Cor das estrelas preenchidas
-                                        });
-                                    }));
-                                </script>
+                                <?php echo starRating(5, $resultado[$i]['avaliacao']); ?>
 
-                                <script src="jquery.js"></script>
-                                <script src="jquery.rateyo.js"></script>
                             </button>
                         </form>   
                                                  

@@ -117,18 +117,6 @@ class Produto extends CRUD {
 		AND desconto/(desconto+valor_atual)*100 >= :desconto_min 
 		AND UNACCENT(LOWER(produto.nome)) LIKE UNACCENT(LOWER(:pesquisa)) 
 		AND LOWER(categoria_produto.descricao) LIKE LOWER(:categoria)";
-/*
-"SELECT * 
-FROM $this->table 
-INNER JOIN CATEGORIA_AVARIA ON categoria_avaria.codigo = produto.fk_categoria_avaria_codigo
-INNER JOIN categoria_produto ON categoria_produto.codigo = produto.fk_categoria_produto_codigo
-WHERE valor_atual BETWEEN :precoMin AND :precoMax 
-AND avaliacao >= :avaliacao_min 
-AND categoria_avaria.descricao LIKE CONCAT('%', :avaria, '%') 
-AND desconto/(desconto+valor_atual)*100 >= :desconto_min 
-AND UNACCENT(LOWER(produto.nome)) LIKE UNACCENT(LOWER(:pesquisa)) 
-AND LOWER(categoria_produto.descricao) LIKE LOWER(:categoria)";
-*/
 
 		$stmt = Database::prepare($sql);
 		$stmt->bindParam(':precoMin', $precoMin, PDO::PARAM_INT);
@@ -143,11 +131,22 @@ AND LOWER(categoria_produto.descricao) LIKE LOWER(:categoria)";
 	}
 
 	public function productDetail($codigo){
-		$sql = "SELECT * FROM $this->table WHERE codigo = :codigo";
+		//$sql = "SELECT produto.*, categoria_avaria.descricao as 'nomeAvaria' FROM $this->table INNER JOIN CATEGORIA_AVARIA ON(categoria_avaria.codigo = produto.fk_categoria_avaria_codigo) WHERE produto.codigo = :codigo";
+
+		$sql = 'SELECT produto.*,categoria_avaria.descricao as "nomeAvaria" FROM PRODUTO INNER JOIN CATEGORIA_AVARIA ON(categoria_avaria.codigo = produto.fk_categoria_avaria_codigo) WHERE produto.codigo = :codigo';
 		$stmt = Database::prepare($sql);
 		$stmt->bindParam(':codigo', $codigo, PDO::PARAM_INT);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
+	public function getComments($codigo){
+		//$sql = "SELECT comentario.* FROM $this->table INNER JOIN COMENTARIO ON(comentario.fk_produto_codigo = produto.codigo) WHERE produto.codigo = :codigo";
+		$sql = 'SELECT comentario.*,usuario.nome FROM COMENTARIO INNER JOIN CLIENTE ON(cliente.fk_USUARIO_codigo = comentario.fk_cliente_fk_USUARIO_codigo) INNER JOIN USUARIO ON(usuario.codigo = cliente.fk_USUARIO_codigo) WHERE comentario.fk_PRODUTO_codigo = :codigo';
+		$stmt = Database::prepare($sql);
+		$stmt->bindParam(':codigo', $codigo);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 	
 	public function update($codigo){
