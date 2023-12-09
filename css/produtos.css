@@ -144,4 +144,22 @@
     color: #ffff;
 }
 
+.span_stars {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-size: 20px;
+}
+
+.filled {
+    color: gold;
+}
+
+.empty {
+    color: gray;
+}
+
+
 /*fim de produtos*/

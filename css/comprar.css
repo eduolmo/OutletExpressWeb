@@ -29,18 +29,21 @@
 
 /*estilo das informacoes da imagem*/
 .produto_imagem{
-    height: 100%;
-    width: 100%;
+    max-height: 90vh;
+    max-width: 50vw;
+    /*max-width: 300px;
+    max-height: 300px;*/
 }
 
 .produto_nome{
-    font-size: 20px;
+    font-size: 25px;
     padding-bottom: 10px;
+    font-weight: bold;
 }
 
 .produto_cor{
     padding-bottom: 20px;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .produto_descricao{
@@ -51,7 +54,7 @@
 .produto_valor{
     font-size: 30px;
     font-weight: bold;
-
+    color: #390099;
 }
 
 .linhas {
@@ -100,6 +103,14 @@
 }
 
 /*estilo das informacoes do comentario*/
+.comment-content .span_stars{
+    font-size: 20px;
+}
+
+.comment-content{
+    margin-left: 30px;
+}
+
 .comentar {
     border: solid 1px;
     border-radius: 10px;
@@ -107,6 +118,10 @@
     width: 400px;
 }
 
+.mensagem{
+    font-size: 20px;
+    margin-left: 20px;
+}
 
 .titulo {
     color: #390099;
@@ -114,6 +129,7 @@
 
 .nome {
     color: #696969;
+    font-size: 20px;
 }
 
 .perfil {
@@ -133,6 +149,27 @@
 }
 
 /* Estilo das informações da avaliação */
+
+.span_stars {
+    display: inline-block;
+    /*width: 20px;
+    height: 20px;*/
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-size: 40px;
+    margin-bottom: 0px;
+}
+
+.filled {
+    color: gold;
+}
+
+.empty {
+    color: gray;
+}
+
+
+
 .star-icon {
     list-style-type: none;
     border: 1px solid #fff;
