@@ -113,7 +113,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['barra_pesquisa'])){
     <!-- inicio da cabecalho rosa -->
     <div class="cabecalho_rosa">
         <nav class="navbar navbar-expand-lg cabecalho_menu">
-            <div class="container-fluid col-lg-1">
+            <div class="container-fluid col-lg-2">
                 <a class="navbar-brand" href="#"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
