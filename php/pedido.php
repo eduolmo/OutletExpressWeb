@@ -15,27 +15,68 @@
 <body>
     <!-- cabecalho -->
     <?php
-        include 'cabecalho2.php';
+        //error_reporting(0);
+        session_start();
+
+        include_once 'produto.php';
+        
         include 'item_carrinho.php';
 
         //finalizarCompra();
         
-        
+        $codigo_produto = $_SESSION['codigo_produto'];
         $codigo_cliente = $_SESSION['cliente']['codigo'];
+
+        $produto = new Produto();
+        $produto = $produto->productDetail($codigo_produto);
+
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comprar_tudo'])){            
+            
+            include 'dados_compra.php';
+            
+            //inserir em compra
+            include 'compra_bd.php';
+           
+            //instancia o cliente
+            $compra = new Compra();	
+            
+            //informa os dados do cliente
+            $compra->setPagamento($pagamento);
+            $compra->setData($data_hora);
+            
+            //se inseriu o cliente corretamente
+            $compra->insert($codigo_cliente);     
+            
+            $host  = $_SERVER['HTTP_HOST'];
+            $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $extra = 'index.php';
+            header("Location: http://$host$uri/$extra");
+        }
+
+        include 'cabecalho2.php';
+
+        //echo $produto['quantidade'];
     ?>	
     <section class="finaliza_compra">
         <div class="container">
+        <form id="formEntrar" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="row">
                     <h5 class="p-3">Finalize sua compra</h5>
+                    <div class="linhas m-2"></div>
+
+                    <!--Campo para digitar o cpf -->
+                    <div class="endereço col-12 p-1 ">
+                        <p class="titulo m-2">Informe seu CPF</p>
+                        <input type="text" class="m-3 comentar" id="cep" name="cpf" placeholder="    CPF">
+                    </div>
+
                     <div class="linhas m-2"></div>
                     <!--Campo para digitar o endereço -->
                     <div class="endereço col-12 p-1 ">
                         <p class="titulo m-2">Endereço</p>
-                        <input type="text" class="m-3 comentar" id="cep" name="cep" placeholder="CEP">
-                        <input type="text" class="m-3 comentar" id="cidade" name="cidade" placeholder="Cidade">
-                        <input type="text" class="m-3 comentar" id="bairro" name="bairro" placeholder="Bairro">
-                        <input type="text" class="m-3 comentar" id="numero" name="numero" placeholder="Número">
-                        <input type="text" class="m-3 comentar" id="logradouro" name="logradouro" placeholder="Logradouro"> 
+                        <input type="text" class="m-3 comentar" id="cep" name="cep" placeholder="    CEP">
+                        <input type="text" class="m-3 comentar" id="numero" name="numero" placeholder="    Número">
+                        <input type="text" class="m-3 comentar" id="logradouro" name="logradouro" placeholder="    Logradouro"> 
 
                         <input type="button" class="m-3 botao_endereco" value="Salvar Endereço">
 
@@ -45,16 +86,16 @@
                     <div class="pagamento">
                         <p class="titulo m-2">Método de pagamento</p>
                         <div class="cor">
-                        <input type="radio" class="m-3" id="pix" name="opcao">
+                        <input type="radio" class="m-3" id="pix" name="opcao" value="pix">
                         <label for="pix">Pix</label>
                         <div class="linhas_pagamento m-2"></div>
-                        <input type="radio" class="m-3" id="cartao_credito" name="opcao">
+                        <input type="radio" class="m-3" id="cartao_credito" name="opcao" value="credito">
                         <label for="cartao_credito">Cartão de Crédito</label>
                         <div class="linhas_pagamento m-2"></div>
-                        <input type="radio" class="m-3" id="cartao_debito" name="opcao">
+                        <input type="radio" class="m-3" id="cartao_debito" name="opcao" value="debito">
                         <label for="cartao_debito">Cartão de Débito</label>
                         <div class="linhas_pagamento m-2"></div>
-                        <input type="radio" class="m-3" id="boleto" name="opcao">
+                        <input type="radio" class="m-3" id="boleto" name="opcao" value="boleto">
                         <label for="boleto">Boleto</label>
                         </div>
                     </div>
@@ -107,7 +148,9 @@
                                                         <div class="informacoes">
                                                             <div class="p-3"><?php echo $row['nome']; ?></div>
                                                             <div class="p-3"><?php echo $row['descricao']; ?></div>
-                                                            <div class="p-3">Quantidade: <?php echo $row['quantidade']; ?></div>
+                                                            <div class="p-3">Quantidade: <?php echo $row['quantidade']; ?>
+                                                            ?></div>                                                         
+                                                    
                                                         </div>
                                                     </div>
                                                 </td>
@@ -127,26 +170,27 @@
                             <!--Div com as informacoes da compra-->
                             <div class="inf">
                             <div class="inf-title justify-content-around">Informações da Compra</div>
-                            <div ><span>Sub-total</span><span id="subtotal-compra">R$438</span></div>
-                            <div><span>Frete</span><span>R$20,00</span></div>
+                            <div><span>Frete</span><span>GRÁTIS</span></div>
                         </div>
 
                         <div class="total">
-                            <div class="total-title">Total:</div>
+                            <div class="total-title">Total: <?php  ?>
+                            </div>
                             <div id="total-value"></div>
                         </div>
                         <!--Botao para encerrar a compra-->
-                        <button class="btn-finalizar" data-codigo-cliente="<?php echo $codigo_cliente; ?>" id="abrir_modal" onclick="imprimir()">Concluir compra</button>
+                        <button class="btn-finalizar" type="submit" name="comprar_tudo"  data-codigo-cliente="" id="abrir_modal" onclick="imprimir()">Concluir compra</button>
+                        <!--
                         <div id="fade" class="hide"></div>
                         <div id="modal" class="hide">
                             <div class="modal-cabecalho">
                                 <h2 class="modal-titulo">Sua compra foi feita com sucesso</h2>
                                 <p>Obrigada por comprar no Outlet Express!</p>
-                                <button id="fechar_modal" onclick="window.location.href='index.php'">Voltar a página inicial</button>
+                                <button id="fechar_modal" name="volta_index" onclick="window.location.href='index.php'">Voltar a página inicial</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
-                            
+        </form>                    
         </div>
    
     </section>
