@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+    max-width: 100%;
+}
+
+button{
+    cursor: pointer;
+}
+
+/* Começo dos itens do cabecalho */
+.cabecalho_pesquisa{
+    padding: 30px;
+    background-color: #390099;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#form_pesquisa{
+    display: flex;
+    flex-direction: row;
+}
+
+#barra_pesquisa{
+    border-radius: 20px 0px 0px 20px;
+    border: 0;
+    width: 700px;
+    height: 30px;
+}
+
+#btn_pesquisa{
+    border-radius: 0px 20px 20px 0px;
+    border: 0px;
+    background-color: #FF5A5F;
+    color: white;
+    width: 70px;
+}
+
+#btn_pesquisa img{
+    width: 20px;
+    height: 20px;
+}
+
+.cabecalho_menu{
+    background-color: #FF5A5F;
+}
+
+.cabecalho_menu a{
+    color: #ffff;
+}
+
+.itens_menu{
+    padding-right: 350px;
+    gap: 20px;
+}
+
+
+header a{
+    text-decoration: none;
+    color: #ffff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+header a:hover,.cabecalho_rosa a:hover,.procura_categoria:hover{
+    color: white;
+    text-shadow: 0px 0px 10px white;
+}
+
+.cabecalho_rosa {
+    background-color: #FF5A5F;
+    margin-left: 5%;
+}
+
+.cabecalho {
+    background-color: #FF5A5F;
+}
+
+header .logo_titulo{
+    font-size: 20px;
+}
+
+.logo a{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 10px;
+}
+
+.logo img{
+    width: 50px;
+    height: 50px;
+}
+
+
+.botoes{
+    padding-top: 20px;
+    justify-content: end;
+}
+
+.botoes img{
+    width: 35px;
+    height: 35px;
+}
+
+.botoes_nome{
+    text-align: center;
+}
+
+.botao{
+    border: 0;
+    border-radius: 20px;
+    width: 120px;
+    height: 25px;
+    background-color: #FF5A5F;
+    color: #ffff;
+    font-weight: 600;
+    font-size: 9px;
+    padding: 10px;
+    max-width: 120px;
+    min-width: 110px;
+}
+
+.botoes_nome{
+    font-size: 8px;
+}
+
+.carrinho, .entrar{
+    font-size: 10px;
+    color: #ffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+}
+
+.carrinho_img, .entrar_img, .lupa{
+    width: 20px;
+    height: 20px;
+}
+
+.botoes{
+    display: flex;
+    gap: 30px;
+}
+
+.procura_categoria{
+    border: 0px;
+    background-color: transparent;
+    color: white;
+    padding-right: 5px;
+}
+
+
+/* Estilos padrão para dispositivos não móveis (por exemplo, desktops) */
+
+/* Consulta de mídia para dispositivos móveis com largura de até 768 pixels */
+@media only screen and (max-width: 768px) {
+    /* Estilos específicos para a versão celular */
+
+    .carrinho, .entrar, .busca {
+        order: 1; /* Altera a ordem para dispositivos móveis */
+    }
+}
+
+/* Consulta de mídia para dispositivos móveis com largura de até 768 pixels */
+@media only screen and (max-width: 768px) {
+    /* Estilos específicos para a versão celular */
+
+    .busca {
+        width: 100% !important; /* ou qualquer outra largura desejada */
+        /* Adicione outros estilos conforme necessário */
+        position: relative;
+        bottom: 40px;
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    /* Estilos específicos para a versão celular */
+    .carrinho, .entrar {
+        position: relative;
+        bottom: 75px;
+    }
+}
