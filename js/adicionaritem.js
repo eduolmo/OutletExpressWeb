@@ -1,3 +1,23 @@
+$('.inserirComentario').on('click', function() {
+    let codigo_produto = $(this).data('codigo-produto');
+    let codigo_cliente = $(this).data('codigo-cliente');
+    let conteudo = $('#comentarioInput').val();
+    let avaliacao = $('#avaliacaoStars .ativo').data('avaliacao');
+
+    $.ajax({
+        url: 'inserirComentario.php',
+        type: 'POST',
+        data: {
+            'action': 'inserirComentario',
+            'codigo_produto': codigo_produto,
+            'codigo_produto': codigo_cliente,
+            'conteudo': conteudo,
+            'avaliacao': avaliacao
+        }
+    });
+});
+
+
 $('.adicionarCarrinho').on('click', function() {
     let codigo_produto = $(this).data('codigo-produto');
     let codigo_cliente = $(this).data('codigo-cliente');
@@ -14,6 +34,7 @@ $('.adicionarCarrinho').on('click', function() {
         }
     });
 });
+
 
 const inputQtds = document.querySelectorAll('.input-qtd');
 const decrementButtons = document.querySelectorAll('.btn-qtd.btn-minus');
