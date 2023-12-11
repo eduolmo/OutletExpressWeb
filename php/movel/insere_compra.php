@@ -12,7 +12,7 @@
 	$resposta = array();
 		
 	// Primeiro, verifica-se se todos os parametros foram enviados pelo cliente.
-	if (isset($_POST['forma_pagamento']) && isset($_POST['email']) && isset($_POST['cpf']) && isset($_POST['cep']) && isset($_POST['rua']) && isset($_POST['numero'])) {
+	if (isset($_POST['forma_pagamento']) && isset($_POST['email']) && isset($_POST['cpf']) && isset($_POST['cep']) && isset($_POST['rua']) && isset($_POST['numero']) && isset($_POST['itens_compra'])) {
 		
 		// Aqui sao obtidos os parametros
 		$forma_pagamento = $_POST['forma_pagamento'];
@@ -21,6 +21,8 @@
 		$cep = $_POST['cep'];
 		$rua = $_POST['rua'];
 		$numero = $_POST['numero'];
+		$itens_compra = $_POST['itens_compra'];
+
 		/*
 		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo FROM USUARIO
 		INNER JOIN CLIENTE ON (cliente.fk_usuario_codigo = usuario.codigo)
@@ -33,14 +35,6 @@
 		$consulta_cliente->execute();
 		$lista_codigo_cliente = $consulta_cliente->fetch(PDO::FETCH_ASSOC);
 		$codigo_cliente = $lista_codigo_cliente["codigo"];
-
-		//insere na tabela endereco
-		//$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro) VALUES($numero, '$cep', '$rua')");
-
-		//definindo rua como tipo_logradouiro padrao
-		//$insere_endereco = $db_con->prepare("INSERT INTO TIPO_LOGRADOURO(numero, cep, nome_logradouro) VALUES(:numero, :cep, :rua)");
-
-		$insere_pais = $db_con->prepare("INSERT INTO PAIS(fk_estado_codigo) VALUES(1)");
 
 		$insere_endereco = $db_con->prepare("INSERT INTO ENDERECO(numero, cep, nome_logradouro, fk_tipo_logradouro_codigo, fk_pais_codigo) VALUES(:numero, :cep, :rua, 1, 1)");
 
@@ -72,6 +66,7 @@
 					$endereco_cliente->bindParam(':cpf', $cpf);
 					$endereco_cliente->bindParam(':codigo_cliente', $codigo_cliente);
 					$endereco_cliente->bindParam(':codigo_endereco', $codigo_endereco);
+					$endereco_cliente->execute();
 				}
 			}
 
@@ -91,7 +86,24 @@
 			$consulta_insercao->bindParam(':codigo_cliente', $codigo_cliente);
 			$consulta_insercao->bindParam(':data_hora', $data_hora);
 			$consulta_insercao->execute();
-			
+
+			$consulta_compra = $db_con->prepare("SELECT * FROM COMPRA WHERE data = :data_hora");
+			$consulta_compra->bindParam(':data_hora', $data_hora);
+			$consulta_compra->execute();
+			$lista_compra = $consulta_compra->fetch(PDO::FETCH_BOTH);
+
+
+			//inserir ItemCompra
+			for($i = 0; $i < sizeof($itens_compra); $i++){
+				$itemcompra_insercao = $db_con->prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
+				$itemcompra_insercao->bindParam(':valor_item', $itens_compra[$i]['valor']);
+				$itemcompra_insercao->bindParam(':fk_compra_codigo', $lista_compra['codigo']);
+				$itemcompra_insercao->bindParam(':fk_produto_codigo', $itens_compra[$i]['produto_codigo']);
+				$itemcompra_insercao->bindParam(':qtd', $itens_compra[$i]['qtd']);
+				$itemcompra_insercao->execute();
+			}			
+
+
 			$resposta["sucesso"] = 1;
 		}
 		else{
