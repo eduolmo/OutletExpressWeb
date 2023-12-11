@@ -86,11 +86,11 @@
 			$consulta_insercao->bindParam(':codigo_cliente', $codigo_cliente);
 			$consulta_insercao->bindParam(':data_hora', $data_hora);
 			$consulta_insercao->execute();
-			/*
+			
 			$consulta_compra = $db_con->prepare("SELECT * FROM COMPRA WHERE data = :data_hora");
 			$consulta_compra->bindParam(':data_hora', $data_hora);
 			$consulta_compra->execute();
-			$lista_compra = $consulta_compra->fetch(PDO::FETCH_BOTH);
+			$lista_compra = $consulta_compra->fetch(PDO::FETCH_ASSOC);
 			
 			
 			//inserir ItemCompra quando ComprarTudo do carrinho
@@ -98,13 +98,13 @@
 				$pegar_item_carrinho = $db_con->prepare("SELECT * FROM ITEM_CARRINHO INNER JOIN CLIENTE ON(cliente.fk_usuario_codigo = item_carinho.fk_cliente_fk_usuario_codigo) WHERE item_carrinho.fk_cliente_fk_usuario_codigo = :codigo_cliente");
 				$pegar_item_carrinho->bindParam(':codigo_cliente', $codigo_cliente);
 				$pegar_item_carrinho->execute();
-				$itens_carrinho = $pegar_item_carrinho->fetchAll(PDO::FETCH_BOTH);
+				$itens_carrinho = $pegar_item_carrinho->fetchAll(PDO::FETCH_ASSOC);
 
 				for($i = 0; $i < sizeof($itens_carrinho); $i++){
 					$pegar_valor_item = $db_con->prepare("SELECT valor_atual FROM PRODUTO WHERE codigo = :codigo_produto");
 					$pegar_valor_item->bindParam(':codigo_produto', $itens_carrinho[$i]['fk_produto_codigo']);
 					$pegar_valor_item->execute();
-					$valor_item = $pegar_valor_item->fetch(PDO::FETCH_BOTH);
+					$valor_item = $pegar_valor_item->fetch(PDO::FETCH_ASSOC);
 
 					$itemcompra_insercao = $db_con->prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
 					$itemcompra_insercao->bindParam(':valor_item', $valor_item);
@@ -118,7 +118,7 @@
 				$pegar_valor_item = $db_con->prepare("SELECT valor_atual FROM PRODUTO WHERE codigo = :codigo_produto");
 				$pegar_valor_item->bindParam(':codigo_produto', $codigo_produto['fk_produto_codigo']);
 				$pegar_valor_item->execute();
-				$valor_item = $pegar_valor_item->fetch(PDO::FETCH_BOTH);
+				$valor_item = $pegar_valor_item->fetch(PDO::FETCH_ASSOC);
 
 				$itemcompra_insercao = $db_con->prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
 				$itemcompra_insercao->bindParam(':valor_item', $valor_item);
@@ -127,7 +127,6 @@
 				$itemcompra_insercao->bindParam(':qtd', $itens_carrinho[$i]['quantidade']);
 				$itemcompra_insercao->execute();
 			}
-			*/
 
 			$resposta["sucesso"] = 1;
 		}
