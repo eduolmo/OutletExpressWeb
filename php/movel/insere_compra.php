@@ -12,7 +12,7 @@
 	$resposta = array();
 		
 	// Primeiro, verifica-se se todos os parametros foram enviados pelo cliente.
-	if (isset($_POST['forma_pagamento']) && isset($_POST['email']) && isset($_POST['cpf']) && isset($_POST['cep']) && isset($_POST['rua']) && isset($_POST['numero']) && isset($_POST['codigo_produto'])) {
+	if (isset($_POST['forma_pagamento']) && isset($_POST['email']) && isset($_POST['cpf']) && isset($_POST['cep']) && isset($_POST['rua']) && isset($_POST['numero']) && isset($_POST['codigo_produto']) && isset($_POST['quantidade'])) {
 		
 		// Aqui sao obtidos os parametros
 		$forma_pagamento = $_POST['forma_pagamento'];
@@ -22,6 +22,7 @@
 		$rua = $_POST['rua'];
 		$numero = $_POST['numero'];
 		$codigo_produto = $_POST['codigo_produto'];
+		$qtd = $_POST['quantidade'];
 
 		/*
 		$consulta_cliente = $db_con->prepare("SELECT cliente.fk_usuario_codigo FROM USUARIO
@@ -95,23 +96,33 @@
 			
 			//inserir ItemCompra quando ComprarTudo do carrinho
 			if($codigo_produto == ""){
-				$pegar_item_carrinho = $db_con->prepare("SELECT * FROM ITEM_CARRINHO INNER JOIN CLIENTE ON(cliente.fk_usuario_codigo = item_carinho.fk_cliente_fk_usuario_codigo) WHERE item_carrinho.fk_cliente_fk_usuario_codigo = :codigo_cliente");
+				$pegar_item_carrinho = $db_con->prepare("SELECT * FROM ITEM_CARRINHO INNER JOIN CLIENTE ON(cliente.fk_usuario_codigo = item_carrinho.fk_cliente_fk_usuario_codigo) WHERE item_carrinho.fk_cliente_fk_usuario_codigo = :codigo_cliente");
 				$pegar_item_carrinho->bindParam(':codigo_cliente', $codigo_cliente);
 				$pegar_item_carrinho->execute();
 				$itens_carrinho = $pegar_item_carrinho->fetchAll(PDO::FETCH_ASSOC);
 
 				for($i = 0; $i < sizeof($itens_carrinho); $i++){
+					
 					$pegar_valor_item = $db_con->prepare("SELECT valor_atual FROM PRODUTO WHERE codigo = :codigo_produto");
 					$pegar_valor_item->bindParam(':codigo_produto', $itens_carrinho[$i]['fk_produto_codigo']);
 					$pegar_valor_item->execute();
 					$valor_item = $pegar_valor_item->fetch(PDO::FETCH_ASSOC);
 
 					$itemcompra_insercao = $db_con->prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
+					$itemcompra_insercao->bindParam(':valor_item', $valor_item['valor_atual']); // Ajuste aqui
+					$itemcompra_insercao->bindParam(':fk_compra_codigo', $lista_compra['codigo']);
+					$itemcompra_insercao->bindParam(':fk_produto_codigo', $itens_carrinho[$i]['fk_produto_codigo']);
+					$itemcompra_insercao->bindParam(':qtd', $itens_carrinho[$i]['quantidade']);
+					$itemcompra_insercao->execute();
+					
+					/*
+					$itemcompra_insercao = $db_con->prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
 					$itemcompra_insercao->bindParam(':valor_item', $valor_item);
 					$itemcompra_insercao->bindParam(':fk_compra_codigo', $lista_compra['codigo']);
 					$itemcompra_insercao->bindParam(':fk_produto_codigo', $itens_carrinho[$i]['fk_produto_codigo']);
 					$itemcompra_insercao->bindParam(':qtd', $itens_carrinho[$i]['quantidade']);
 					$itemcompra_insercao->execute();
+					*/
 				}		
 			}//inserir ItemCompra quando ComprarAgora
 			else{
@@ -121,11 +132,20 @@
 				$valor_item = $pegar_valor_item->fetch(PDO::FETCH_ASSOC);
 
 				$itemcompra_insercao = $db_con->prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
+				$itemcompra_insercao->bindParam(':valor_item', $valor_item['valor_atual']); 
+				$itemcompra_insercao->bindParam(':fk_compra_codigo', $lista_compra['codigo']);
+				$itemcompra_insercao->bindParam(':fk_produto_codigo', $codigo_produto);
+				$itemcompra_insercao->bindParam(':qtd', $qtd);
+				$itemcompra_insercao->execute();
+
+				/*
+				$itemcompra_insercao = $db_con->prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
 				$itemcompra_insercao->bindParam(':valor_item', $valor_item);
 				$itemcompra_insercao->bindParam(':fk_compra_codigo', $lista_compra['codigo']);
 				$itemcompra_insercao->bindParam(':fk_produto_codigo', $itens_carrinho[$i]['fk_produto_codigo']);
 				$itemcompra_insercao->bindParam(':qtd', $itens_carrinho[$i]['quantidade']);
 				$itemcompra_insercao->execute();
+				*/
 			}
 
 			$resposta["sucesso"] = 1;
