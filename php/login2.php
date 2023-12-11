@@ -7,7 +7,7 @@
     <script src="../js/autenticar.js" defer></script>
     <link rel="stylesheet" href="../css/cabecalho2.css">
     <link rel="stylesheet" href="../css/login2.css">
-    <link rel="shortcut icon" href="../imagens/logo2.png" type="image/x-icon">
+    <link rel="icon" type="image/png" href="img/logo2.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   </head>
   <body>
@@ -18,7 +18,7 @@
       error_reporting(0);
       session_start();
 
-      if($_SERVER["REQUEST_METHOD"] == "POST"){ 
+      if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['entrar'])){ 
         
         $email = trim(filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL));
         $senha = trim(filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS));
@@ -30,6 +30,7 @@
         //consulta um usuario pelo email
         if($cliente->consulta_usuario($email)){
           //echo 'Existe usuario no BD';
+          include 'password.php';
 
           //consuta um usuario no bd pelo email
           $sql = "SELECT * FROM usuario WHERE email = :email";
@@ -40,10 +41,7 @@
           //print_r($lista_cliente);
           $senha_db = $lista_cliente['senha'];
           
-          $senha_decode = base64_decode($senha_db);
-          //echo $senha_decode;
-
-          if ($senha_decode === $senha){
+          if (password_verify($senha, $senha_db)){
             //echo "Senha válida";
 
             //guarda dados do cliente na sessao
@@ -97,7 +95,7 @@
     ?>	
 
      <!-- Iniciando o formulário de login -->
-    <div class="container p-5 text-center mt-4 border col-md-12 col-lg-4">
+    <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
       <form id="formEntrar" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
@@ -116,7 +114,7 @@
 
         <p id="aviso"><img src="../icones/aviso.png" alt="icone de aviso"> Confira se os campos estão preenchidos corretamente ! <img src="../icones/aviso.png" alt="icone de aviso"></p>
 
-        <input id="entrar" type="submit" onclick="" name="entrar" class="btn-lg bot" value="ENTRAR">
+        <input id="entrar" type="submit" onclick="" name="entrar" class="btn-lg but" value="ENTRAR">
 
         <div class="p-2 mb-3">
           <a href="cadastro2.php" class="d-block link">Ainda não tem conta?</a>

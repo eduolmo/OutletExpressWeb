@@ -6,7 +6,7 @@
     <title>OutLet Express - Cadastro</title>
     <link rel="stylesheet" href="../css/cabecalho2.css">
     <link rel="stylesheet" href="../css/cadastro2.css">
-    <link rel="shortcut icon" href="../imagens/logo2.png" type="image/x-icon">
+    <link rel="icon" type="image/png" href="img/logo2.png">
     <script src="../js/cadastro.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   </head>
@@ -19,7 +19,7 @@
         session_start();
         
 
-        if($_SERVER["REQUEST_METHOD"] == "POST"){          
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['botao_cadastrar'])){          
           //validacao e sanitizacao dos campos do form
           $email = trim(filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL));
           $nome = trim(filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS));
@@ -33,6 +33,7 @@
           elseif($senha === $senha2){   
             
             include 'banco_conexao.php';
+            include 'password.php';
 
             $db = Database::getInstance();
             $sql = "SELECT email FROM USUARIO WHERE email='$email'";
@@ -44,7 +45,7 @@
             }
             else{
               //CRIPTOGRAFIA              
-              $novasenha = base64_encode($senha);
+              $novasenha = password_hash($senha, PASSWORD_DEFAULT);
 
               include 'cliente.php';
 
@@ -60,18 +61,10 @@
               if($cliente->insert()){
                 $_SESSION['mensagem'] = "Cadastro com sucesso!";
                 
-                $resultado_usuario = $cliente->consulta_usuario($email);
-                
-                //obtendo codigo do usuario
-                $codigo_usuario = $resultado_usuario['codigo'];
-                //echo $codigo_usuario;
-                $sql="INSERT INTO cliente (fk_usuario_codigo) VALUES (:fk_usuario_codigo)";
-                $stmt2 = Database::prepare($sql);
-                $stmt2->bindParam(':fk_usuario_codigo', $codigo_usuario);
-                $stmt2->execute();
-                 
+                $resultado_usuario = $cliente->consulta_usuario($email);                
+          
                 //guarda dados do cliente na sessao
-                $_SESSION['resultado'] = $resultado_usuario;
+                $_SESSION['cliente'] = $resultado_usuario;
 
                                              
               }
@@ -97,7 +90,7 @@
     ?>	
 
     <!-- Iniciando o formulário de cadastro -->
-    <div class="container p-5 text-center mt-4 border col-md-12 col-lg-4">
+    <div class="container p-5 text-center my-2 border col-md-12 col-lg-4">
       <form id="formulario" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <div class="p-2 mb-3">
           <img class="img-fluid" src="../imagens/logo2.png">
@@ -123,7 +116,7 @@
         <p id="aviso"><img src="../icones/aviso.png" alt="icone de aviso"> Confira se os campos estão preenchidos corretamente ! <img src="../icones/aviso.png" alt="icone de aviso"></p>
         -->
 
-        <input id="entrar" type="submit" onclick="" name="" class="btn-lg bot" value="ENVIAR">
+        <input id="entrar" type="submit" onclick="" name="botao_cadastrar" class="btn-lg but" value="ENVIAR">
 
         <div class="p-2 mb-3">
           <a href="login2.php" class="d-block link">Já tem conta?</a>

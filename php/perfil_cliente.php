@@ -17,12 +17,11 @@
     session_start();    
     
     require_once 'cliente.php';
+    include 'password.php';
 
     $codigo_cliente = $_SESSION['cliente']['codigo'];
     $email = $_SESSION['cliente']['email'];
     $senha_db = $_SESSION['cliente']['senha'];
-    $senha_decode = base64_decode($senha_db);
-    //echo $senha_decode;
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar_alteracoes'])){  
 
@@ -31,12 +30,12 @@
       $confirmar_senha = trim(filter_input(INPUT_POST,'confirmar_senha',FILTER_SANITIZE_SPECIAL_CHARS));
        
       
-      if ($senha_decode === $senha_atual){
+      if (password_verify($senha_atual, $senha_db)){
         //echo "Senha válida";          
         
         if($nova_senha === $confirmar_senha){
 
-          $nova_senha_db = base64_encode($nova_senha);          
+          $nova_senha_db = password_hash($nova_senha, PASSWORD_DEFAULT);          
           //$campo_bd = "senha";
 
           
@@ -46,14 +45,10 @@
           $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
           $stmt->execute();	
           
-          //$executa = CRUD::update($codigo_cliente, $campo_bd, $nova_senha_db);
-          
         }
         else{
           echo '<script>alert("Senha não confirmada")</script>';
         }
-
-             
         
       } 
       else{
@@ -96,7 +91,20 @@
         $stmt->bindParam(':novo_nome', $apagar);
         $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
         $stmt->execute();
+
+        session_destroy();
+
+        header("Location: index.php");
+        exit;
       }
+    }  
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sair_conta'])){  
+      session_destroy();
+
+      header("Location: index.php");
+      exit;
+
     }  
 
     include 'cabecalho2.php';
@@ -134,7 +142,10 @@
             <button class="button mt-3 ms-sm-2 ms-0 me-sm-2 me-0" id="abrir_modal_senha">Alterar senha</button>
             <button class="button mt-3 ms-sm-2 ms-0 me-sm-2 me-0" id="abrir_modal_nome">Alterar nome</button>
             <button class="button mt-3 ms-sm-2 ms-0 me-sm-2 me-0" id="abrir_modal_sair">Excluir conta</button>
-            <button class="button2 mt-3 ms-sm-2 ms-0 me-sm-2 me-0">Sair da conta</button>
+            <form id="form_alterar1" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+              <button class="button2 mt-3 ms-sm-2 ms-0 me-sm-2 me-0" type="submit" name="sair_conta">Sair da conta</button>
+            </form>
+            
           </div>
    
         </div>
@@ -187,18 +198,6 @@
           }  
           
         ?>
-          
-
-      <!--
-        select cliente.fk_usuario_codigo, compra.codigo as "codigo_compra", item_compra.codigo as "codigo_tem_compra", produto.codigo as "codigo_produto" from cliente
-        inner join COMPRA
-        on(compra.fk_cliente_fk_usuario_codigo = cliente.fk_usuario_codigo)
-        inner join ITEM_COMPRA
-        on(item_compra.fk_compra_codigo = compra.codigo)
-        inner join PRODUTO
-        on(item_compra.fk_produto_codigo = produto.codigo);
-       -->
-          
   </div>
           
 
@@ -274,6 +273,7 @@
               </div> 
             </div>            
           </form>
+
 
       </section>
     </div>

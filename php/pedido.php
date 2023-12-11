@@ -18,9 +18,9 @@
         //error_reporting(0);
         session_start();
 
-        include_once 'produto.php';
-        
+        include_once 'produto.php';        
         include 'item_carrinho.php';
+        include 'item_compra.php';
 
         //finalizarCompra();
         
@@ -44,13 +44,29 @@
             $compra->setPagamento($pagamento);
             $compra->setData($data_hora);
             
-            //se inseriu o cliente corretamente
-            $compra->insert($codigo_cliente);     
+            $compra->insert($codigo_cliente); 
+
+            $compra_hora = $compra->consulta($data_hora);
+            $_SESSION['codigo_compra'] = $compra_hora['codigo'];
+            $fk_compra_codigo = $_SESSION['codigo_compra'];
+
+            //inserir na tabela item_compra
+            $item_compra = new Item_compra();
+
+            $valor_produto = $produto['valor_atual'];
+            $item_compra->setvalor($valor_produto);
+            $item_compra->setCompraCodigo($fk_compra_codigo);
+            $item_compra->setProdutoCodigo($codigo_produto);
             
+            $item_compra->insere_item_compra();
+
+            echo 'inseriu item compra';
+            
+            /*
             $host  = $_SERVER['HTTP_HOST'];
             $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             $extra = 'index.php';
-            header("Location: http://$host$uri/$extra");
+            header("Location: http://$host$uri/$extra");*/
         }
 
         include 'cabecalho2.php';
@@ -77,9 +93,6 @@
                         <input type="text" class="m-3 comentar" id="cep" name="cep" placeholder="    CEP">
                         <input type="text" class="m-3 comentar" id="numero" name="numero" placeholder="    Número">
                         <input type="text" class="m-3 comentar" id="logradouro" name="logradouro" placeholder="    Logradouro"> 
-
-                        <input type="button" class="m-3 botao_endereco" value="Salvar Endereço">
-
                     </div>
                     <div class="linhas m-2"></div>
                     <!--Selecionar o método de pagamento com um input tipo radio-->
@@ -174,7 +187,11 @@
                         </div>
 
                         <div class="total">
-                            <div class="total-title">Total: <?php  ?>
+                            <div class="total-title">Total: <?php 
+                            $valor_produto = $produto['valor_atual'];
+                            $total = $valor_produto * $quantidadeind;
+                            echo $total; 
+                            ?>
                             </div>
                             <div id="total-value"></div>
                         </div>

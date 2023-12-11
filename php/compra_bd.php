@@ -29,5 +29,16 @@
             return $stmt->execute();
             
         }
+
+        public function consulta($data_hora){
+			$sql = "SELECT * FROM COMPRA WHERE data = :data_hora";
+			$stmt = Database::prepare($sql);
+			$stmt->bindParam(':data_hora', $data_hora);
+			$stmt->execute();
+			return $stmt->fetch(PDO::FETCH_BOTH);
+			
+		}
+
+
     }
 ?>
