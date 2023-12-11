@@ -99,18 +99,18 @@
                    <div class="linha_central"></div>
                    <div class="d-flex">
                         <p class="m-3">Comente sua experiência:</p>
-                        <input class=" m-3 comentar" type="text">
+                        <input class=" m-3 comentar" type="text" id="comentarioInput">
                     </div>
                     <div class="d-flex">
                     <p class="m-3">Avaliação do produto:</p>
-                    <ul class="avaliacao2 d-flex">
+                    <ul class="avaliacao2 d-flex" id="avaliacaoStars">
                         <li class="star-icon ativo" data-avaliacao="1"></li>
                         <li class="star-icon" data-avaliacao="2"></li>
                         <li class="star-icon" data-avaliacao="3"></li>
                         <li class="star-icon" data-avaliacao="4"></li>
                         <li class="star-icon" data-avaliacao="5"></li>
                     </ul> 
-                    <button class="botao m-3">Enviar</button>
+                    <button class="inserirComentario botao m-3" data-codigo-cliente="<?php echo $codigo_cliente; ?>" data-codigo-produto="<?php echo $codigo;?>">Enviar</button>
                     </div>
 
                     <div class="linhas"></div>
