@@ -17,6 +17,7 @@
     <?php
         //error_reporting(0);
         session_start();
+        echo var_dump($_SESSION);
 
         include_once 'produto.php';        
         include 'item_carrinho.php';
@@ -30,14 +31,18 @@
         $produto = new Produto();
         $produto = $produto->productDetail($codigo_produto);
 
-        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comprar_tudo'])){            
-            
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comprar_agora'])){ 
+
+            $quantidadeind = $_POST['quantidadeind']; 
+            $_SESSION['quantidade_produto'] = $quantidadeind;
+        }    
+
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comprar_tudo'])){
+
             include 'dados_compra.php';
-            
             //inserir em compra
             include 'compra_bd.php';
-           
-            //instancia o cliente
+
             $compra = new Compra();	
             
             //informa os dados do cliente
@@ -49,25 +54,58 @@
             $compra_hora = $compra->consulta($data_hora);
             $_SESSION['codigo_compra'] = $compra_hora['codigo'];
             $fk_compra_codigo = $_SESSION['codigo_compra'];
+        
+            if($_SESSION['veio_carrinho']){
+                $pegar_item_carrinho = Database::prepare("SELECT * FROM ITEM_CARRINHO INNER JOIN CLIENTE ON(cliente.fk_usuario_codigo = item_carrinho.fk_cliente_fk_usuario_codigo) WHERE item_carrinho.fk_cliente_fk_usuario_codigo = :codigo_cliente");
+				$pegar_item_carrinho->bindParam(':codigo_cliente', $codigo_cliente);
+				$pegar_item_carrinho->execute();
+				$itens_carrinho = $pegar_item_carrinho->fetchAll(PDO::FETCH_ASSOC);
 
-            //inserir na tabela item_compra
-            $item_compra = new Item_compra();
+				for($i = 0; $i < sizeof($itens_carrinho); $i++){
+					
+					$pegar_valor_item = Database::prepare("SELECT valor_atual FROM PRODUTO WHERE codigo = :codigo_produto");
+					$pegar_valor_item->bindParam(':codigo_produto', $itens_carrinho[$i]['fk_produto_codigo']);
+					$pegar_valor_item->execute();
+					$valor_item = $pegar_valor_item->fetch(PDO::FETCH_ASSOC);
 
-            $valor_produto = $produto['valor_atual'];
-            $item_compra->setvalor($valor_produto);
-            $item_compra->setCompraCodigo($fk_compra_codigo);
-            $item_compra->setProdutoCodigo($codigo_produto);
+					$itemcompra_insercao = Database::prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
+					$itemcompra_insercao->bindParam(':valor_item', $valor_item['valor_atual']); // Ajuste aqui
+					$itemcompra_insercao->bindParam(':fk_compra_codigo', $fk_compra_codigo);
+					$itemcompra_insercao->bindParam(':fk_produto_codigo', $itens_carrinho[$i]['fk_produto_codigo']);
+					$itemcompra_insercao->bindParam(':qtd', $itens_carrinho[$i]['quantidade']);
+					$itemcompra_insercao->execute();
+
+					//remover da tabela ItemCarrinho os itens comprados pelo cliente
+					$deleta_carrinho = Database::prepare("DELETE FROM ITEM_CARRINHO WHERE fk_cliente_fk_usuario_codigo = :codigo_cliente");
+					$deleta_carrinho->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
+					$deleta_carrinho->execute();
+                }
+            }
+            else{                
+
+                //inserir na tabela item_compra
+                $item_compra = new Item_compra();
+
+                $valor_produto = $produto['valor_atual'];
+                $quantidadeP = $_SESSION['quantidade_produto'];
+
+                $item_compra->setvalor($valor_produto);
+                $item_compra->setCompraCodigo($fk_compra_codigo);
+                $item_compra->setProdutoCodigo($codigo_produto);
+                $item_compra->setQuantidade($quantidadeP);
+                
+                $item_compra->insere_item_compra();
+
+                //session_unset($_SESSION['quantidade_produto']);
+            }
             
-            $item_compra->insere_item_compra();
 
-            echo 'inseriu item compra';
-            
-            /*
             $host  = $_SERVER['HTTP_HOST'];
             $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             $extra = 'index.php';
-            header("Location: http://$host$uri/$extra");*/
+            header("Location: http://$host$uri/$extra");
         }
+           
 
         include 'cabecalho2.php';
 
@@ -123,6 +161,8 @@
                                 $imagemind = $_POST['imagemind'];
                                 $descricaoind = $_POST['descricaoind'];
                                 $quantidadeind = $_POST['quantidadeind'];
+
+                                //session_unset($_SESSION['veio_carrinho']);
                                 ?>
                                 <tr class="col-md-6">
                                     <div class="produtos">
@@ -141,6 +181,8 @@
                             <?php
                             } else {
                                 try {
+                                    $_SESSION['veio_carrinho'] = TRUE;
+
                                     $listagem = Database::prepare("
                                         SELECT ic.*, p.*, cp.*
                                         FROM item_carrinho ic
@@ -161,8 +203,7 @@
                                                         <div class="informacoes">
                                                             <div class="p-3"><?php echo $row['nome']; ?></div>
                                                             <div class="p-3"><?php echo $row['descricao']; ?></div>
-                                                            <div class="p-3">Quantidade: <?php echo $row['quantidade']; ?>
-                                                            ?></div>                                                         
+                                                            <div class="p-3">Quantidade: <?php echo $row['quantidade']; ?></div>                                                         
                                                     
                                                         </div>
                                                     </div>
@@ -175,10 +216,13 @@
                                     echo "Erro na execução da consulta: " . $e->getMessage();
                                 }
                             }
+
+                            
+
                             ?>
 
 
-                    <div class="col-md-4 col-sm-3 mt-5">
+                    <div class="col-md-5 col-sm-3 mt-5">
                         <aside>
                             <!--Div com as informacoes da compra-->
                             <div class="inf">
@@ -191,6 +235,7 @@
                             $valor_produto = $produto['valor_atual'];
                             $total = $valor_produto * $quantidadeind;
                             echo $total; 
+
                             ?>
                             </div>
                             <div id="total-value"></div>
@@ -214,7 +259,7 @@
     
 
     <?php
-	
+        
 	?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

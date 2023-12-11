@@ -34,11 +34,12 @@
         }
 
         public function insere_item_compra(){
-            $sql="INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo)";
+            $sql="INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :quantidade)";
             $stmt = Database::prepare($sql);
             $stmt->bindParam(':valor_item', $this->valor);
             $stmt->bindParam(':fk_compra_codigo', $this->fk_compra_codigo);
             $stmt->bindParam(':fk_produto_codigo', $this->fk_produto_codigo);
+            $stmt->bindParam(':quantidade', $this->quantidade);
             
             return $stmt->execute();
             
