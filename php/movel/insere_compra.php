@@ -100,7 +100,6 @@
 				$pegar_item_carrinho->bindParam(':codigo_cliente', $codigo_cliente);
 				$pegar_item_carrinho->execute();
 				$itens_carrinho = $pegar_item_carrinho->fetchAll(PDO::FETCH_ASSOC);
-				$resposta['$itens_carrinho'] = $itens_carrinho;
 
 				for($i = 0; $i < sizeof($itens_carrinho); $i++){
 					
@@ -108,7 +107,6 @@
 					$pegar_valor_item->bindParam(':codigo_produto', $itens_carrinho[$i]['fk_produto_codigo']);
 					$pegar_valor_item->execute();
 					$valor_item = $pegar_valor_item->fetch(PDO::FETCH_ASSOC);
-					$resposta['$valor_item'] = $valor_item;
 
 					$itemcompra_insercao = $db_con->prepare("INSERT INTO ITEM_COMPRA(valor_item, fk_compra_codigo, fk_produto_codigo, quantidade) VALUES(:valor_item, :fk_compra_codigo, :fk_produto_codigo, :qtd)");
 					$itemcompra_insercao->bindParam(':valor_item', $valor_item['valor_atual']); // Ajuste aqui
@@ -116,6 +114,12 @@
 					$itemcompra_insercao->bindParam(':fk_produto_codigo', $itens_carrinho[$i]['fk_produto_codigo']);
 					$itemcompra_insercao->bindParam(':qtd', $itens_carrinho[$i]['quantidade']);
 					$itemcompra_insercao->execute();
+
+					//remover da tabela ItemCarrinho os itens comprados pelo cliente
+					$deleta_carrinho = $db_con->prepare("DELETE FROM ITEM_CARRINHO WHERE fk_cliente_fk_usuario_codigo = :codigo_cliente");
+					$deleta_carrinho->bindParam(':codigo_cliente', $codigo_cliente, PDO::PARAM_INT);
+					$deleta_carrinho->execute();
+
 				}		
 			}//inserir ItemCompra quando ComprarAgora
 			else{
