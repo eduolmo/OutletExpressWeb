@@ -45,7 +45,7 @@ function calcularSubtotal() {
   });
   
   subtotalCompra.textContent = "R$ " + somaSubtotais.toFixed(2);
-  totalCompra.textContent = "R$ " + (somaSubtotais + 20).toFixed(2);
+  totalCompra.textContent = "R$ " + (somaSubtotais).toFixed(2);
 }
 
 /*Ao abrir o site, os calculos de subtotais serao realizados automaticamente*/
