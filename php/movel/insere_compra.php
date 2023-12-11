@@ -21,7 +21,7 @@
 		$cep = $_POST['cep'];
 		$rua = $_POST['rua'];
 		$numero = $_POST['numero'];
-		$codigo_produto = $_POST['codigo_produto'];
+		$codigo_produto = intval($_POST['codigo_produto']);
 		$qtd = $_POST['quantidade'];
 
 		/*
