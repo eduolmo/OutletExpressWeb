@@ -127,7 +127,7 @@
 			}//inserir ItemCompra quando ComprarAgora
 			else{
 				$pegar_valor_item = $db_con->prepare("SELECT valor_atual FROM PRODUTO WHERE codigo = :codigo_produto");
-				$pegar_valor_item->bindParam(':codigo_produto', $codigo_produto['fk_produto_codigo']);
+				$pegar_valor_item->bindParam(':codigo_produto', $codigo_produto);
 				$pegar_valor_item->execute();
 				$valor_item = $pegar_valor_item->fetch(PDO::FETCH_ASSOC);
 
