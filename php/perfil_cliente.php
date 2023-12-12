@@ -65,6 +65,7 @@
       $stmt->bindParam(':novo_nome', $novo_nome);
       $stmt->bindParam(':codigo', $codigo_cliente, PDO::PARAM_INT);
       $stmt->execute();	
+      $_SESSION['cliente']['nome'] = $novo_nome;
 
     }
 
@@ -120,10 +121,8 @@
 
             <div class="d-flex">
               <p class="text-md subtitulo"><strong>Nome:</strong></p>
-              <?php               
-                $nome_cliente = $_SESSION['cliente']['nome'];
-
-                echo "<p class='nome'>".$nome_cliente."</p>";
+              <?php         
+                echo "<p class='nome'>".$_SESSION['cliente']['nome']."</p>";
               ?>
             </div>
 
@@ -160,34 +159,20 @@
           require_once 'produto.php';
           $codigo_cliente = $_SESSION['cliente']['codigo'];
 
-          $sql='SELECT cliente.fk_usuario_codigo, compra.codigo as "codigo_compra", item_compra.codigo as "codigo_item_compra", produto.codigo as "codigo_produto" from cliente
-          inner join COMPRA
-          on(compra.fk_cliente_fk_usuario_codigo = :codigo_cliente)
-          inner join ITEM_COMPRA
-          on(item_compra.fk_compra_codigo = compra.codigo)
-          inner join PRODUTO
-          on(item_compra.fk_produto_codigo = produto.codigo)
-          where cliente.fk_usuario_codigo = :codigo_cliente';
-          $stmt = Database::prepare($sql);
-          $stmt->bindParam(':codigo_cliente', $codigo_cliente);                   
-          $stmt->execute();
+          $cliente = new Cliente();
 
-          $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          //print_r($lista);
+          $lista_produtos_comprados = $cliente->dados_produto_comprados($codigo_cliente);
 
-          $produtos_categorizados = new Produto();
-          for($i = 0; $i < sizeof($lista); $i++){
-            $codigo_produto = $lista[0]['codigo_produto'];
-            $resultado = $produtos_categorizados->productDetail($codigo_produto);
+          for($i = 0; $i < sizeof($lista_produtos_comprados); $i++){
             ?>
 
             <tr class="produto-item">
               <td>
                 <div class="produto mb-3">                
-                  <img class="produto-img " src="<?php echo $resultado['imagem']; ?>" alt="">
+                  <img class="produto-img " src="<?php echo $lista_produtos_comprados[$i]['imagem']; ?>" alt="">
                   <div class="inf">                  
-                    <div class="nome text-sm"><?php echo $resultado['nome']; ?></div>
-                    <div class="text-sm"><?php echo $resultado['descricao']; ?></div>
+                    <div class="nome text-sm"><?php echo $lista_produtos_comprados[$i]['nome']; ?></div>
+                    <div class="text-sm"><?php echo $lista_produtos_comprados[$i]['descricao']; ?></div>
                   </div>
                 </div>
               </td>
