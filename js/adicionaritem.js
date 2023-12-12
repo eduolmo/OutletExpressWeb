@@ -1,8 +1,11 @@
+/*
 $('.inserirComentario').on('click', function() {
     let codigo_produto = $(this).data('codigo-produto');
     let codigo_cliente = $(this).data('codigo-cliente');
     let conteudo = $('#comentarioInput').val();
     let avaliacao = $('#avaliacaoStars .ativo').data('avaliacao');
+
+    
 
     $.ajax({
         url: 'inserirComentario.php',
@@ -10,11 +13,36 @@ $('.inserirComentario').on('click', function() {
         data: {
             'action': 'inserirComentario',
             'codigo_produto': codigo_produto,
-            'codigo_produto': codigo_cliente,
+            'codigo_cliente': codigo_cliente,
             'conteudo': conteudo,
             'avaliacao': avaliacao
+        }, success: function(response) {
+            // Recarrega a página
+            location.reload();
         }
     });
+});
+*/
+
+$('.inserirComentario').on('click', function() {
+    let codigo_produto = $(this).data('codigo-produto');
+    let codigo_cliente = $(this).data('codigo-cliente');
+    let conteudo = $('#comentarioInput').val();
+    let avaliacao = $('#avaliacaoStars .ativo').data('avaliacao');
+
+    // Atualiza os valores dos campos ocultos no formulário
+    $('#conteudoInput').val(conteudo);
+    $('#avaliacaoInput').val(avaliacao);
+
+    // Adiciona a URL atual como um parâmetro para redirecionamento
+    $('<input>').attr({
+        type: 'hidden',
+        name: 'return_url',
+        value: window.location.href
+    }).appendTo('form');
+
+    // Submete o formulário
+    $('form').submit();
 });
 
 
