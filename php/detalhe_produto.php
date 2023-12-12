@@ -16,7 +16,7 @@
 <body>
     <!-- cabecalho -->
     <?php
-        //error_reporting(0);
+        error_reporting(0);
         session_start();
         include_once 'produto.php';
 
@@ -25,7 +25,6 @@
         
         $produto = new Produto();
         $produto = $produto->productDetail($codigo);
-        
 
         include 'cabecalho2.php';
     ?>	
@@ -109,8 +108,16 @@
                         <li class="star-icon" data-avaliacao="3"></li>
                         <li class="star-icon" data-avaliacao="4"></li>
                         <li class="star-icon" data-avaliacao="5"></li>
-                    </ul> 
-                    <button class="inserirComentario botao m-3" data-codigo-cliente="<?php echo $codigo_cliente; ?>" data-codigo-produto="<?php echo $codigo;?>">Enviar</button>
+                    </ul>
+                    <form action="inserirComentario.php" method="POST">
+                        <input type="hidden" name="codigo_cliente" value="<?php echo $codigo_cliente; ?>">
+                        <input type="hidden" name="codigo_produto" value="<?php echo $codigo; ?>">
+                        <input type="hidden" name="conteudo" value="" id="conteudoInput">
+                        <input type="hidden" name="avaliacao" value="" id="avaliacaoInput">
+                        <button class="inserirComentario botao m-3" name="addcomentario" data-codigo-cliente="<?php echo $codigo_cliente; ?>" data-codigo-produto="<?php echo $codigo;?>">Enviar</button>
+                    </form>
+
+                    
                     </div>
 
                     <div class="linhas"></div>

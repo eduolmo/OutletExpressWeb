@@ -15,9 +15,8 @@
 <body>
     <!-- cabecalho -->
     <?php
-        //error_reporting(0);
+        error_reporting(0);
         session_start();
-        echo var_dump($_SESSION);
 
         include_once 'produto.php';        
         include 'item_carrinho.php';
@@ -222,7 +221,7 @@
                             ?>
 
 
-                    <div class="col-md-5 col-sm-3 mt-5">
+                    <div class="col-md-5 mt-5">
                         <aside>
                             <!--Div com as informacoes da compra-->
                             <div class="inf">

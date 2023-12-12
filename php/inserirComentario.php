@@ -6,7 +6,7 @@ session_start();
 
 
 // Verifica se a requisição é do tipo POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST'  && $_POST['action'] === 'inserirComentario') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Cria uma instância da classe item_carrinho
 
     include 'comentario.php';
@@ -41,5 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'  && $_POST['action'] === 'inserirComent
             echo "Erro ao inserir comentario.";
         }
     }
+
+    $returnUrl = isset($_POST['return_url']) ? $_POST['return_url'] : 'detalhe_produto.php';
+
+    // Redireciona de volta para a página original
+    header('Location: ' . $returnUrl);
+    exit();
 }
 ?>
